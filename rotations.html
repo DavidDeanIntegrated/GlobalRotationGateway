@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Rotation Gateway - Rotations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html" style="color: inherit; text-decoration: none;">Global Rotation Gateway</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rotations.html">Rotations</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="submit.html">Submit Rotation</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>International Rotation Listings</h2>
+        </div>
+    </section>
+
+    <section class="filters">
+      <div class="container">
+          <h3>Filter Rotations</h3>
+          <form id="rotation-filter-form">
+              <div class="filter-group">
+                  <label for="country">Country:</label>
+                  <select id="country" name="country">
+                      <option value="">Any</option>
+                      <option value="ca">Canada</option>
+                      <option value="mx">Mexico</option>
+                      <option value="jp">Japan</option>
+                      <option value="de">Germany</option>
+                      <option value="za">South Africa</option>
+                      <option value="ke">Kenya</option>
+                      <option value="in">India</option>
+                      <option value="br">Brazil</option>
+                  </select>
+              </div>
+  
+              <div class="filter-group">
+                  <label for="specialty">Specialty:</label>
+                  <select id="specialty" name="specialty">
+                      <option value="">Any</option>
+                      <option value="emergency-medicine">Emergency Medicine</option>
+                      <option value="pediatrics">Pediatrics</option>
+                      <option value="surgery">Surgery</option>
+                      <option value="internal-medicine">Internal Medicine</option>
+                      <option value="obgyn">OB/GYN</option>
+                  </select>
+              </div>
+  
+              <div class="filter-group">
+                  <label for="duration">Duration (weeks):</label>
+                  <input type="number" id="duration" name="duration" min="1" max="52">
+              </div>
+  
+              <button type="submit">Apply Filters</button>
+              <button type="button" id="clear-filters">Clear Filters</button>
+          </form>
+      </div>
+  </section>
+  
+
+    <section class="rotation-listings">
+        <div class="container">
+            <ul id="rotation-list">
+                </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Global Rotation Gateway. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
