@@ -3,700 +3,295 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Global Rotation Gateway — International Medical Rotations</title>
-<meta name="description" content="The world's most comprehensive free directory of international clinical rotation opportunities for medical students."/>
+<title>Global Rotation Gateway — International Medical Rotations Directory</title>
+<meta name="description" content="The world's most comprehensive free directory of international clinical rotation opportunities for medical students. Real programs, real costs, real requirements."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#08111e;
-  --ink-soft:#0f1e35;
-  --ink-mid:#1a3352;
-  --ivory:#f0ead8;
-  --ivory-dim:#d8d0bc;
-  --ivory-faint:rgba(240,234,216,0.06);
-  --gold:#b8933f;
-  --gold-lt:#d4ae5a;
-  --teal:#2a9d8f;
-  --teal-lt:#3bbfb0;
-  --rust:#c0533a;
-  --muted:#4a6280;
-  --muted-lt:#6b8aaa;
-  --border:rgba(240,234,216,0.1);
-  --border-soft:rgba(240,234,216,0.06);
-  --radius:6px;
+  --ink:#08111e;--ink-soft:#0f1e35;--ink-mid:#1a3352;
+  --ivory:#f0ead8;--ivory-dim:#d8d0bc;
+  --gold:#b8933f;--gold-lt:#d4ae5a;
+  --teal:#2a9d8f;--teal-lt:#3bbfb0;
+  --rust:#c0533a;--muted:#4a6280;--muted-lt:#6b8aaa;
+  --border:rgba(240,234,216,0.1);--border-soft:rgba(240,234,216,0.06);
+  --green:#2e7d55;--purple:#6b4fa0;--blue:#1a5fa8;
 }
-html{scroll-behavior:smooth;font-size:16px}
-body{
-  font-family:'Figtree',sans-serif;
-  background:var(--ink);
-  color:var(--ivory);
-  overflow-x:hidden;
-  cursor:none;
-}
+html{scroll-behavior:smooth}
+body{font-family:'Figtree',sans-serif;background:var(--ink);color:var(--ivory);overflow-x:hidden;cursor:none}
 ::selection{background:var(--teal);color:var(--ink)}
 
-/* ── CUSTOM CURSOR ── */
-#cursor{
-  position:fixed;width:10px;height:10px;
-  background:var(--gold);border-radius:50%;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:width .2s,height .2s,background .2s;
-  mix-blend-mode:difference;
-}
-#cursor-ring{
-  position:fixed;width:36px;height:36px;
-  border:1px solid rgba(184,147,63,0.4);border-radius:50%;
-  pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:all .12s ease;
-}
-body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--teal)}
-body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:rgba(42,157,143,0.4)}
+/* CURSOR */
+#cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(184,147,63,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .12s ease}
 
-/* ── GRAIN OVERLAY ── */
-body::before{
-  content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity:0.028;pointer-events:none;z-index:9997;
-}
+/* GRAIN */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;z-index:9000}
 
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  padding:1.5rem 3rem;
-  display:flex;align-items:center;justify-content:space-between;
-  transition:all .4s ease;
-}
-nav.scrolled{
-  background:rgba(8,17,30,0.92);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  padding:1rem 3rem;
-  border-bottom:1px solid var(--border);
-}
-.nav-logo{
-  display:flex;align-items:center;gap:.75rem;
-  text-decoration:none;
-}
-.logo-mark{
-  width:32px;height:32px;position:relative;flex-shrink:0;
-}
-.logo-mark svg{width:100%;height:100%}
-.logo-text{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.2rem;font-weight:600;letter-spacing:.04em;
-  color:var(--ivory);line-height:1.2;
-}
-.logo-text span{color:var(--gold);font-style:italic}
-.nav-center{display:flex;gap:2.5rem;align-items:center}
-.nav-center a{
-  color:rgba(240,234,216,0.55);font-size:.8rem;font-weight:500;
-  text-decoration:none;letter-spacing:.1em;text-transform:uppercase;
-  transition:color .2s;
-}
-.nav-center a:hover{color:var(--ivory)}
-.nav-right{display:flex;align-items:center;gap:1rem}
-.nav-submit{
-  background:transparent;border:1px solid var(--gold);
-  color:var(--gold);padding:.5rem 1.25rem;border-radius:2px;
-  font-family:'Figtree',sans-serif;font-size:.78rem;font-weight:600;
-  letter-spacing:.08em;text-transform:uppercase;cursor:none;
-  text-decoration:none;transition:all .25s;
-}
-.nav-submit:hover{background:var(--gold);color:var(--ink)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.5rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+nav.scrolled{background:rgba(8,17,30,0.95);backdrop-filter:blur(20px);padding:1rem 3rem;border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.logo-svg{width:30px;height:30px;flex-shrink:0}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--ivory);letter-spacing:.02em}
+.logo-text em{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{color:rgba(240,234,216,.5);font-size:.78rem;font-weight:500;text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--ivory)}
+.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold)!important;padding:.45rem 1.1rem;border-radius:2px;transition:all .25s!important}
+.nav-cta:hover{background:var(--gold)!important;color:var(--ink)!important}
 
-/* ── HERO ── */
-.hero{
-  min-height:100vh;
-  display:grid;grid-template-columns:1fr 1fr;
-  align-items:center;
-  padding:8rem 3rem 5rem;
-  position:relative;overflow:hidden;
-  gap:4rem;
-}
-.hero-glow{
-  position:absolute;top:-20%;left:-10%;
-  width:70%;height:140%;
-  background:radial-gradient(ellipse at 30% 40%,rgba(42,157,143,.07) 0%,transparent 60%);
-  pointer-events:none;
-}
-.hero-glow-2{
-  position:absolute;bottom:-10%;right:-5%;
-  width:50%;height:80%;
-  background:radial-gradient(ellipse,rgba(184,147,63,.05) 0%,transparent 60%);
-  pointer-events:none;
-}
-.hero-content{position:relative;z-index:2}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:.6rem;
-  border:1px solid rgba(184,147,63,.3);
-  background:rgba(184,147,63,.06);
-  padding:.4rem 1rem;border-radius:2px;
-  font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:2rem;
-  animation:fadeUp .8s ease both .1s;
-}
-.hero-badge::before{
-  content:'';width:6px;height:6px;border-radius:50%;
-  background:var(--gold);animation:pulse 2.5s infinite;
-}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-h1{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(3rem,5.5vw,5.5rem);
-  font-weight:300;line-height:1.08;
-  letter-spacing:-.01em;
-  color:var(--ivory);
-  margin-bottom:1.75rem;
-  animation:fadeUp .8s ease both .2s;
-}
-h1 em{font-style:italic;color:var(--gold-lt);font-weight:400}
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 3rem 5rem;gap:4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 50%,rgba(42,157,143,.07),transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(184,147,63,.05),transparent 50%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(184,147,63,.3);background:rgba(184,147,63,.06);padding:.4rem 1rem;border-radius:2px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:1.75rem;animation:fadeUp .7s ease both .1s}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,5rem);font-weight:300;line-height:1.08;color:var(--ivory);margin-bottom:1.5rem;animation:fadeUp .7s ease both .2s}
+h1 em{font-style:italic;color:var(--gold-lt)}
 h1 strong{font-weight:600}
-.hero-body{
-  font-size:1.05rem;line-height:1.75;
-  color:rgba(240,234,216,.58);
-  max-width:480px;margin-bottom:2.5rem;
-  font-weight:300;
-  animation:fadeUp .8s ease both .3s;
-}
-.hero-actions{
-  display:flex;gap:1rem;flex-wrap:wrap;
-  animation:fadeUp .8s ease both .4s;
-}
-.btn-gold{
-  background:var(--gold);color:var(--ink);
-  padding:.9rem 2rem;border-radius:2px;
-  font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  text-decoration:none;border:none;cursor:none;
-  transition:all .25s;display:inline-flex;align-items:center;gap:.6rem;
-}
-.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 12px 32px rgba(184,147,63,.3)}
-.btn-ghost{
-  background:transparent;color:var(--ivory-dim);
-  border:1px solid rgba(240,234,216,.2);
-  padding:.9rem 2rem;border-radius:2px;
-  font-size:.85rem;font-weight:500;letter-spacing:.04em;
-  text-decoration:none;cursor:none;
-  transition:all .25s;display:inline-flex;align-items:center;gap:.6rem;
-}
+.hero-sub{font-size:1rem;line-height:1.75;color:rgba(240,234,216,.55);max-width:480px;margin-bottom:2.25rem;font-weight:300;animation:fadeUp .7s ease both .3s}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .7s ease both .4s}
+.btn-gold{background:var(--gold);color:var(--ink);padding:.875rem 1.875rem;border-radius:2px;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;border:none;cursor:none}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 12px 28px rgba(184,147,63,.28)}
+.btn-ghost{background:transparent;color:rgba(240,234,216,.75);border:1px solid rgba(240,234,216,.2);padding:.875rem 1.875rem;border-radius:2px;font-size:.82rem;font-weight:500;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;cursor:none}
 .btn-ghost:hover{border-color:rgba(240,234,216,.45);color:var(--ivory)}
-.hero-stats{
-  display:flex;gap:2.5rem;margin-top:3.5rem;
-  padding-top:2.5rem;border-top:1px solid var(--border);
-  animation:fadeUp .8s ease both .5s;
-}
-.hstat-num{
-  font-family:'Cormorant Garamond',serif;
-  font-size:2.4rem;font-weight:600;line-height:1;
-  color:var(--ivory);
-}
-.hstat-num .accent{color:var(--gold)}
-.hstat-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-lt);margin-top:.3rem}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--border);animation:fadeUp .7s ease both .5s}
+.hstat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--ivory)}
+.hstat-num .ac{color:var(--gold)}
+.hstat-lbl{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-lt);margin-top:.25rem}
 
-/* ── HERO MAP CANVAS ── */
-.hero-map-wrap{
-  position:relative;z-index:2;
-  display:flex;align-items:center;justify-content:center;
-  animation:fadeUp .9s ease both .3s;
-}
-#worldCanvas{
-  width:100%;max-width:540px;
-  filter:drop-shadow(0 0 40px rgba(42,157,143,.15));
-}
-.map-overlay-card{
-  position:absolute;bottom:2rem;left:0;
-  background:rgba(15,30,53,.85);
-  border:1px solid var(--border);
-  backdrop-filter:blur(12px);
-  border-radius:var(--radius);
-  padding:1.25rem 1.5rem;
-  min-width:220px;
-}
-.moc-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted-lt);margin-bottom:.75rem}
-.moc-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem}
-.moc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.moc-name{font-size:.82rem;color:var(--ivory);font-weight:500}
-.moc-count{font-size:.75rem;color:var(--muted-lt);margin-left:auto}
+/* HERO VISUAL */
+.hero-visual{position:relative;animation:fadeUp .8s ease both .3s}
+#worldCanvas{width:100%;max-width:520px;filter:drop-shadow(0 0 40px rgba(42,157,143,.15))}
+.hero-legend{position:absolute;bottom:1.5rem;left:0;background:rgba(8,17,30,.88);border:1px solid var(--border);backdrop-filter:blur(12px);border-radius:6px;padding:1.25rem 1.5rem;min-width:210px}
+.hl-title{font-size:.63rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-lt);margin-bottom:.875rem}
+.hl-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem}
+.hl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.hl-name{font-size:.8rem;color:var(--ivory);font-weight:500}
+.hl-count{font-size:.72rem;color:var(--muted-lt);margin-left:auto}
 
-/* ── TICKER ── */
-.ticker{
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  padding:.9rem 0;overflow:hidden;
-  background:rgba(15,30,53,.4);
-}
-.ticker-inner{
-  display:flex;gap:3rem;
-  animation:ticker 30s linear infinite;
-  width:max-content;
-}
+/* TICKER */
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.85rem 0;overflow:hidden;background:rgba(15,30,53,.35)}
+.ticker-track{display:flex;gap:3rem;animation:ticker 35s linear infinite;width:max-content}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker-item{
-  display:flex;align-items:center;gap:.6rem;
-  white-space:nowrap;font-size:.75rem;
-  color:rgba(240,234,216,.4);letter-spacing:.06em;
-}
-.ticker-item .flag{font-size:1rem}
-.ticker-item .hi{color:var(--gold);font-weight:600}
+.t-item{display:flex;align-items:center;gap:.5rem;white-space:nowrap;font-size:.73rem;color:rgba(240,234,216,.38);letter-spacing:.04em}
+.t-item .hi{color:var(--gold-lt);font-weight:600}
+.t-sep{color:rgba(240,234,216,.15);margin:0 .5rem}
 
-/* ── SECTION BASE ── */
-.section{padding:6rem 3rem}
-.section-eyebrow{
-  font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--teal);margin-bottom:.75rem;display:block;
-}
-.section-h{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2rem,3.5vw,3.2rem);font-weight:400;
-  line-height:1.15;color:var(--ivory);
-}
-.section-h em{font-style:italic;color:var(--gold-lt)}
-.section-sub{
-  font-size:1rem;color:rgba(240,234,216,.5);line-height:1.75;
-  font-weight:300;max-width:520px;margin-top:.75rem;
-}
-
-/* ── SEARCH ── */
-.search-section{
-  background:var(--ink-soft);
-  padding:4rem 3rem;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-}
-.search-wrap{max-width:900px;margin:0 auto}
-.search-eyebrow{
-  text-align:center;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted-lt);margin-bottom:1.5rem;
-}
-.search-box{
-  display:flex;background:rgba(240,234,216,.04);
-  border:1px solid rgba(240,234,216,.14);border-radius:4px;
-  overflow:hidden;transition:border-color .25s;
-}
-.search-box:focus-within{border-color:rgba(42,157,143,.5)}
-.search-icon{
-  display:flex;align-items:center;justify-content:center;
-  padding:0 1.25rem;color:var(--muted);flex-shrink:0;
-}
-.search-input{
-  flex:1;padding:1.1rem .75rem;background:transparent;border:none;outline:none;
-  font-family:'Figtree',sans-serif;font-size:1rem;color:var(--ivory);
-  font-weight:300;
-}
-.search-input::placeholder{color:var(--muted)}
-.search-sep{width:1px;background:var(--border);margin:.75rem 0}
-.search-sel{
-  padding:1.1rem 1.25rem;background:transparent;border:none;outline:none;
-  font-family:'Figtree',sans-serif;font-size:.875rem;color:var(--muted-lt);
-  cursor:none;min-width:180px;
-  appearance:none;-webkit-appearance:none;
-}
-.search-sel option{background:#0f1e35;color:var(--ivory)}
-.search-go{
-  background:var(--teal);color:var(--ink);
-  padding:0 2rem;border:none;cursor:none;
-  font-family:'Figtree',sans-serif;font-size:.82rem;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;
-  transition:background .2s;flex-shrink:0;
-}
-.search-go:hover{background:var(--teal-lt)}
+/* SEARCH */
+.search-wrap{background:var(--ink-soft);padding:3.5rem 3rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.search-inner{max-width:960px;margin:0 auto}
+.search-lbl{text-align:center;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-lt);margin-bottom:1.25rem}
+.search-box{display:flex;background:rgba(240,234,216,.04);border:1px solid rgba(240,234,216,.14);border-radius:4px;overflow:hidden;transition:border-color .25s}
+.search-box:focus-within{border-color:rgba(42,157,143,.45)}
+.s-icon{display:flex;align-items:center;padding:0 1.25rem;color:var(--muted)}
+.s-input{flex:1;padding:1rem .5rem;background:transparent;border:none;outline:none;font-family:'Figtree',sans-serif;font-size:.95rem;color:var(--ivory);font-weight:300}
+.s-input::placeholder{color:var(--muted)}
+.s-div{width:1px;background:var(--border);margin:.75rem 0}
+.s-sel{padding:1rem 1.25rem;background:transparent;border:none;outline:none;font-family:'Figtree',sans-serif;font-size:.85rem;color:var(--muted-lt);cursor:none;min-width:170px;appearance:none}
+.s-sel option{background:#0f1e35;color:var(--ivory)}
+.s-btn{background:var(--teal);color:var(--ink);padding:0 2rem;border:none;cursor:none;font-family:'Figtree',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:background .2s;flex-shrink:0}
+.s-btn:hover{background:var(--teal-lt)}
 .filter-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.25rem;justify-content:center}
-.ftag{
-  padding:.35rem .9rem;border-radius:20px;font-size:.75rem;font-weight:500;
-  border:1px solid var(--border);color:var(--muted-lt);
-  cursor:none;transition:all .2s;background:transparent;
-}
+.ftag{padding:.3rem .875rem;border-radius:20px;font-size:.73rem;font-weight:500;border:1px solid var(--border);color:var(--muted-lt);cursor:none;transition:all .2s;background:transparent}
 .ftag:hover,.ftag.on{background:var(--teal);border-color:var(--teal);color:var(--ink);font-weight:700}
+.results-count{text-align:center;margin-top:1rem;font-size:.78rem;color:var(--muted-lt)}
+.results-count span{color:var(--teal-lt);font-weight:600}
 
-/* ── ROTATIONS ── */
-.rotations-section{background:var(--ink);padding:6rem 0 6rem 3rem}
-.rotations-header{display:flex;justify-content:space-between;align-items:flex-end;padding-right:3rem;margin-bottom:3rem}
-.view-all{
-  font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,147,63,.3);
-  padding-bottom:2px;transition:all .2s;
-}
+/* SECTION */
+.section{padding:5.5rem 3rem}
+.eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:.7rem;display:block}
+.section-h{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.2vw,3rem);font-weight:400;line-height:1.15;color:var(--ivory)}
+.section-h em{font-style:italic;color:var(--gold-lt)}
+.section-sub{font-size:.95rem;color:rgba(240,234,216,.5);line-height:1.75;font-weight:300;max-width:540px;margin-top:.7rem}
+.sec-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem}
+.view-all{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,147,63,.3);padding-bottom:2px;transition:all .2s;white-space:nowrap}
 .view-all:hover{border-color:var(--gold)}
 
-.cards-scroll{
-  display:flex;gap:1.5rem;
-  overflow-x:auto;padding-right:3rem;padding-bottom:1rem;
-  scrollbar-width:none;-ms-overflow-style:none;
-}
-.cards-scroll::-webkit-scrollbar{display:none}
-
-.rcard{
-  flex:0 0 340px;
-  background:var(--ink-soft);
-  border:1px solid var(--border);border-radius:8px;
-  overflow:hidden;transition:all .3s ease;cursor:none;
-  display:flex;flex-direction:column;
-}
-.rcard:hover{
-  transform:translateY(-6px);
-  border-color:rgba(42,157,143,.35);
-  box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 0 1px rgba(42,157,143,.1);
-}
-.rcard-top{
-  padding:1.75rem;
-  background:linear-gradient(135deg,var(--c1,#0b3a2e),var(--c2,#1a5e45));
-  position:relative;overflow:hidden;min-height:130px;
-  display:flex;flex-direction:column;justify-content:flex-end;
-}
-.rcard-top::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(0,0,0,.2) 0%,transparent 60%);
-}
-.rcard-top::after{
-  content:'';position:absolute;
-  width:200px;height:200px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.06);
-  top:-60px;right:-60px;
-}
-.rcard-badge{
-  position:absolute;top:1rem;right:1rem;
-  padding:.2rem .65rem;border-radius:2px;
-  font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
-  z-index:2;
-}
+/* PROGRAM CARDS GRID */
+.programs-section{background:var(--ink);padding:5.5rem 3rem}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.rcard{background:var(--ink-soft);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:all .3s;display:flex;flex-direction:column;position:relative}
+.rcard:hover{transform:translateY(-5px);border-color:rgba(42,157,143,.3);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.rcard.hidden{display:none}
+.rcard-top{padding:1.6rem 1.6rem 1.25rem;position:relative;overflow:hidden;min-height:120px;display:flex;flex-direction:column;justify-content:flex-end}
+.rcard-top::after{content:'';position:absolute;width:160px;height:160px;border-radius:50%;border:1px solid rgba(255,255,255,.06);top:-50px;right:-50px}
+.badge{position:absolute;top:.875rem;right:.875rem;padding:.18rem .6rem;border-radius:2px;font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;z-index:2}
 .badge-gold{background:var(--gold);color:var(--ink)}
 .badge-teal{background:var(--teal);color:var(--ink)}
-.rcard-flag{font-size:2rem;margin-bottom:.6rem;position:relative;z-index:1;line-height:1}
-.rcard-loc{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-bottom:.2rem;position:relative;z-index:1}
-.rcard-name{font-size:1.05rem;font-weight:600;color:#fff;line-height:1.3;position:relative;z-index:1}
-.rcard-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
-.rcard-spec{
-  display:inline-block;
-  background:rgba(42,157,143,.12);color:var(--teal-lt);
-  font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:.2rem .65rem;border-radius:2px;margin-bottom:1rem;
-  border:1px solid rgba(42,157,143,.2);
-}
-.rcard-desc{font-size:.84rem;color:rgba(240,234,216,.5);line-height:1.65;flex:1;font-weight:300}
-.rcard-meta{display:flex;gap:1.25rem;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border-soft)}
-.rm-item{display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--muted-lt)}
-.rm-icon{font-size:.875rem}
-.rcard-foot{
-  padding:1rem 1.5rem;border-top:1px solid var(--border-soft);
-  display:flex;justify-content:space-between;align-items:center;
-}
-.rcard-cost{font-size:.78rem;color:var(--muted);font-weight:300}
-.rcard-cost strong{color:var(--ivory);font-weight:600}
-.rcard-cta{
-  font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--teal);text-decoration:none;
-  display:flex;align-items:center;gap:.3rem;transition:color .2s;
-}
+.badge-rust{background:var(--rust);color:#fff}
+.badge-free{background:#1a5a30;color:#4ade80;border:1px solid rgba(74,222,128,.3)}
+.rcard-flag{font-size:1.875rem;margin-bottom:.5rem;position:relative;z-index:1;line-height:1}
+.rcard-loc{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.5);margin-bottom:.2rem;position:relative;z-index:1}
+.rcard-name{font-size:.95rem;font-weight:600;color:#fff;line-height:1.3;position:relative;z-index:1}
+.rcard-body{padding:1.25rem 1.5rem;flex:1;display:flex;flex-direction:column}
+.spec-pill{display:inline-block;background:rgba(42,157,143,.12);color:var(--teal-lt);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .6rem;border-radius:2px;margin-bottom:.875rem;border:1px solid rgba(42,157,143,.2)}
+.rcard-desc{font-size:.82rem;color:rgba(240,234,216,.5);line-height:1.65;flex:1;font-weight:300}
+.rcard-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.875rem}
+.rtag{font-size:.65rem;padding:.2rem .55rem;border-radius:20px;border:1px solid var(--border-soft);color:var(--muted-lt)}
+.rcard-meta{display:flex;gap:1rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border-soft);flex-wrap:wrap}
+.rm{display:flex;align-items:center;gap:.3rem;font-size:.72rem;color:var(--muted-lt)}
+.rcard-foot{padding:.875rem 1.5rem;border-top:1px solid var(--border-soft);display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.rcard-cost{font-size:.75rem;color:var(--muted);font-weight:300;line-height:1.4}
+.rcard-cost strong{color:var(--ivory);font-weight:600;display:block;font-size:.82rem}
+.rcard-cta{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);text-decoration:none;display:flex;align-items:center;gap:.25rem;transition:color .2s;white-space:nowrap}
 .rcard-cta:hover{color:var(--teal-lt)}
+.no-results{display:none;text-align:center;padding:4rem;color:var(--muted-lt);grid-column:1/-1}
+.no-results.show{display:block}
 
-/* ── SCROLL HINT ── */
-.scroll-hint{
-  display:flex;align-items:center;gap:.75rem;
-  padding-right:3rem;margin-top:1.5rem;
-}
-.sh-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
-.sh-text{font-size:.7rem;color:var(--muted);white-space:nowrap;letter-spacing:.08em}
+/* REGION SECTIONS */
+.region-section{padding:4rem 3rem;border-top:1px solid var(--border)}
+.region-section:nth-child(even){background:var(--ink-soft)}
+.region-header{display:flex;align-items:center;gap:1.5rem;margin-bottom:2rem;cursor:none}
+.region-emoji{font-size:2.5rem;line-height:1}
+.region-title-wrap{}
+.region-title{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:500;color:var(--ivory)}
+.region-subtitle{font-size:.8rem;color:var(--muted-lt);margin-top:.2rem}
 
-/* ── REGIONS ── */
-.regions-section{
-  background:linear-gradient(180deg,var(--ink) 0%,var(--ink-soft) 100%);
-  padding:6rem 3rem;
-  position:relative;overflow:hidden;
-}
-.regions-section::before{
-  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:1px;height:100%;background:linear-gradient(180deg,transparent,var(--border) 20%,var(--border) 80%,transparent);
-}
-.regions-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
-  border:1px solid var(--border);border-radius:8px;overflow:hidden;
-  margin-top:3rem;background:var(--border);
-}
-.region-cell{
-  background:var(--ink-soft);
-  padding:2.5rem 2rem;
-  display:flex;flex-direction:column;
-  cursor:none;transition:background .25s;
-  text-decoration:none;
-  position:relative;overflow:hidden;
-}
-.region-cell::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
-  background:var(--c,var(--teal));transform:scaleX(0);
-  transition:transform .3s;transform-origin:left;
-}
-.region-cell:hover{background:rgba(42,157,143,.06)}
-.region-cell:hover::after{transform:scaleX(1)}
-.rc-emoji{font-size:2.25rem;margin-bottom:1rem;line-height:1}
-.rc-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;color:var(--ivory);margin-bottom:.4rem}
-.rc-programs{font-size:.78rem;color:var(--muted-lt);margin-bottom:1.25rem}
-.rc-bar{height:2px;background:var(--border);border-radius:1px;overflow:hidden}
-.rc-fill{height:100%;border-radius:1px;background:var(--c,var(--teal));transition:width .8s ease}
-.rc-arrow{margin-top:1.5rem;font-size:.75rem;color:var(--muted);transition:color .2s;letter-spacing:.04em}
-.region-cell:hover .rc-arrow{color:var(--teal)}
+/* PROVIDERS TABLE */
+.providers-section{background:var(--ink-soft);padding:5.5rem 3rem;border-top:1px solid var(--border)}
+.table-wrap{overflow-x:auto;margin-top:2.5rem;border:1px solid var(--border);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+thead{background:rgba(184,147,63,.08);border-bottom:1px solid rgba(184,147,63,.2)}
+th{padding:1rem 1.25rem;text-align:left;font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--gold);white-space:nowrap}
+td{padding:1rem 1.25rem;border-bottom:1px solid var(--border-soft);color:rgba(240,234,216,.7);font-weight:300;vertical-align:top;line-height:1.6}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(240,234,216,.02)}
+td:first-child{font-weight:600;color:var(--ivory)}
+td a{color:var(--teal);text-decoration:none}
+td a:hover{color:var(--teal-lt);text-decoration:underline}
+.cost-cell{color:var(--gold-lt)!important;font-weight:600!important}
+.diff-cell{font-style:italic;color:rgba(240,234,216,.55)!important}
 
-/* ── HOW IT WORKS ── */
-.how-section{background:var(--ink);padding:6rem 3rem}
-.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:4rem}
-.how-steps{display:flex;flex-direction:column;gap:0}
-.how-step{
-  display:flex;gap:2rem;
-  padding:2rem 0;
-  border-bottom:1px solid var(--border-soft);
-  position:relative;
-}
-.how-step:last-child{border-bottom:none}
-.hs-num{
-  font-family:'Cormorant Garamond',serif;
-  font-size:3.5rem;font-weight:600;color:rgba(240,234,216,.07);
-  line-height:1;flex-shrink:0;width:60px;
-  transition:color .3s;
-}
-.how-step:hover .hs-num{color:rgba(184,147,63,.2)}
-.hs-content{}
-.hs-title{font-size:1.05rem;font-weight:600;color:var(--ivory);margin-bottom:.5rem}
-.hs-body{font-size:.875rem;color:rgba(240,234,216,.5);line-height:1.7;font-weight:300}
-.how-visual{
-  background:var(--ink-soft);border:1px solid var(--border);
-  border-radius:8px;padding:2.5rem;
-  position:relative;overflow:hidden;
-}
-.how-visual::before{
-  content:'';position:absolute;top:-40px;right:-40px;
-  width:180px;height:180px;border-radius:50%;
-  border:1px solid var(--border-soft);
-}
-.how-visual::after{
-  content:'';position:absolute;top:-80px;right:-80px;
-  width:260px;height:260px;border-radius:50%;
-  border:1px solid var(--border-soft);
-}
-.hv-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-lt);margin-bottom:1.5rem}
-.hv-path{
-  display:flex;flex-direction:column;gap:.75rem;position:relative;z-index:1;
-}
-.hv-node{
-  display:flex;align-items:center;gap:1rem;
-  padding:1rem 1.25rem;border-radius:6px;
-  background:rgba(240,234,216,.03);border:1px solid var(--border-soft);
-  transition:all .25s;
-}
-.hv-node.active{background:rgba(42,157,143,.1);border-color:rgba(42,157,143,.25)}
-.hv-icon{
-  width:36px;height:36px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;flex-shrink:0;
-  background:rgba(240,234,216,.05);border:1px solid var(--border);
-}
-.hv-node.active .hv-icon{background:rgba(42,157,143,.15);border-color:var(--teal)}
-.hv-ntxt{font-size:.85rem;color:rgba(240,234,216,.6);font-weight:400}
-.hv-node.active .hv-ntxt{color:var(--ivory)}
-.hv-connector{width:1px;height:20px;background:var(--border);margin-left:29px}
+/* REQUIREMENTS SECTION */
+.req-section{background:var(--ink);padding:5.5rem 3rem;border-top:1px solid var(--border)}
+.req-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+.req-card{background:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:2rem;transition:all .25s}
+.req-card:hover{border-color:rgba(42,157,143,.25);transform:translateY(-2px)}
+.req-icon{font-size:1.75rem;margin-bottom:1rem}
+.req-title{font-size:.95rem;font-weight:600;color:var(--ivory);margin-bottom:.6rem}
+.req-body{font-size:.82rem;color:rgba(240,234,216,.5);line-height:1.7;font-weight:300}
+.req-body strong{color:var(--ivory);font-weight:600}
+.req-body a{color:var(--teal);text-decoration:none}
+.req-body a:hover{color:var(--teal-lt)}
 
-/* ── RESOURCES ── */
-.resources-section{
-  background:var(--ink-soft);padding:6rem 3rem;
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-}
-.resources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.res-card{
-  border:1px solid var(--border);border-radius:8px;
-  padding:2rem;background:rgba(240,234,216,.02);
-  transition:all .25s;cursor:none;text-decoration:none;display:block;
-  position:relative;overflow:hidden;
-}
-.res-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--teal),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.res-card:hover{background:rgba(240,234,216,.04);transform:translateY(-3px)}
-.res-card:hover::before{opacity:1}
-.res-ico{font-size:1.75rem;margin-bottom:1.25rem}
-.res-title{font-size:1rem;font-weight:600;color:var(--ivory);margin-bottom:.6rem}
-.res-desc{font-size:.84rem;color:rgba(240,234,216,.45);line-height:1.65;font-weight:300}
-.res-link{
-  display:inline-flex;align-items:center;gap:.4rem;
-  margin-top:1.25rem;font-size:.75rem;font-weight:600;
-  color:var(--teal);letter-spacing:.04em;
-}
+/* TIPS SECTION */
+.tips-section{background:var(--ink-soft);padding:5.5rem 3rem;border-top:1px solid var(--border)}
+.tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.5rem}
+.tip-card{border:1px solid var(--border);border-radius:8px;padding:2rem;background:rgba(240,234,216,.02);position:relative;overflow:hidden}
+.tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--c,var(--teal));transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.tip-card:hover::before{transform:scaleX(1)}
+.tip-num{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:600;color:rgba(240,234,216,.05);position:absolute;top:.5rem;right:1.25rem;line-height:1}
+.tip-title{font-size:1rem;font-weight:600;color:var(--ivory);margin-bottom:.6rem;position:relative;z-index:1}
+.tip-body{font-size:.84rem;color:rgba(240,234,216,.5);line-height:1.7;font-weight:300;position:relative;z-index:1}
+.tip-body strong{color:var(--ivory-dim)}
 
-/* ── TESTIMONIALS ── */
-.testimonials-section{background:var(--ink);padding:6rem 3rem}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.tcard{
-  border:1px solid var(--border);border-radius:8px;
-  padding:2.25rem;background:rgba(240,234,216,.02);
-  position:relative;overflow:hidden;transition:all .25s;
-}
-.tcard:hover{border-color:rgba(184,147,63,.2);background:rgba(184,147,63,.02)}
-.tcard-quote{
-  font-family:'Cormorant Garamond',serif;
-  font-size:5rem;line-height:.6;color:var(--gold);opacity:.12;
-  position:absolute;top:1.5rem;left:1.75rem;
-  font-style:italic;user-select:none;
-}
-.tcard-stars{color:var(--gold);font-size:.85rem;margin-bottom:1rem;position:relative;z-index:1}
-.tcard-text{
-  font-size:.925rem;line-height:1.75;color:rgba(240,234,216,.7);
-  font-style:italic;font-weight:300;
-  position:relative;z-index:1;margin-bottom:1.75rem;
-}
-.tcard-auth{display:flex;align-items:center;gap:.875rem;position:relative;z-index:1}
-.tcard-av{
-  width:38px;height:38px;border-radius:50%;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.8rem;font-weight:700;color:var(--ink);
-}
-.tcard-name{font-size:.875rem;font-weight:600;color:var(--ivory)}
-.tcard-detail{font-size:.75rem;color:var(--muted-lt);margin-top:.15rem}
+/* GLOSSARY */
+.glossary-section{background:var(--ink);padding:5.5rem 3rem;border-top:1px solid var(--border)}
+.gloss-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:2.5rem}
+.gloss-item{background:var(--ink-soft);padding:1.5rem 2rem}
+.gloss-term{font-size:.85rem;font-weight:700;color:var(--gold-lt);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.06em}
+.gloss-def{font-size:.82rem;color:rgba(240,234,216,.55);line-height:1.65;font-weight:300}
 
-/* ── BIG QUOTE ── */
-.big-quote-section{
-  padding:6rem 3rem;
-  background:linear-gradient(135deg,rgba(42,157,143,.05),transparent 50%,rgba(184,147,63,.04));
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  text-align:center;
-}
-.bq-text{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.5rem,3vw,2.5rem);
-  font-weight:300;font-style:italic;
-  line-height:1.5;color:rgba(240,234,216,.7);
-  max-width:820px;margin:0 auto;
-}
-.bq-text strong{color:var(--ivory);font-style:normal;font-weight:500}
-.bq-attr{margin-top:1.5rem;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-lt)}
-
-/* ── SUBMIT CTA ── */
-.cta-section{
-  background:var(--ink-soft);padding:6rem 3rem;
-  position:relative;overflow:hidden;
-  text-align:center;
-}
-.cta-section::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 0%,rgba(42,157,143,.1) 0%,transparent 60%);
-}
-.cta-section::after{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 100%,rgba(184,147,63,.06) 0%,transparent 50%);
-}
-.cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
-.cta-h{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.25rem,4vw,3.5rem);font-weight:400;
-  color:var(--ivory);margin-bottom:1rem;line-height:1.15;
-}
+/* CTA */
+.cta-section{background:var(--ink-soft);padding:5.5rem 3rem;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--border)}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(42,157,143,.09),transparent 55%)}
+.cta-inner{position:relative;z-index:1;max-width:580px;margin:0 auto}
+.cta-h{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3.25rem);font-weight:400;color:var(--ivory);margin-bottom:.875rem;line-height:1.15}
 .cta-h em{font-style:italic;color:var(--gold-lt)}
-.cta-p{font-size:1rem;color:rgba(240,234,216,.5);line-height:1.75;font-weight:300;margin-bottom:2.5rem}
-.cta-form{
-  display:flex;max-width:480px;margin:0 auto;
-  border:1px solid rgba(240,234,216,.15);border-radius:4px;overflow:hidden;
-  background:rgba(240,234,216,.04);
-  transition:border-color .25s;
-}
-.cta-form:focus-within{border-color:rgba(42,157,143,.4)}
-.cta-input{
-  flex:1;padding:1rem 1.25rem;background:transparent;border:none;outline:none;
-  font-family:'Figtree',sans-serif;font-size:.9rem;color:var(--ivory);
-}
+.cta-p{font-size:.95rem;color:rgba(240,234,216,.5);line-height:1.75;font-weight:300;margin-bottom:2.25rem}
+.cta-form{display:flex;max-width:460px;margin:0 auto;border:1px solid rgba(240,234,216,.15);border-radius:4px;overflow:hidden;background:rgba(240,234,216,.04)}
+.cta-input{flex:1;padding:.95rem 1.25rem;background:transparent;border:none;outline:none;font-family:'Figtree',sans-serif;font-size:.875rem;color:var(--ivory)}
 .cta-input::placeholder{color:var(--muted)}
-.cta-btn{
-  background:var(--teal);color:var(--ink);border:none;
-  padding:1rem 1.5rem;cursor:none;
-  font-family:'Figtree',sans-serif;font-size:.8rem;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;
-  transition:background .2s;white-space:nowrap;
-}
+.cta-btn{background:var(--teal);color:var(--ink);border:none;padding:.95rem 1.5rem;cursor:none;font-family:'Figtree',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:background .2s;white-space:nowrap}
 .cta-btn:hover{background:var(--teal-lt)}
-.cta-fine{margin-top:1rem;font-size:.75rem;color:rgba(240,234,216,.25)}
+.cta-fine{margin-top:.875rem;font-size:.73rem;color:rgba(240,234,216,.22)}
 
-/* ── PARTNERS ── */
-.partners-section{
-  padding:3rem 3rem;
-  border-top:1px solid var(--border);
-  display:flex;align-items:center;gap:3rem;flex-wrap:wrap;
-}
-.partners-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);white-space:nowrap;flex-shrink:0}
-.partners-logos{display:flex;gap:2.5rem;align-items:center;flex-wrap:wrap}
-.partner-name{font-size:.8rem;font-weight:600;color:rgba(240,234,216,.2);letter-spacing:.06em;text-transform:uppercase;transition:color .2s;cursor:none}
-.partner-name:hover{color:rgba(240,234,216,.45)}
+/* PARTNERS */
+.partners-bar{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;align-items:center;gap:3rem;flex-wrap:wrap}
+.partners-lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.partners-list{display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center}
+.partner{font-size:.78rem;font-weight:600;color:rgba(240,234,216,.18);letter-spacing:.05em;text-transform:uppercase;transition:color .2s;text-decoration:none;cursor:none}
+.partner:hover{color:rgba(240,234,216,.4)}
 
-/* ── FOOTER ── */
-footer{
-  background:#050c16;padding:4rem 3rem 2rem;
-  border-top:1px solid var(--border);
-}
-.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-.footer-brand{}
-.footer-logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.3rem;font-weight:500;color:var(--ivory);
-  margin-bottom:1rem;
-}
-.footer-logo em{font-style:italic;color:var(--gold)}
-.footer-desc{font-size:.84rem;color:rgba(240,234,216,.3);line-height:1.75;font-weight:300;max-width:280px}
-.footer-col h5{font-size:.65rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-bottom:1.25rem;font-weight:700}
-.footer-col a{display:block;color:rgba(240,234,216,.35);font-size:.85rem;text-decoration:none;margin-bottom:.6rem;transition:color .2s;font-weight:300}
-.footer-col a:hover{color:var(--teal-lt)}
-.footer-bottom{
-  display:flex;justify-content:space-between;align-items:center;
-  padding-top:2rem;border-top:1px solid var(--border-soft);
-  flex-wrap:wrap;gap:1rem;
-}
-.footer-bottom p{font-size:.78rem;color:rgba(240,234,216,.2)}
-.footer-bottom-links{display:flex;gap:1.5rem}
-.footer-bottom-links a{font-size:.78rem;color:rgba(240,234,216,.2);text-decoration:none;transition:color .2s}
-.footer-bottom-links a:hover{color:rgba(240,234,216,.5)}
+/* FOOTER */
+footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--border)}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.f-brand-logo{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:500;color:var(--ivory);margin-bottom:.875rem}
+.f-brand-logo em{font-style:italic;color:var(--gold)}
+.f-desc{font-size:.82rem;color:rgba(240,234,216,.28);line-height:1.75;font-weight:300;max-width:270px}
+.f-col h5{font-size:.63rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-bottom:1.1rem;font-weight:700}
+.f-col a{display:block;color:rgba(240,234,216,.32);font-size:.83rem;text-decoration:none;margin-bottom:.5rem;transition:color .2s;font-weight:300}
+.f-col a:hover{color:var(--teal-lt)}
+.f-bot{display:flex;justify-content:space-between;align-items:center;padding-top:1.75rem;border-top:1px solid var(--border-soft);flex-wrap:wrap;gap:.75rem}
+.f-bot p{font-size:.75rem;color:rgba(240,234,216,.18)}
+.f-bot-links{display:flex;gap:1.5rem}
+.f-bot-links a{font-size:.75rem;color:rgba(240,234,216,.18);text-decoration:none;transition:color .2s}
+.f-bot-links a:hover{color:rgba(240,234,216,.45)}
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:.1s}
-.reveal-delay-2{transition-delay:.2s}
-.reveal-delay-3{transition-delay:.3s}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
 
-/* ── RESPONSIVE ── */
-@media(max-width:1024px){
-  .hero{grid-template-columns:1fr;padding:7rem 2rem 4rem}
-  .hero-map-wrap{display:none}
-  .how-grid{grid-template-columns:1fr;gap:3rem}
-  .regions-grid{grid-template-columns:repeat(2,1fr)}
-  .resources-grid{grid-template-columns:repeat(2,1fr)}
-  .testi-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;align-items:center;justify-content:center;padding:2rem;backdrop-filter:blur(8px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--ink-soft);border:1px solid var(--border);border-radius:10px;max-width:680px;width:100%;max-height:85vh;overflow-y:auto;position:relative;cursor:auto}
+.modal::-webkit-scrollbar{width:4px}
+.modal::-webkit-scrollbar-thumb{background:var(--border)}
+.modal-close{position:sticky;top:0;display:flex;justify-content:flex-end;padding:1rem 1rem .5rem;background:var(--ink-soft);z-index:1}
+.modal-close button{background:rgba(240,234,216,.08);border:1px solid var(--border);color:var(--muted-lt);width:32px;height:32px;border-radius:50%;font-size:1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.modal-close button:hover{background:rgba(240,234,216,.15);color:var(--ivory)}
+.modal-body{padding:0 2rem 2rem}
+.modal-flag{font-size:3rem;margin-bottom:.75rem}
+.modal-loc{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted-lt);margin-bottom:.3rem}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;color:var(--ivory);margin-bottom.5rem;line-height:1.2}
+.modal-spec{display:inline-flex;align-items:center;gap:.4rem;background:rgba(42,157,143,.12);color:var(--teal-lt);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .75rem;border-radius:2px;margin-top:.75rem;border:1px solid rgba(42,157,143,.2)}
+.modal-divider{height:1px;background:var(--border);margin:1.5rem 0}
+.modal-section-title{font-size:.65rem;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:var(--muted-lt);margin-bottom:.75rem}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.5rem}
+.modal-item{background:rgba(240,234,216,.03);border:1px solid var(--border-soft);border-radius:6px;padding:.875rem 1rem}
+.modal-item-label{font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.3rem}
+.modal-item-value{font-size:.875rem;color:var(--ivory);font-weight:500}
+.modal-desc{font-size:.875rem;color:rgba(240,234,216,.6);line-height:1.75;font-weight:300;margin-bottom:1.5rem}
+.modal-reqs{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem}
+.modal-req{display:flex;gap:.75rem;font-size:.83rem;color:rgba(240,234,216,.6);font-weight:300}
+.modal-req::before{content:'→';color:var(--teal);flex-shrink:0}
+.modal-actions{display:flex;gap:.875rem;flex-wrap:wrap}
+.modal-btn-primary{background:var(--teal);color:var(--ink);padding:.75rem 1.5rem;border-radius:4px;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.modal-btn-primary:hover{background:var(--teal-lt)}
+.modal-btn-sec{background:transparent;color:var(--muted-lt);border:1px solid var(--border);padding:.75rem 1.5rem;border-radius:4px;font-size:.82rem;font-weight:500;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.modal-btn-sec:hover{border-color:var(--ivory);color:var(--ivory)}
+.warning-box{background:rgba(192,83,58,.1);border:1px solid rgba(192,83,58,.3);border-radius:6px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:.8rem;color:rgba(240,234,216,.65);line-height:1.65}
+.warning-box strong{color:#f87171}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.cards-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:7rem 2rem 4rem}.hero-visual{display:none}
+  .ft{grid-template-columns:1fr 1fr;gap:2rem}
+  .req-grid{grid-template-columns:1fr 1fr}
+  .tips-grid{grid-template-columns:1fr}
+  .gloss-grid{grid-template-columns:1fr}
 }
-@media(max-width:768px){
-  nav{padding:1rem 1.5rem}
-  nav.scrolled{padding:.875rem 1.5rem}
-  .nav-center,.nav-submit{display:none}
-  .hero{padding:6rem 1.5rem 3rem}
-  .section{padding:4rem 1.5rem}
-  .search-section{padding:3rem 1.5rem}
-  .search-box{flex-direction:column;border-radius:6px}
-  .search-sep,.search-sel{display:none}
-  .search-go{padding:1rem;text-align:center}
-  .rotations-section{padding:4rem 0 4rem 1.5rem}
-  .rotations-header{padding-right:1.5rem}
-  .cards-scroll{padding-right:1.5rem}
-  .rcard{flex:0 0 290px}
-  .regions-grid{grid-template-columns:1fr}
-  .resources-grid{grid-template-columns:1fr}
-  .testi-grid{grid-template-columns:1fr}
-  .footer-top{grid-template-columns:1fr}
-  .footer-bottom{flex-direction:column;text-align:center}
-  .partners-section{flex-direction:column;align-items:flex-start;gap:1.5rem}
-  #cursor,#cursor-ring{display:none}
-  body{cursor:auto}
-  a,button{cursor:pointer}
-  .cta-form{flex-direction:column}
-  .cta-btn{padding:.875rem}
+@media(max-width:640px){
+  nav{padding:1rem 1.5rem}nav.scrolled{padding:.875rem 1.5rem}
+  .nav-links{display:none}
+  .section,.search-wrap,.programs-section{padding-left:1.5rem;padding-right:1.5rem}
+  .cards-grid{grid-template-columns:1fr}
+  .req-grid{grid-template-columns:1fr}
+  .ft{grid-template-columns:1fr}
+  .f-bot{flex-direction:column;text-align:center}
+  .search-box{flex-wrap:wrap}
+  .s-div,.s-sel{display:none}
+  .modal-grid{grid-template-columns:1fr}
+  #cursor,#cursor-ring{display:none}body,a,button{cursor:auto}
+  .partners-bar{flex-direction:column;align-items:flex-start;gap:1.25rem}
 }
 </style>
 </head>
@@ -705,719 +300,1286 @@ footer{
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent">
+    <div class="modal-close"><button onclick="closeModal()" aria-label="Close">✕</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
-    <div class="logo-mark">
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="16" cy="16" r="14" stroke="#b8933f" stroke-width="1.2"/>
-        <ellipse cx="16" cy="16" rx="6" ry="14" stroke="#b8933f" stroke-width="1.2"/>
-        <line x1="2" y1="16" x2="30" y2="16" stroke="#b8933f" stroke-width="1.2"/>
-        <line x1="4" y1="9" x2="28" y2="9" stroke="#b8933f" stroke-width=".8" opacity=".5"/>
-        <line x1="4" y1="23" x2="28" y2="23" stroke="#b8933f" stroke-width=".8" opacity=".5"/>
-      </svg>
-    </div>
-    <div class="logo-text">Global Rotation <span>Gateway</span></div>
+    <svg class="logo-svg" viewBox="0 0 30 30" fill="none">
+      <circle cx="15" cy="15" r="13" stroke="#b8933f" stroke-width="1.2"/>
+      <ellipse cx="15" cy="15" rx="5.5" ry="13" stroke="#b8933f" stroke-width="1.2"/>
+      <line x1="2" y1="15" x2="28" y2="15" stroke="#b8933f" stroke-width="1.2"/>
+      <line x1="3.5" y1="8.5" x2="26.5" y2="8.5" stroke="#b8933f" stroke-width=".7" opacity=".5"/>
+      <line x1="3.5" y1="21.5" x2="26.5" y2="21.5" stroke="#b8933f" stroke-width=".7" opacity=".5"/>
+    </svg>
+    <div class="logo-text">Global Rotation <em>Gateway</em></div>
   </a>
-  <div class="nav-center">
-    <a href="#rotations">Rotations</a>
-    <a href="#regions">By Region</a>
-    <a href="#resources">Resources</a>
-    <a href="#about">About</a>
-  </div>
-  <div class="nav-right">
-    <a href="#submit" class="nav-submit">Submit a Rotation</a>
+  <div class="nav-links">
+    <a href="#programs">Programs</a>
+    <a href="#providers">3rd-Party Providers</a>
+    <a href="#requirements">Requirements</a>
+    <a href="#tips">Tips</a>
+    <a href="#submit" class="nav-cta">Submit a Rotation</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-glow-2"></div>
-
-  <div class="hero-content">
-    <div class="hero-badge">Free for all medical students</div>
-    <h1>Your Gateway to<br/><em>Global</em> Clinical<br/><strong>Excellence</strong></h1>
-    <p class="hero-body">The most comprehensive, freely searchable directory of international medical rotations — meticulously curated for students who want to train beyond borders and transform their practice.</p>
-    <div class="hero-actions">
-      <a href="#rotations" class="btn-gold">Explore Rotations &rarr;</a>
-      <a href="#submit" class="btn-ghost">Submit a Program</a>
+  <div>
+    <div class="hero-badge">Free for all medical students · No registration required</div>
+    <h1>The Complete<br/><em>International</em><br/><strong>Rotation Directory</strong></h1>
+    <p class="hero-sub">Real programs. Real costs. Real requirements. The most detailed, freely searchable database of international medical electives — sourced from institutions worldwide.</p>
+    <div class="hero-btns">
+      <a href="#search" class="btn-gold">Search Programs →</a>
+      <a href="#providers" class="btn-ghost">3rd-Party Providers</a>
     </div>
     <div class="hero-stats">
-      <div>
-        <div class="hstat-num"><span class="counter" data-target="240">0</span><span class="accent">+</span></div>
-        <div class="hstat-label">Programs Listed</div>
-      </div>
-      <div>
-        <div class="hstat-num"><span class="counter" data-target="68">0</span><span class="accent">+</span></div>
-        <div class="hstat-label">Countries</div>
-      </div>
-      <div>
-        <div class="hstat-num"><span class="counter" data-target="30">0</span><span class="accent">+</span></div>
-        <div class="hstat-label">Specialties</div>
-      </div>
+      <div><div class="hstat-num"><span class="counter" data-t="28">0</span><span class="ac">+</span></div><div class="hstat-lbl">Real Programs</div></div>
+      <div><div class="hstat-num"><span class="counter" data-t="20">0</span><span class="ac">+</span></div><div class="hstat-lbl">Countries</div></div>
+      <div><div class="hstat-num"><span class="counter" data-t="5">0</span></div><div class="hstat-lbl">Major Providers</div></div>
     </div>
   </div>
-
-  <div class="hero-map-wrap">
-    <canvas id="worldCanvas" width="540" height="380"></canvas>
-    <div class="map-overlay-card">
-      <div class="moc-label">Top Destinations</div>
-      <div class="moc-row"><div class="moc-dot" style="background:#2a9d8f"></div><div class="moc-name">Kenya</div><div class="moc-count">18 programs</div></div>
-      <div class="moc-row"><div class="moc-dot" style="background:#b8933f"></div><div class="moc-name">India</div><div class="moc-count">24 programs</div></div>
-      <div class="moc-row"><div class="moc-dot" style="background:#c0533a"></div><div class="moc-name">Uganda</div><div class="moc-count">12 programs</div></div>
-      <div class="moc-row"><div class="moc-dot" style="background:#7b5ea7"></div><div class="moc-name">Brazil</div><div class="moc-count">15 programs</div></div>
+  <div class="hero-visual">
+    <canvas id="worldCanvas" width="520" height="360"></canvas>
+    <div class="hero-legend">
+      <div class="hl-title">Programs by Region</div>
+      <div class="hl-row"><div class="hl-dot" style="background:#2a9d8f"></div><div class="hl-name">Africa</div><div class="hl-count">8 programs</div></div>
+      <div class="hl-row"><div class="hl-dot" style="background:#b8933f"></div><div class="hl-name">Asia</div><div class="hl-count">9 programs</div></div>
+      <div class="hl-row"><div class="hl-dot" style="background:#c0533a"></div><div class="hl-name">Americas</div><div class="hl-count">5 programs</div></div>
+      <div class="hl-row"><div class="hl-dot" style="background:#6b4fa0"></div><div class="hl-name">Europe</div><div class="hl-count">6 programs</div></div>
     </div>
   </div>
 </section>
 
 <!-- TICKER -->
 <div class="ticker">
-  <div class="ticker-inner" id="tickerInner">
-    <div class="ticker-item"><span class="flag">🇰🇪</span> <span class="hi">Kenya</span> — Kenyatta National Hospital &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇮🇳</span> <span class="hi">India</span> — AIIMS New Delhi &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇺🇬</span> <span class="hi">Uganda</span> — Mulago National Referral &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇧🇷</span> <span class="hi">Brazil</span> — Hospital das Clínicas USP &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇹🇿</span> <span class="hi">Tanzania</span> — Muhimbili National Hospital &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇲🇼</span> <span class="hi">Malawi</span> — Queen Elizabeth Central &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇬🇭</span> <span class="hi">Ghana</span> — Korle Bu Teaching Hospital &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇵🇪</span> <span class="hi">Peru</span> — Hospital Nacional Cayetano &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇳🇵</span> <span class="hi">Nepal</span> — BP Koirala Institute &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇿🇦</span> <span class="hi">South Africa</span> — Groote Schuur Hospital &nbsp;&bull;</div>
-    <!-- duplicate for seamless loop -->
-    <div class="ticker-item"><span class="flag">🇰🇪</span> <span class="hi">Kenya</span> — Kenyatta National Hospital &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇮🇳</span> <span class="hi">India</span> — AIIMS New Delhi &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇺🇬</span> <span class="hi">Uganda</span> — Mulago National Referral &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇧🇷</span> <span class="hi">Brazil</span> — Hospital das Clínicas USP &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇹🇿</span> <span class="hi">Tanzania</span> — Muhimbili National Hospital &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇲🇼</span> <span class="hi">Malawi</span> — Queen Elizabeth Central &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇬🇭</span> <span class="hi">Ghana</span> — Korle Bu Teaching Hospital &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇵🇪</span> <span class="hi">Peru</span> — Hospital Nacional Cayetano &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇳🇵</span> <span class="hi">Nepal</span> — BP Koirala Institute &nbsp;&bull;</div>
-    <div class="ticker-item"><span class="flag">🇿🇦</span> <span class="hi">South Africa</span> — Groote Schuur Hospital &nbsp;&bull;</div>
+  <div class="ticker-track">
+    <div class="t-item"><span>🇿🇦</span><span class="hi">Chris Hani Baragwanath</span><span class="t-sep">·</span>Trauma Surgery · South Africa</div>
+    <div class="t-item"><span>🇬🇧</span><span class="hi">Oxford University Hospitals</span><span class="t-sep">·</span>No Tuition Fee · UK</div>
+    <div class="t-item"><span>🇮🇳</span><span class="hi">CMC Vellore</span><span class="t-sep">·</span>~$40/week · India</div>
+    <div class="t-item"><span>🇰🇪</span><span class="hi">Kenyatta National Hospital</span><span class="t-sep">·</span>Direct Apply · Kenya</div>
+    <div class="t-item"><span>🇹🇭</span><span class="hi">Siriraj Hospital</span><span class="t-sep">·</span>~$145/week · Thailand</div>
+    <div class="t-item"><span>🇧🇷</span><span class="hi">Hospital das Clínicas USP</span><span class="t-sep">·</span>$1,000–2,000/4wks · Brazil</div>
+    <div class="t-item"><span>🇺🇸</span><span class="hi">Yale School of Medicine</span><span class="t-sep">·</span>VSLO · ~20% acceptance</div>
+    <div class="t-item"><span>🇩🇪</span><span class="hi">Charité Berlin</span><span class="t-sep">·</span>Famulatur · German required</div>
+    <div class="t-item"><span>🇫🇯</span><span class="hi">CWM Hospital Fiji</span><span class="t-sep">·</span>Island Medicine · Pacific</div>
+    <!-- duplicate -->
+    <div class="t-item"><span>🇿🇦</span><span class="hi">Chris Hani Baragwanath</span><span class="t-sep">·</span>Trauma Surgery · South Africa</div>
+    <div class="t-item"><span>🇬🇧</span><span class="hi">Oxford University Hospitals</span><span class="t-sep">·</span>No Tuition Fee · UK</div>
+    <div class="t-item"><span>🇮🇳</span><span class="hi">CMC Vellore</span><span class="t-sep">·</span>~$40/week · India</div>
+    <div class="t-item"><span>🇰🇪</span><span class="hi">Kenyatta National Hospital</span><span class="t-sep">·</span>Direct Apply · Kenya</div>
+    <div class="t-item"><span>🇹🇭</span><span class="hi">Siriraj Hospital</span><span class="t-sep">·</span>~$145/week · Thailand</div>
+    <div class="t-item"><span>🇧🇷</span><span class="hi">Hospital das Clínicas USP</span><span class="t-sep">·</span>$1,000–2,000/4wks · Brazil</div>
+    <div class="t-item"><span>🇺🇸</span><span class="hi">Yale School of Medicine</span><span class="t-sep">·</span>VSLO · ~20% acceptance</div>
+    <div class="t-item"><span>🇩🇪</span><span class="hi">Charité Berlin</span><span class="t-sep">·</span>Famulatur · German required</div>
+    <div class="t-item"><span>🇫🇯</span><span class="hi">CWM Hospital Fiji</span><span class="t-sep">·</span>Island Medicine · Pacific</div>
   </div>
 </div>
 
 <!-- SEARCH -->
-<section class="search-section">
-  <div class="search-wrap">
-    <div class="search-eyebrow">Search 240+ international rotation programs — always free</div>
+<section class="search-wrap" id="search">
+  <div class="search-inner">
+    <div class="search-lbl">Search all verified international rotation programs</div>
     <div class="search-box">
-      <div class="search-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <div class="s-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       </div>
-      <input class="search-input" type="text" placeholder="Country, hospital, city, or specialty…" />
-      <div class="search-sep"></div>
-      <select class="search-sel">
+      <input id="searchInput" class="s-input" type="text" placeholder="Country, hospital, city, specialty…"/>
+      <div class="s-div"></div>
+      <select id="specialtyFilter" class="s-sel">
         <option value="">All Specialties</option>
         <option>Internal Medicine</option>
-        <option>General Surgery</option>
+        <option>Surgery</option>
+        <option>Tropical Medicine</option>
         <option>Pediatrics</option>
         <option>OB/GYN</option>
         <option>Emergency Medicine</option>
         <option>Infectious Disease</option>
-        <option>Psychiatry</option>
-        <option>Family Medicine</option>
         <option>Neurology</option>
+        <option>Family Medicine</option>
+        <option>Psychiatry</option>
         <option>Radiology</option>
-        <option>Orthopedic Surgery</option>
-        <option>Anesthesiology</option>
         <option>Cardiology</option>
-        <option>Dermatology</option>
-        <option>Ophthalmology</option>
+        <option>Community Health</option>
+        <option>Rural Medicine</option>
       </select>
-      <button class="search-go">Search</button>
+      <button class="s-btn" onclick="runSearch()">Search</button>
     </div>
-    <div class="filter-row" id="filterRow">
-      <button class="ftag on" data-filter="all">All Regions</button>
-      <button class="ftag" data-filter="africa">Sub-Saharan Africa</button>
-      <button class="ftag" data-filter="south-asia">South Asia</button>
-      <button class="ftag" data-filter="latam">Latin America</button>
-      <button class="ftag" data-filter="se-asia">Southeast Asia</button>
-      <button class="ftag" data-filter="mena">Middle East &amp; N. Africa</button>
-      <button class="ftag" data-filter="europe">Eastern Europe</button>
-      <button class="ftag" data-filter="pacific">Pacific &amp; Oceania</button>
+    <div class="filter-row" id="regionFilters">
+      <button class="ftag on" data-r="all">All Regions</button>
+      <button class="ftag" data-r="africa">Africa</button>
+      <button class="ftag" data-r="europe">Europe</button>
+      <button class="ftag" data-r="asia">Asia</button>
+      <button class="ftag" data-r="americas">Americas</button>
+      <button class="ftag" data-r="pacific">Pacific</button>
+      <button class="ftag" data-r="middleeast">Middle East</button>
     </div>
+    <div class="results-count">Showing <span id="resultCount">28</span> programs</div>
   </div>
 </section>
 
-<!-- ROTATIONS -->
-<section class="rotations-section" id="rotations">
-  <div class="rotations-header reveal">
+<!-- PROGRAMS -->
+<section class="programs-section" id="programs">
+  <div class="sec-hdr reveal">
     <div>
-      <span class="section-eyebrow">Featured Programs</span>
-      <h2 class="section-h">Top-Rated <em>International</em> Rotations</h2>
+      <span class="eyebrow">Verified Programs</span>
+      <h2 class="section-h">All International <em>Rotation Programs</em></h2>
+      <p class="section-sub">Every listing sourced from institutional documentation. Costs and requirements verified as of 2025.</p>
     </div>
-    <a href="#" class="view-all">View all 240+ programs &rarr;</a>
   </div>
 
-  <div class="cards-scroll">
+  <div class="cards-grid" id="cardsGrid">
+    <div class="no-results" id="noResults">No programs match your search. Try different filters.</div>
 
-    <div class="rcard reveal">
-      <div class="rcard-top" style="--c1:#0b3d2e;--c2:#1a6b4a">
-        <div class="rcard-badge badge-gold">Featured</div>
+    <!-- ====== AFRICA ====== -->
+
+    <!-- 1. Kenyatta -->
+    <div class="rcard reveal" data-region="africa" data-specialties="internal medicine,pediatrics,oncology" data-name="kenyatta national hospital nairobi kenya" data-modal="0">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#0b3a28,#186b45)">
+        <div class="badge badge-gold">Featured</div>
         <div class="rcard-flag">🇰🇪</div>
-        <div class="rcard-loc">Kenya &middot; Nairobi</div>
+        <div class="rcard-loc">Kenya · Nairobi</div>
         <div class="rcard-name">Kenyatta National Hospital</div>
       </div>
       <div class="rcard-body">
-        <span class="rcard-spec">Internal Medicine</span>
-        <p class="rcard-desc">Sub-Saharan Africa's largest referral hospital — exceptional exposure to tropical medicine, HIV/TB management, and high-acuity inpatient care with close supervision.</p>
+        <span class="spec-pill">Internal Medicine · Pediatrics · Oncology</span>
+        <p class="rcard-desc">Largest referral hospital in East and Central Africa. Offers direct application without agency — exceptional volume and pathology diversity including HIV/TB management and advanced oncology.</p>
+        <div class="rcard-tags"><span class="rtag">Direct Apply</span><span class="rtag">English</span><span class="rtag">High Acuity</span></div>
         <div class="rcard-meta">
-          <div class="rm-item"><span class="rm-icon">📅</span> 4–8 wks</div>
-          <div class="rm-item"><span class="rm-icon">🎓</span> MS3/MS4</div>
-          <div class="rm-item"><span class="rm-icon">🌐</span> English</div>
+          <div class="rm">📅 Flexible</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 English</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>~$1,200–1,800</strong></div>
-        <a href="#" class="rcard-cta">View Program →</a>
+        <div class="rcard-cost"><strong>$300–500/month</strong>Dept. varies</div>
+        <a href="#" class="rcard-cta" onclick="openModal(0);return false">Full Details →</a>
       </div>
     </div>
 
-    <div class="rcard reveal reveal-delay-1">
-      <div class="rcard-top" style="--c1:#2d1050;--c2:#4a1e80">
-        <div class="rcard-flag">🇮🇳</div>
-        <div class="rcard-loc">India &middot; New Delhi</div>
-        <div class="rcard-name">AIIMS New Delhi</div>
+    <!-- 2. Baragwanath -->
+    <div class="rcard reveal d1" data-region="africa" data-specialties="surgery,trauma,emergency medicine" data-name="chris hani baragwanath soweto south africa wits" data-modal="1">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#3a0b0b,#7a2020)">
+        <div class="badge badge-rust">Hands-On</div>
+        <div class="rcard-flag">🇿🇦</div>
+        <div class="rcard-loc">South Africa · Soweto</div>
+        <div class="rcard-name">Chris Hani Baragwanath Academic Hospital</div>
       </div>
       <div class="rcard-body">
-        <span class="rcard-spec">General Surgery</span>
-        <p class="rcard-desc">Asia's premier academic medical center. Students observe complex surgical cases, participate in ward rounds, and experience pathology rarely seen in Western training.</p>
+        <span class="spec-pill">Trauma Surgery · Emergency Medicine</span>
+        <p class="rcard-desc">Third-largest hospital in the world. The Trauma Unit is legendary — penetrating trauma volume unmatched globally. Students report significantly more hands-on involvement than any Western hospital. Via University of the Witwatersrand.</p>
+        <div class="rcard-tags"><span class="rtag">Via Wits</span><span class="rtag">HPCSA Required</span><span class="rtag">Very Hands-On</span></div>
         <div class="rcard-meta">
-          <div class="rm-item"><span class="rm-icon">📅</span> 2–6 wks</div>
-          <div class="rm-item"><span class="rm-icon">🎓</span> MS3/MS4</div>
-          <div class="rm-item"><span class="rm-icon">🌐</span> English</div>
+          <div class="rm">📅 Flexible</div>
+          <div class="rm">🎓 Final Year</div>
+          <div class="rm">🌐 English</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>~$800–1,400</strong></div>
-        <a href="#" class="rcard-cta">View Program →</a>
+        <div class="rcard-cost"><strong>HPCSA fee applies</strong>Wits admin fee</div>
+        <a href="#" class="rcard-cta" onclick="openModal(1);return false">Full Details →</a>
       </div>
     </div>
 
-    <div class="rcard reveal reveal-delay-2">
-      <div class="rcard-top" style="--c1:#1a3a0e;--c2:#2e6b1a">
-        <div class="rcard-badge badge-teal">New</div>
+    <!-- 3. UCT Groote Schuur -->
+    <div class="rcard reveal d2" data-region="africa" data-specialties="surgery,internal medicine,cardiology" data-name="university cape town groote schuur south africa uct" data-modal="2">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#0b1f3a,#1a4070)">
+        <div class="rcard-flag">🇿🇦</div>
+        <div class="rcard-loc">South Africa · Cape Town</div>
+        <div class="rcard-name">Groote Schuur Hospital / UCT</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Surgery · Internal Medicine · Cardiology</span>
+        <p class="rcard-desc">Home of the world's first heart transplant. A blend of cutting-edge tertiary care and resource-constrained public health. Highly structured elective office with centralized application. Apply extremely early — 2027 spots open Nov 2025.</p>
+        <div class="rcard-tags"><span class="rtag">UCT Elective Office</span><span class="rtag">HPCSA Required</span><span class="rtag">Apply 2 yrs ahead</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 2-week blocks</div>
+          <div class="rm">🎓 Final Year</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>ZAR 7,500 (~$400)</strong>Per 2-week block</div>
+        <a href="#" class="rcard-cta" onclick="openModal(2);return false">Full Details →</a>
+      </div>
+    </div>
+
+    <!-- 4. Korle Bu Ghana -->
+    <div class="rcard reveal" data-region="africa" data-specialties="tropical medicine,emergency medicine,obstetrics,ob/gyn" data-name="korle bu teaching hospital ghana university accra" data-modal="3">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a3a0e,#2e6b1a)">
+        <div class="rcard-flag">🇬🇭</div>
+        <div class="rcard-loc">Ghana · Accra</div>
+        <div class="rcard-name">Korle Bu Teaching Hospital</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Tropical Medicine · Emergency · OB/GYN</span>
+        <p class="rcard-desc">Ghana's premier teaching hospital via the University of Ghana Medical School. Known for very busy A&E, tropical medicine, and obstetrics. Long-term stays are priced at ~$5,000/year; short electives are pro-rated accordingly.</p>
+        <div class="rcard-tags"><span class="rtag">University of Ghana</span><span class="rtag">English</span><span class="rtag">Busy A&E</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 Flexible</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>Pro-rated ~$5,000/yr</strong>Short stays available</div>
+        <a href="#" class="rcard-cta" onclick="openModal(3);return false">Full Details →</a>
+      </div>
+    </div>
+
+    <!-- 5. Mt Meru Tanzania -->
+    <div class="rcard reveal d1" data-region="africa" data-specialties="surgery,internal medicine,infectious disease" data-name="mt meru hospital arusha tanzania" data-modal="4">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a2a0b,#3a5e1a)">
+        <div class="rcard-flag">🇹🇿</div>
+        <div class="rcard-loc">Tanzania · Arusha</div>
+        <div class="rcard-name">Mt. Meru Regional Hospital</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Surgery · Internal Medicine · Tropical ID</span>
+        <p class="rcard-desc">Popular third-party agency destination near Kilimanjaro. High exposure to tropical diseases, trauma, and surgical cases. Most students access via Work the World or Elective Africa for logistics and housing support.</p>
+        <div class="rcard-tags"><span class="rtag">Agency Access</span><span class="rtag">Work the World</span><span class="rtag">Elective Africa</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 2–8 weeks</div>
+          <div class="rm">🎓 MS2–MS4</div>
+          <div class="rm">🌐 English/Swahili</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>$1,500–2,500</strong>Via agency (4 weeks)</div>
+        <a href="#" class="rcard-cta" onclick="openModal(4);return false">Full Details →</a>
+      </div>
+    </div>
+
+    <!-- 6. Mulago Uganda -->
+    <div class="rcard reveal d2" data-region="africa" data-specialties="ob/gyn,obstetrics,pediatrics,surgery" data-name="mulago national referral hospital kampala uganda" data-modal="5">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a3a1a,#2a6b30)">
+        <div class="badge badge-teal">New Listing</div>
         <div class="rcard-flag">🇺🇬</div>
-        <div class="rcard-loc">Uganda &middot; Kampala</div>
+        <div class="rcard-loc">Uganda · Kampala</div>
         <div class="rcard-name">Mulago National Referral Hospital</div>
       </div>
       <div class="rcard-body">
-        <span class="rcard-spec">OB/GYN</span>
-        <p class="rcard-desc">High-volume obstetric center with extraordinary surgical exposure for students pursuing women's health. A breadth of pathology rarely encountered in US/Canadian training.</p>
+        <span class="spec-pill">OB/GYN · Pediatrics · Surgery</span>
+        <p class="rcard-desc">Uganda's national referral center. Extraordinary volume in obstetrics and gynecology. CFHI (Child Family Health International) offers structured placements with ethical global health curriculum and homestays.</p>
+        <div class="rcard-tags"><span class="rtag">CFHI Access</span><span class="rtag">English</span><span class="rtag">High Volume</span></div>
         <div class="rcard-meta">
-          <div class="rm-item"><span class="rm-icon">📅</span> 4 wks</div>
-          <div class="rm-item"><span class="rm-icon">🎓</span> MS3/MS4</div>
-          <div class="rm-item"><span class="rm-icon">🌐</span> English</div>
+          <div class="rm">📅 2–8 weeks</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 English</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>~$900–1,500</strong></div>
-        <a href="#" class="rcard-cta">View Program →</a>
+        <div class="rcard-cost"><strong>$2,000–3,000</strong>Via CFHI (4 weeks)</div>
+        <a href="#" class="rcard-cta" onclick="openModal(5);return false">Full Details →</a>
       </div>
     </div>
 
-    <div class="rcard reveal reveal-delay-3">
-      <div class="rcard-top" style="--c1:#0b1f3a;--c2:#183a6b">
+    <!-- ====== EUROPE ====== -->
+
+    <!-- 7. Oxford -->
+    <div class="rcard reveal" data-region="europe" data-specialties="internal medicine,surgery,neurology,cardiology" data-name="oxford university hospitals oxford uk england" data-modal="6">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a0b30,#3d1a6b)">
+        <div class="badge badge-gold">Prestigious</div>
+        <div class="rcard-flag">🇬🇧</div>
+        <div class="rcard-loc">United Kingdom · Oxford</div>
+        <div class="rcard-name">Oxford University Hospitals</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Multiple Specialties</span>
+        <p class="rcard-desc">One of the most sought-after electives globally — and notably charges no tuition fees. This zero-tuition policy makes it extraordinarily competitive. Must be final-year. No accommodation provided; Oxford cost-of-living is high.</p>
+        <div class="rcard-tags"><span class="rtag">FREE Tuition</span><span class="rtag">Very Competitive</span><span class="rtag">Final Year Only</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 4–10 weeks</div>
+          <div class="rm">🎓 Final Year Only</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>No tuition fee</strong>Living costs only</div>
+        <a href="https://www.medsci.ox.ac.uk/study/electives" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 8. KCL -->
+    <div class="rcard reveal d1" data-region="europe" data-specialties="surgery,emergency medicine,cardiology,internal medicine" data-name="king's college london kcl guy's st thomas' hospital uk" data-modal="7">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#0b1f3a,#1a4070)">
+        <div class="rcard-flag">🇬🇧</div>
+        <div class="rcard-loc">United Kingdom · London</div>
+        <div class="rcard-name">King's College London</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Surgery · Emergency · Cardiology</span>
+        <p class="rcard-desc">Rotations at Guy's, St Thomas', and King's College Hospitals — some of London's busiest trauma and specialist centers. Charges both an application fee and a weekly placement fee. Strict IELTS requirements apply.</p>
+        <div class="rcard-tags"><span class="rtag">Paid Application</span><span class="rtag">IELTS 6.5+ Required</span><span class="rtag">London Teaching Hospitals</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 4+ weeks</div>
+          <div class="rm">🎓 Final Year</div>
+          <div class="rm">🌐 English (IELTS)</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>£100–200 app + £100/wk</strong>Placement fee applies</div>
+        <a href="https://www.kcl.ac.uk/study/postgraduate-research/fees-and-funding/visiting-students" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 9. UCL -->
+    <div class="rcard reveal d2" data-region="europe" data-specialties="neurology,neurosurgery" data-name="ucl university college london national hospital neurology neurosurgery queen square" data-modal="8">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#0b1f1a,#1a4040)">
+        <div class="rcard-flag">🇬🇧</div>
+        <div class="rcard-loc">United Kingdom · London</div>
+        <div class="rcard-name">UCL / National Hospital for Neurology & Neurosurgery</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Neurology · Neurosurgery</span>
+        <p class="rcard-desc">Queen Square — a world leader in neurology. UCL emphasizes that visiting students have the same duties as local students. Minimum 3 years of clinical training completed required. Expect high independence.</p>
+        <div class="rcard-tags"><span class="rtag">World-Leading Neuro</span><span class="rtag">3 Yrs Clinical Required</span><span class="rtag">High Independence</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 4+ weeks</div>
+          <div class="rm">🎓 3+ yrs clinical</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>Admin fee</strong>Contact UCL for rate</div>
+        <a href="https://www.ucl.ac.uk/medical-school/current-students/electives" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 10. RCSI -->
+    <div class="rcard reveal" data-region="europe" data-specialties="surgery,internal medicine,pediatrics" data-name="royal college surgeons ireland rcsi dublin beaumont hospital" data-modal="9">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a0b0b,#5a1a1a)">
+        <div class="rcard-flag">🇮🇪</div>
+        <div class="rcard-loc">Ireland · Dublin</div>
+        <div class="rcard-name">Royal College of Surgeons in Ireland (RCSI)</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Surgery · Internal Medicine</span>
+        <p class="rcard-desc">Electives strictly limited to summer months (July/August) for non-partner students. Academic-year spots are reserved for bilateral partners (GWU, UMN). Rotations at Beaumont Hospital and other Dublin teaching hospitals. Applications close in January.</p>
+        <div class="rcard-tags"><span class="rtag">Summer Only</span><span class="rtag">Closes Jan</span><span class="rtag">Beaumont Hospital</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 Summer (Jul/Aug)</div>
+          <div class="rm">🎓 Final Year</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>Admin fee</strong>Contact RCSI</div>
+        <a href="https://www.rcsi.com/dublin/research/postgraduate-research/visiting-students" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 11. Charité Berlin -->
+    <div class="rcard reveal d1" data-region="europe" data-specialties="surgery,anesthesiology,internal medicine" data-name="charite berlin germany famulatur europe" data-modal="10">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#0b0b1f,#1a1a4a)">
+        <div class="rcard-flag">🇩🇪</div>
+        <div class="rcard-loc">Germany · Berlin</div>
+        <div class="rcard-name">Charité – Universitätsmedizin Berlin</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Surgery · Anesthesiology · Internal Medicine</span>
+        <p class="rcard-desc">Europe's largest university clinic — clinical rotations here are called "Famulatur." Patient-contact work requires B2/C1 German proficiency. Some departments (Anesthesiology, Surgery) may accept English speakers in a purely observational role.</p>
+        <div class="rcard-tags"><span class="rtag">German B2/C1 for Clinical</span><span class="rtag">Observational in English</span><span class="rtag">Admin Fees Only</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 Flexible</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 German (B2/C1)</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>Low admin fee only</strong>Public university</div>
+        <a href="https://www.charite.de/en/research/international_students/" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 12. Karolinska -->
+    <div class="rcard reveal d2" data-region="europe" data-specialties="research,internal medicine,surgery" data-name="karolinska institute sweden stockholm" data-modal="11">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#001f3a,#003d6b)">
+        <div class="rcard-flag">🇸🇪</div>
+        <div class="rcard-loc">Sweden · Stockholm</div>
+        <div class="rcard-name">Karolinska Institutet</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Research · Internal Medicine · Surgery</span>
+        <p class="rcard-desc">World-renowned research institution. Heavily prioritizes partner universities (Monash, NUS, etc.). "Freemover" non-partner applications are increasingly difficult to secure. Clinical work typically requires Swedish; English rotations exist in research departments.</p>
+        <div class="rcard-tags"><span class="rtag">Partner Priority</span><span class="rtag">Swedish for Clinical</span><span class="rtag">Research Opportunities</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 4-week blocks</div>
+          <div class="rm">🎓 Advanced</div>
+          <div class="rm">🌐 Swedish/English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>Contact Karolinska</strong>Partner/freemover fees vary</div>
+        <a href="https://ki.se/en/education/study-at-ki/exchange-studies" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- ====== NORTH AMERICA ====== -->
+
+    <!-- 13. Yale -->
+    <div class="rcard reveal" data-region="americas" data-specialties="internal medicine,surgery,pediatrics,cardiology" data-name="yale university school of medicine new haven vslo" data-modal="12">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#0b1f0b,#1a4a1a)">
+        <div class="badge badge-gold">VSLO</div>
+        <div class="rcard-flag">🇺🇸</div>
+        <div class="rcard-loc">USA · New Haven, CT</div>
+        <div class="rcard-name">Yale School of Medicine</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Multiple Clinical Electives</span>
+        <p class="rcard-desc">450–500 applications received annually; ~100 accepted (~20% acceptance rate). Office of Global Health Education manages the program. Strictly 4-week rotations. Electives only — no core clerkships. Final-year students only. Must apply via VSLO Global Network.</p>
+        <div class="rcard-tags"><span class="rtag">VSLO Required</span><span class="rtag">~20% Acceptance</span><span class="rtag">Final Year Only</span><span class="rtag">Electives Only</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 4 weeks (strict)</div>
+          <div class="rm">🎓 Final Year Only</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>VSLO + tuition fees</strong>Apply via VSLO</div>
+        <a href="https://medicine.yale.edu/education/visiting-students/" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 14. GWU -->
+    <div class="rcard reveal d1" data-region="americas" data-specialties="internal medicine,surgery,pediatrics" data-name="george washington university gwu washington dc affiliate" data-modal="13">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a0b0b,#4a1a1a)">
+        <div class="rcard-flag">🇺🇸</div>
+        <div class="rcard-loc">USA · Washington D.C.</div>
+        <div class="rcard-name">George Washington University (GWU)</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Multiple Specialties</span>
+        <p class="rcard-desc">International Clinical Electives Program (ICEP) uses a "closed-loop" model: only students enrolled at specifically affiliated international institutions are accepted. Unsolicited applications from non-affiliates are automatically rejected. Check affiliate list carefully.</p>
+        <div class="rcard-tags"><span class="rtag">Affiliate Schools Only</span><span class="rtag">No Unsolicited Apps</span><span class="rtag">USP · AUB · RCSI · Technion</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 Varies</div>
+          <div class="rm">🎓 Final Year</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>Tuition applies</strong>Affiliates only</div>
+        <a href="https://smhs.gwu.edu/education/visiting-students" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 15. UNM -->
+    <div class="rcard reveal d2" data-region="americas" data-specialties="internal medicine,family medicine,surgery" data-name="university new mexico albuquerque vslo" data-modal="14">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#2a1a0b,#5a3a1a)">
+        <div class="rcard-flag">🇺🇸</div>
+        <div class="rcard-loc">USA · Albuquerque, NM</div>
+        <div class="rcard-name">University of New Mexico</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Internal Medicine · Family Medicine</span>
+        <p class="rcard-desc">All applications must go through VSLO — direct faculty contact to pre-arrange spots is strictly prohibited and causes disqualification. Final-year only. No observerships or research electives. Placement notifications often come very late (late May).</p>
+        <div class="rcard-tags"><span class="rtag">VSLO Only</span><span class="rtag">No Direct Contact</span><span class="rtag">Final Year Only</span><span class="rtag">Late Notifications</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 Varies</div>
+          <div class="rm">🎓 Final Year Only</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>VSLO + tuition</strong>Via VSLO only</div>
+        <a href="https://hsc.unm.edu/medicine/education/visiting-students.html" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 16. Hospital das Clinicas Brazil -->
+    <div class="rcard reveal" data-region="americas" data-specialties="tropical medicine,infectious disease,pediatrics,surgery" data-name="hospital das clinicas usp sao paulo brazil fmusp" data-modal="15">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a0b2a,#3a1a5a)">
         <div class="rcard-flag">🇧🇷</div>
-        <div class="rcard-loc">Brazil &middot; São Paulo</div>
-        <div class="rcard-name">Hospital das Clínicas USP</div>
+        <div class="rcard-loc">Brazil · São Paulo</div>
+        <div class="rcard-name">Hospital das Clínicas USP (FMUSP)</div>
       </div>
       <div class="rcard-body">
-        <span class="rcard-spec">Pediatrics</span>
-        <p class="rcard-desc">Latin America's largest hospital complex — affiliated with the University of São Paulo. Rich pediatric experience serving one of the world's most diverse urban populations.</p>
+        <span class="spec-pill">Tropical Medicine · Infectious Disease · Surgery</span>
+        <p class="rcard-desc">Latin America's largest hospital complex. FMUSP runs the HCFMUSP Experience. Fee varies by origin: partners pay less; Americas/Africa/Asia ~$1,000; Europe/North America ~$2,000 per 4-week module. Portuguese B1/B2 strictly required for patient contact.</p>
+        <div class="rcard-tags"><span class="rtag">Portuguese B1/B2 Required</span><span class="rtag">Partner Discounts</span><span class="rtag">Largest in LatAm</span></div>
         <div class="rcard-meta">
-          <div class="rm-item"><span class="rm-icon">📅</span> 4–8 wks</div>
-          <div class="rm-item"><span class="rm-icon">🎓</span> MS2–MS4</div>
-          <div class="rm-item"><span class="rm-icon">🌐</span> Portuguese</div>
+          <div class="rm">📅 4-week modules</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 Portuguese (B1/B2)</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>~$1,000–1,800</strong></div>
-        <a href="#" class="rcard-cta">View Program →</a>
+        <div class="rcard-cost"><strong>$1,000–2,000</strong>Per 4-week module</div>
+        <a href="https://www.fm.usp.br/fmusp/portal.php/en" target="_blank" class="rcard-cta">Apply →</a>
       </div>
     </div>
 
-    <div class="rcard reveal">
-      <div class="rcard-top" style="--c1:#3a0b0b;--c2:#7a2020">
-        <div class="rcard-flag">🇲🇼</div>
-        <div class="rcard-loc">Malawi &middot; Blantyre</div>
-        <div class="rcard-name">Queen Elizabeth Central Hospital</div>
+    <!-- 17. UBA Argentina -->
+    <div class="rcard reveal d1" data-region="americas" data-specialties="internal medicine,surgery,public health" data-name="universidad buenos aires argentina uba spanish" data-modal="16">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#001a3a,#003a6b)">
+        <div class="rcard-flag">🇦🇷</div>
+        <div class="rcard-loc">Argentina · Buenos Aires</div>
+        <div class="rcard-name">Universidad de Buenos Aires (UBA)</div>
       </div>
       <div class="rcard-body">
-        <span class="rcard-spec">Emergency Medicine</span>
-        <p class="rcard-desc">Southern Africa's busiest emergency department. Resource-limited medicine at its most demanding — developing clinical decision-making that transforms future practice.</p>
+        <span class="spec-pill">Internal Medicine · Surgery · Public Health</span>
+        <p class="rcard-desc">One of the most accessible yet bureaucratically complex programs. Mandatory B1/B2 Spanish certificate (CELU or equivalent), Dean's letter of recommendation, and proof of malpractice insurance required. Administrative fee is nominal due to high Argentine inflation.</p>
+        <div class="rcard-tags"><span class="rtag">Spanish B1/B2 Required</span><span class="rtag">Dean's Letter Needed</span><span class="rtag">Nominal Admin Fee</span></div>
         <div class="rcard-meta">
-          <div class="rm-item"><span class="rm-icon">📅</span> 4 wks</div>
-          <div class="rm-item"><span class="rm-icon">🎓</span> MS3/MS4</div>
-          <div class="rm-item"><span class="rm-icon">🌐</span> English</div>
+          <div class="rm">📅 Flexible</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 Spanish (B1/B2)</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>~$700–1,200</strong></div>
-        <a href="#" class="rcard-cta">View Program →</a>
+        <div class="rcard-cost"><strong>Nominal admin fee</strong>Verify current rate</div>
+        <a href="http://www.medicina.uba.ar/" target="_blank" class="rcard-cta">Apply →</a>
       </div>
     </div>
 
-    <div class="rcard reveal reveal-delay-1">
-      <div class="rcard-top" style="--c1:#1a2a0b;--c2:#3a5e1a">
-        <div class="rcard-flag">🇹🇿</div>
-        <div class="rcard-loc">Tanzania &middot; Dar es Salaam</div>
-        <div class="rcard-name">Muhimbili National Hospital</div>
+    <!-- ====== ASIA ====== -->
+
+    <!-- 18. CMC Vellore -->
+    <div class="rcard reveal" data-region="asia" data-specialties="community health,internal medicine,tropical medicine,infectious disease" data-name="christian medical college vellore cmc india tropical" data-modal="17">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#2a1a0b,#6b4020)">
+        <div class="badge badge-gold">Best Value</div>
+        <div class="rcard-flag">🇮🇳</div>
+        <div class="rcard-loc">India · Vellore, Tamil Nadu</div>
+        <div class="rcard-name">Christian Medical College (CMC) Vellore</div>
       </div>
       <div class="rcard-body">
-        <span class="rcard-spec">Infectious Disease</span>
-        <p class="rcard-desc">Tanzania's premier academic center offering unmatched exposure to tropical infectious diseases — malaria, typhoid, meningitis — with direct patient contact and mentorship.</p>
+        <span class="spec-pill">Community Health · Tropical Medicine · Internal Medicine</span>
+        <p class="rcard-desc">Consistently ranked India's top medical college. Tuition is only ~INR 3,250/week (~$40 USD) — the most affordable high-quality elective in the world. However: requires Indian Ministry of Health + NMC clearance taking 4–6 months, plus a mandatory student visa. Start planning early.</p>
+        <div class="rcard-tags"><span class="rtag">~$40/week</span><span class="rtag">4–6 mo. visa process</span><span class="rtag">Student Visa Mandatory</span><span class="rtag">NMC Clearance</span></div>
         <div class="rcard-meta">
-          <div class="rm-item"><span class="rm-icon">📅</span> 4–8 wks</div>
-          <div class="rm-item"><span class="rm-icon">🎓</span> MS2–MS4</div>
-          <div class="rm-item"><span class="rm-icon">🌐</span> English/Swahili</div>
+          <div class="rm">📅 Flexible</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 English</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>~$900–1,600</strong></div>
-        <a href="#" class="rcard-cta">View Program →</a>
+        <div class="rcard-cost"><strong>~$40/week tuition</strong>+ registration fee</div>
+        <a href="https://www.cmch-vellore.edu/" target="_blank" class="rcard-cta">Apply →</a>
       </div>
     </div>
 
-    <div class="rcard reveal reveal-delay-2">
-      <div class="rcard-top" style="--c1:#0b2a3a;--c2:#1a5e7a">
+    <!-- 19. AIIMS New Delhi -->
+    <div class="rcard reveal d1" data-region="asia" data-specialties="surgery,internal medicine,radiology,cardiology" data-name="aiims all india institute medical sciences new delhi" data-modal="18">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a0b2a,#3a1a5a)">
+        <div class="rcard-flag">🇮🇳</div>
+        <div class="rcard-loc">India · New Delhi</div>
+        <div class="rcard-name">AIIMS New Delhi</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Surgery · Internal Medicine · Cardiology</span>
+        <p class="rcard-desc">India's most prestigious government medical institution. Extremely high patient volume and complex cases. Requires the same NMC + Ministry of Health clearance as all Indian institutions. Student visa mandatory; tourist visa is explicitly illegal for clinical floors.</p>
+        <div class="rcard-tags"><span class="rtag">NMC Clearance Required</span><span class="rtag">Student Visa Mandatory</span><span class="rtag">High Volume</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 2–6 weeks</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>Low admin fee</strong>NMC fees apply</div>
+        <a href="https://www.aiims.edu/en/international-students.html" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 20. Siriraj Hospital -->
+    <div class="rcard reveal d2" data-region="asia" data-specialties="internal medicine,tropical medicine,traditional medicine" data-name="siriraj hospital mahidol university bangkok thailand" data-modal="19">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#2a0b0b,#6b1a1a)">
+        <div class="rcard-flag">🇹🇭</div>
+        <div class="rcard-loc">Thailand · Bangkok</div>
+        <div class="rcard-name">Siriraj Hospital, Mahidol University</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Internal Medicine · Tropical Medicine · Traditional Thai Medicine</span>
+        <p class="rcard-desc">Bangkok's riverside flagship teaching hospital. Very affordable at ~5,000 THB (~$145 USD) per week. Unique exposure to Traditional Thai Medicine alongside modern tertiary care. Fixed application windows — apply in November for spring.</p>
+        <div class="rcard-tags"><span class="rtag">~$145/week</span><span class="rtag">Fixed Apply Windows</span><span class="rtag">Traditional Thai Med</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 Fixed windows</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~5,000 THB/week (~$145)</strong></div>
+        <a href="https://www.si.mahidol.ac.th/en/" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 21. Ramathibodi -->
+    <div class="rcard reveal" data-region="asia" data-specialties="internal medicine,surgery,pediatrics" data-name="ramathibodi hospital mahidol bangkok thailand" data-modal="20">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a0b2a,#3d1a5a)">
+        <div class="rcard-flag">🇹🇭</div>
+        <div class="rcard-loc">Thailand · Bangkok</div>
+        <div class="rcard-name">Ramathibodi Hospital, Mahidol</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Observational · All Specialties</span>
+        <p class="rcard-desc">Important caveat: The Thai Medical Council prohibits foreign students from hands-on procedures at this hospital — rotations are strictly observational. Apply in November for spring. Same cost structure as Siriraj. Good for clinical observation and exotic pathology.</p>
+        <div class="rcard-tags"><span class="rtag">Observational Only</span><span class="rtag">No Hands-On</span><span class="rtag">Apply November</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 Fixed windows</div>
+          <div class="rm">🎓 MS2–MS4</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~5,000 THB/week (~$145)</strong></div>
+        <a href="https://www.rama.mahidol.ac.th/en" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 22. Cho Ray Vietnam -->
+    <div class="rcard reveal d1" data-region="asia" data-specialties="emergency medicine,tropical medicine,infectious disease" data-name="cho ray hospital ho chi minh city vietnam" data-modal="21">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a2a0b,#3a5e1a)">
+        <div class="rcard-flag">🇻🇳</div>
+        <div class="rcard-loc">Vietnam · Ho Chi Minh City</div>
+        <div class="rcard-name">Cho Ray Hospital</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Emergency Medicine · Tropical Diseases · Trauma</span>
+        <p class="rcard-desc">High-volume trauma and tropical diseases. Students often witness advanced presentations of common diseases. Ward rounds are in Vietnamese — agencies like Work the World provide translators. Direct access via UMP (University of Medicine & Pharmacy) is possible but complex.</p>
+        <div class="rcard-tags"><span class="rtag">Work the World Access</span><span class="rtag">Translators Provided</span><span class="rtag">High Volume Trauma</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 2–8 weeks</div>
+          <div class="rm">🎓 MS2–MS4</div>
+          <div class="rm">🌐 Vietnamese (translator)</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>$2,500–3,500</strong>Via Work the World</div>
+        <a href="https://worktheworld.com/vietnam" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 23. AUB Lebanon -->
+    <div class="rcard reveal d2" data-region="middleeast" data-specialties="internal medicine,surgery,emergency medicine,psychiatry" data-name="american university beirut aub lebanon acgme" data-modal="22">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#0b1a2a,#1a3a5a)">
+        <div class="badge badge-teal">ACGME-I</div>
+        <div class="rcard-flag">🇱🇧</div>
+        <div class="rcard-loc">Lebanon · Beirut</div>
+        <div class="rcard-name">American University of Beirut (AUB)</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Internal Medicine · Surgery · Emergency Medicine</span>
+        <p class="rcard-desc">ACGME-I accredited — offering US-standard medical education in the Middle East. Unique exposure to refugee health, war-related trauma, and complex geopolitical health contexts alongside high-tech tertiary care. Application fee of $50 + tuition.</p>
+        <div class="rcard-tags"><span class="rtag">ACGME-I Accredited</span><span class="rtag">Refugee Health</span><span class="rtag">War Trauma Experience</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 Flexible</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>$50 app + tuition</strong>Contact AUB</div>
+        <a href="https://www.aub.edu.lb/fm/Pages/visiting-students.aspx" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 24. BP Koirala Nepal -->
+    <div class="rcard reveal" data-region="asia" data-specialties="family medicine,community health,rural medicine" data-name="bp koirala institute health sciences nepal dharan himalaya" data-modal="23">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#0b1f2a,#1a4a5a)">
         <div class="rcard-flag">🇳🇵</div>
-        <div class="rcard-loc">Nepal &middot; Dharan</div>
+        <div class="rcard-loc">Nepal · Dharan</div>
         <div class="rcard-name">BP Koirala Institute of Health Sciences</div>
       </div>
       <div class="rcard-body">
-        <span class="rcard-spec">Family Medicine</span>
-        <p class="rcard-desc">A world-class facility nestled in the foothills of the Himalayas — an extraordinary setting for community-oriented family medicine with remarkable continuity of care experience.</p>
+        <span class="spec-pill">Family Medicine · Community Health · Rural Medicine</span>
+        <p class="rcard-desc">World-class facility nestled in the foothills of the Himalayas. An extraordinary setting for community-oriented family medicine with remarkable continuity of care. Direct application possible. Low cost, English-language instruction, and stunning environment.</p>
+        <div class="rcard-tags"><span class="rtag">Direct Apply</span><span class="rtag">English</span><span class="rtag">Low Cost</span><span class="rtag">Himalayan Setting</span></div>
         <div class="rcard-meta">
-          <div class="rm-item"><span class="rm-icon">📅</span> 4 wks</div>
-          <div class="rm-item"><span class="rm-icon">🎓</span> MS2–MS4</div>
-          <div class="rm-item"><span class="rm-icon">🌐</span> English</div>
+          <div class="rm">📅 4 weeks</div>
+          <div class="rm">🎓 MS2–MS4</div>
+          <div class="rm">🌐 English</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>~$600–1,000</strong></div>
-        <a href="#" class="rcard-cta">View Program →</a>
+        <div class="rcard-cost"><strong>~$600–1,000</strong>Direct apply</div>
+        <a href="https://www.bpkihs.edu.np/" target="_blank" class="rcard-cta">Apply →</a>
       </div>
     </div>
 
-  </div>
+    <!-- ====== PACIFIC ====== -->
 
-  <div class="scroll-hint" style="padding-left:0">
-    <div class="sh-line" style="background:linear-gradient(90deg,transparent,var(--border))"></div>
-    <div class="sh-text">← scroll to explore more</div>
-    <div class="sh-line" style="background:linear-gradient(90deg,var(--border),transparent)"></div>
-  </div>
+    <!-- 25. CWM Fiji -->
+    <div class="rcard reveal d1" data-region="pacific" data-specialties="internal medicine,rural medicine,pediatrics,community health" data-name="cwm hospital suva fiji pacific islands ncd" data-modal="24">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#001f3a,#003d5a)">
+        <div class="rcard-flag">🇫🇯</div>
+        <div class="rcard-loc">Fiji · Suva</div>
+        <div class="rcard-name">Colonial War Memorial (CWM) Hospital</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Internal Medicine · Community Health · NCD Management</span>
+        <p class="rcard-desc">"Island medicine" — managing NCDs (diabetes, obesity crisis), tropical diseases, and scarce resources. Two locations: Suva (AUD 3,795/4wks) or Lautoka (AUD 2,395/4wks — lower cost). Local medical registration fee of ~FJD 1,000 also applies.</p>
+        <div class="rcard-tags"><span class="rtag">Island Medicine</span><span class="rtag">NCD Focus</span><span class="rtag">2 Locations</span><span class="rtag">FJD 1,000 Reg Fee</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 4 weeks</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>AUD 2,395–3,795</strong>+ FJD 1,000 reg</div>
+        <a href="https://www.doctours.com.au/fiji" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 26. Kompiam PNG -->
+    <div class="rcard reveal d2" data-region="pacific" data-specialties="rural medicine,surgery,infectious disease,community health" data-name="kompiam district hospital papua new guinea png remote rural mission" data-modal="25">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a0b0b,#3a1a0b)">
+        <div class="badge badge-rust">Remote</div>
+        <div class="rcard-flag">🇵🇬</div>
+        <div class="rcard-loc">Papua New Guinea · Enga Province</div>
+        <div class="rcard-name">Kompiam District Hospital</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Rural Medicine · Surgery · Infectious Disease</span>
+        <p class="rcard-desc">Extremely remote "bush medicine." Students may fly in via missionary aviation. Very high burden of trauma (tribal conflicts), TB, and malaria. Direct contact with Medical Superintendent required — not for the faint-hearted. Apply only if you have high resilience and adaptability.</p>
+        <div class="rcard-tags"><span class="rtag">Mission Hospital</span><span class="rtag">Fly-In Only</span><span class="rtag">High Resilience Required</span><span class="rtag">Direct Contact</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 Flexible</div>
+          <div class="rm">🎓 Advanced Students</div>
+          <div class="rm">🌐 English/Tok Pisin</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>Contact directly</strong>Medical Superintendent</div>
+        <a href="https://www.lutheranhealth.com.pg/" target="_blank" class="rcard-cta">Contact →</a>
+      </div>
+    </div>
+
+    <!-- 27. Belize -->
+    <div class="rcard reveal" data-region="americas" data-specialties="tropical medicine,rural medicine,emergency medicine,family medicine" data-name="medical electives belize san ignacio central america" data-modal="26">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#0b2a1a,#1a5e35)">
+        <div class="rcard-flag">🇧🇿</div>
+        <div class="rcard-loc">Belize · San Ignacio</div>
+        <div class="rcard-name">Medical Electives Belize</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Tropical Medicine · Rural Health · Emergency Medicine</span>
+        <p class="rcard-desc">Unique English-speaking Central American destination. High exposure to tropical diseases and rural health management in a resource-constrained environment. Comprehensive packages available via Kaya (~$7,590 for 6 weeks), including accommodation and logistics.</p>
+        <div class="rcard-tags"><span class="rtag">English-Speaking</span><span class="rtag">Central America</span><span class="rtag">Via Kaya</span><span class="rtag">Package Includes Housing</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 4–6 weeks</div>
+          <div class="rm">🎓 MS2–MS4</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~$7,590</strong>6-week package (incl. housing)</div>
+        <a href="https://www.kayavolunteer.com/program/medical-electives-belize/" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+    <!-- 28. Bach Mai Vietnam -->
+    <div class="rcard reveal d1" data-region="asia" data-specialties="infectious disease,internal medicine,toxicology" data-name="bach mai hospital hanoi vietnam north toxicology" data-modal="27">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#0b1a0b,#1a3a1a)">
+        <div class="rcard-flag">🇻🇳</div>
+        <div class="rcard-loc">Vietnam · Hanoi</div>
+        <div class="rcard-name">Bach Mai Hospital</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">Infectious Disease · Toxicology · Internal Medicine</span>
+        <p class="rcard-desc">Northern Vietnam's premier referral center with particular strength in toxicology (poison control) and infectious diseases. Ward rounds in Vietnamese — senior staff often speak French or English. Access via direct application to UMP or through Work the World.</p>
+        <div class="rcard-tags"><span class="rtag">Toxicology Focus</span><span class="rtag">French/English Senior Staff</span><span class="rtag">Direct or Agency</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 2–8 weeks</div>
+          <div class="rm">🎓 MS2–MS4</div>
+          <div class="rm">🌐 Vietnamese/French</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~$2,500–3,500</strong>Via Work the World</div>
+        <a href="https://worktheworld.com/vietnam" target="_blank" class="rcard-cta">Apply →</a>
+      </div>
+    </div>
+
+  </div><!-- end cards-grid -->
 </section>
 
-<!-- REGIONS -->
-<section class="regions-section section" id="regions">
-  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:0" class="reveal">
+<!-- THIRD-PARTY PROVIDERS TABLE -->
+<section class="providers-section" id="providers">
+  <div class="sec-hdr reveal">
     <div>
-      <span class="section-eyebrow">Browse by Region</span>
-      <h2 class="section-h">Find Rotations <em>Around the World</em></h2>
+      <span class="eyebrow">Agency Programs</span>
+      <h2 class="section-h">Third-Party Provider <em>Comparison</em></h2>
+      <p class="section-sub">For students who want logistics handled — housing, hospital access, translators, and support. Higher cost, lower stress.</p>
     </div>
-    <a href="#" class="view-all">View all regions →</a>
   </div>
-  <div class="regions-grid">
-    <a href="#" class="region-cell reveal" style="--c:#2a9d8f">
-      <div class="rc-emoji">🌍</div>
-      <div class="rc-name">Sub-Saharan Africa</div>
-      <div class="rc-programs">82 programs across 24 countries</div>
-      <div class="rc-bar"><div class="rc-fill" style="width:82%;--c:#2a9d8f"></div></div>
-      <div class="rc-arrow">Explore region →</div>
-    </a>
-    <a href="#" class="region-cell reveal reveal-delay-1" style="--c:#b8933f">
-      <div class="rc-emoji">🌏</div>
-      <div class="rc-name">South &amp; Southeast Asia</div>
-      <div class="rc-programs">64 programs across 12 countries</div>
-      <div class="rc-bar"><div class="rc-fill" style="width:64%;--c:#b8933f"></div></div>
-      <div class="rc-arrow">Explore region →</div>
-    </a>
-    <a href="#" class="region-cell reveal reveal-delay-2" style="--c:#c0533a">
-      <div class="rc-emoji">🌎</div>
-      <div class="rc-name">Latin America</div>
-      <div class="rc-programs">47 programs across 15 countries</div>
-      <div class="rc-bar"><div class="rc-fill" style="width:47%;--c:#c0533a"></div></div>
-      <div class="rc-arrow">Explore region →</div>
-    </a>
-    <a href="#" class="region-cell reveal" style="--c:#7b5ea7">
-      <div class="rc-emoji">🕌</div>
-      <div class="rc-name">Middle East &amp; N. Africa</div>
-      <div class="rc-programs">23 programs across 8 countries</div>
-      <div class="rc-bar"><div class="rc-fill" style="width:23%;--c:#7b5ea7"></div></div>
-      <div class="rc-arrow">Explore region →</div>
-    </a>
-    <a href="#" class="region-cell reveal reveal-delay-1" style="--c:#4a7c8f">
-      <div class="rc-emoji">🏔️</div>
-      <div class="rc-name">Eastern Europe &amp; Balkans</div>
-      <div class="rc-programs">15 programs across 9 countries</div>
-      <div class="rc-bar"><div class="rc-fill" style="width:15%;--c:#4a7c8f"></div></div>
-      <div class="rc-arrow">Explore region →</div>
-    </a>
-    <a href="#" class="region-cell reveal reveal-delay-2" style="--c:#3bbfb0">
-      <div class="rc-emoji">🌊</div>
-      <div class="rc-name">Pacific &amp; Oceania</div>
-      <div class="rc-programs">9 programs across 5 countries</div>
-      <div class="rc-bar"><div class="rc-fill" style="width:9%;--c:#3bbfb0"></div></div>
-      <div class="rc-arrow">Explore region →</div>
-    </a>
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Primary Regions</th>
+          <th>Approx. Cost (4 weeks)</th>
+          <th>Key Differentiator</th>
+          <th>Best For</th>
+          <th>Website</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Work the World</td>
+          <td>Ghana, Tanzania, Nepal, Vietnam, Philippines, Sri Lanka</td>
+          <td class="cost-cell">$2,500–3,500 USD</td>
+          <td class="diff-cell">Owns their housing ("The Work the World House"). Private transport, chefs, high security, structured hospital access.</td>
+          <td>Students wanting safety, social life, structured access</td>
+          <td><a href="https://worktheworld.com" target="_blank">worktheworld.com ↗</a></td>
+        </tr>
+        <tr>
+          <td>Child Family Health International (CFHI)</td>
+          <td>Bolivia, Ecuador, India, South Africa, Uganda</td>
+          <td class="cost-cell">$2,000–3,000 USD</td>
+          <td class="diff-cell">Non-profit. Emphasis on ethical global health curriculum, public health frameworks, and homestays over hotel-style housing.</td>
+          <td>Students focused on public health, ethics, and cultural immersion</td>
+          <td><a href="https://www.cfhi.org" target="_blank">cfhi.org ↗</a></td>
+        </tr>
+        <tr>
+          <td>Plan My Gap Year (PMGY)</td>
+          <td>Ghana, Bali, Sri Lanka, Vietnam, Peru</td>
+          <td class="cost-cell">$600–1,200 USD</td>
+          <td class="diff-cell">Budget option. Lower cost via volunteer houses or hostels. Less academic structure. Good for pre-meds and budget-conscious students.</td>
+          <td>Pre-meds, nursing students, early medical year students</td>
+          <td><a href="https://www.pmgy.co.uk" target="_blank">pmgy.co.uk ↗</a></td>
+        </tr>
+        <tr>
+          <td>Elective Africa</td>
+          <td>Kenya, Tanzania</td>
+          <td class="cost-cell">$1,500–2,500 USD</td>
+          <td class="diff-cell">Regional specialist. Founded by locals with strong hospital connections across East Africa. "Safari + Surgery" combination popular. More authentic than large international agencies.</td>
+          <td>Students specifically targeting East Africa</td>
+          <td><a href="https://www.electiveafrica.com" target="_blank">electiveafrica.com ↗</a></td>
+        </tr>
+        <tr>
+          <td>Gap Medics</td>
+          <td>Tanzania, Thailand, Dominican Republic</td>
+          <td class="cost-cell">$1,800+ USD</td>
+          <td class="diff-cell">Originally focused on pre-meds (age 16–18). Now offers some clinical tracks for medical students. More shadowing-oriented than clinical rotations.</td>
+          <td>Pre-meds and early-year medical students</td>
+          <td><a href="https://www.gapmedics.com" target="_blank">gapmedics.com ↗</a></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="how-section section">
-  <div class="reveal">
-    <span class="section-eyebrow">How It Works</span>
-    <h2 class="section-h">From Discovery <em>to Departure</em></h2>
-    <p class="section-sub">No agencies. No hidden fees. No middlemen. Just direct connections between curious medical students and transformative opportunities.</p>
-  </div>
-
-  <div class="how-grid">
-    <div class="how-steps">
-      <div class="how-step reveal">
-        <div class="hs-num">01</div>
-        <div class="hs-content">
-          <div class="hs-title">Search &amp; Filter Freely</div>
-          <div class="hs-body">Browse 240+ programs by country, specialty, duration, cost, or language. No account needed, no paywall — ever. The full database is yours.</div>
-        </div>
-      </div>
-      <div class="how-step reveal reveal-delay-1">
-        <div class="hs-num">02</div>
-        <div class="hs-content">
-          <div class="hs-title">Read Detailed Program Profiles</div>
-          <div class="hs-body">Every listing includes hospital context, clinical expectations, cost breakdowns, language requirements, and notes from students who've been there.</div>
-        </div>
-      </div>
-      <div class="how-step reveal reveal-delay-2">
-        <div class="hs-num">03</div>
-        <div class="hs-content">
-          <div class="hs-title">Apply Directly to Programs</div>
-          <div class="hs-body">We link you straight to each program's application portal or coordinator contact. No intermediary, no commission, no markup.</div>
-        </div>
-      </div>
-      <div class="how-step reveal reveal-delay-3">
-        <div class="hs-num">04</div>
-        <div class="hs-content">
-          <div class="hs-title">Prepare with Free Resources</div>
-          <div class="hs-body">Use our free toolkit — packing checklists, visa guides, vaccine recommendations, insurance comparisons, and cultural primers — to go in confident.</div>
-        </div>
-      </div>
+<!-- REQUIREMENTS -->
+<section class="req-section section" id="requirements">
+  <span class="eyebrow">Before You Apply</span>
+  <h2 class="section-h">Administrative &amp; Regulatory <em>Requirements</em></h2>
+  <p class="section-sub">The most common sources of delay and failure for medical electives — know these before you start applying.</p>
+  <div class="req-grid">
+    <div class="req-card reveal">
+      <div class="req-icon">🛂</div>
+      <div class="req-title">The Tourist Visa Trap</div>
+      <div class="req-body">Using a tourist visa to complete clinical rotations is <strong>illegal</strong> in several key countries. In <strong>India</strong>, the NMC requirement mandates a student visa for all clinical floors — tourists found on wards face deportation. <strong>South Africa</strong> requires HPCSA registration, which functions as a temporary work license. The UK allows electives on a Standard Visitor visa but requires a host university letter confirming it's a permitted medical elective activity.</div>
     </div>
-
-    <div class="how-visual reveal">
-      <div class="hv-label">Your rotation journey</div>
-      <div class="hv-path">
-        <div class="hv-node active">
-          <div class="hv-icon">🔍</div>
-          <div class="hv-ntxt">Search &amp; shortlist programs</div>
-        </div>
-        <div class="hv-connector"></div>
-        <div class="hv-node active">
-          <div class="hv-icon">📄</div>
-          <div class="hv-ntxt">Read full program profiles</div>
-        </div>
-        <div class="hv-connector"></div>
-        <div class="hv-node active">
-          <div class="hv-icon">✉️</div>
-          <div class="hv-ntxt">Apply directly to programs</div>
-        </div>
-        <div class="hv-connector"></div>
-        <div class="hv-node">
-          <div class="hv-icon">💉</div>
-          <div class="hv-ntxt">Complete vaccine &amp; visa requirements</div>
-        </div>
-        <div class="hv-connector"></div>
-        <div class="hv-node">
-          <div class="hv-icon">✈️</div>
-          <div class="hv-ntxt">Depart with confidence</div>
-        </div>
-        <div class="hv-connector"></div>
-        <div class="hv-node">
-          <div class="hv-icon">🌍</div>
-          <div class="hv-ntxt">Transform your clinical perspective</div>
-        </div>
-      </div>
+    <div class="req-card reveal d1">
+      <div class="req-icon">🏥</div>
+      <div class="req-title">South Africa: HPCSA Registration</div>
+      <div class="req-body">The <strong>Health Professions Council of South Africa (HPCSA)</strong> registration is mandatory for all clinical rotations in South Africa. This process can take several months and is usually facilitated by the host university. At UCT/Groote Schuur, the ZAR 7,500 fee is inclusive of HPCSA registration. Plan for a <strong>3–6 month</strong> lead time minimum. Do not book flights before confirmation.</div>
+    </div>
+    <div class="req-card reveal d2">
+      <div class="req-icon">🇮🇳</div>
+      <div class="req-title">India: NMC + Ministry Clearance</div>
+      <div class="req-body">All Indian rotations require clearance from both the <strong>National Medical Commission (NMC)</strong> and the <strong>Indian Ministry of Health</strong>. This bureaucratic process takes <strong>4–6 months</strong> minimum. Additionally, a <strong>student visa</strong> is mandatory — tourist visas for clinical work are strictly illegal. Begin the process at least 6 months before your target start date. CMC Vellore reportedly accepts only ~5 students/year through formal channels; department-level agreements may allow more.</div>
+    </div>
+    <div class="req-card reveal">
+      <div class="req-icon">📋</div>
+      <div class="req-title">VSLO: The U.S. Gatekeeper</div>
+      <div class="req-body">The <strong>Visiting Student Learning Opportunities (VSLO)</strong> program managed by AAMC is the primary gateway to most U.S. clinical electives. Participation is generally restricted to students from the "Global Network" — a specific list of international medical schools that have paid to join the AAMC system. Ensure your home institution is a VSLO member before applying. Visit <a href="https://vslo.aamc.org" target="_blank">vslo.aamc.org ↗</a></div>
+    </div>
+    <div class="req-card reveal d1">
+      <div class="req-icon">🛡️</div>
+      <div class="req-title">Medical Malpractice Insurance</div>
+      <div class="req-body">Most VSLO institutions require <strong>$1M per occurrence / $3M aggregate</strong> coverage. European institutions often require personal liability insurance separately. UK students covered worldwide (excluding USA) by <strong>MDU or MPS</strong> for electives. Argentina requires proof of malpractice insurance alongside your Dean's letter. Never assume your home school's policy covers international clinical work — verify explicitly.</div>
+    </div>
+    <div class="req-card reveal d2">
+      <div class="req-icon">💰</div>
+      <div class="req-title">Funding Sources</div>
+      <div class="req-body"><strong>Erasmus+:</strong> EU students rotating within the EU (e.g., Graz → Berlin). <strong>CFHI</strong> offers diversity scholarships for their programs. <strong>Yale, UMN</strong> and other US institutions have internal Global Health travel grants for their own students. Many medical schools have a global health officer who knows of institutional grants — always ask. Search <a href="https://www.aamc.org/career-development/global-health" target="_blank">AAMC Global Health ↗</a> for additional resources.</div>
     </div>
   </div>
 </section>
 
-<!-- RESOURCES -->
-<section class="resources-section section" id="resources">
-  <div style="display:flex;justify-content:space-between;align-items:flex-end" class="reveal">
-    <div>
-      <span class="section-eyebrow">Free Resources</span>
-      <h2 class="section-h">Everything You Need <em>to Prepare</em></h2>
+<!-- EXPERT TIPS -->
+<section class="tips-section section" id="tips">
+  <span class="eyebrow">Expert Guidance</span>
+  <h2 class="section-h">How to Choose <em>the Right Program</em></h2>
+  <p class="section-sub">Based on your learning objective — not just your destination bucket list.</p>
+  <div class="tips-grid">
+    <div class="tip-card" style="--c:#c0533a">
+      <div class="tip-num">01</div>
+      <div class="tip-title">For Trauma Skills → South Africa</div>
+      <div class="tip-body">Apply to <strong>Chris Hani Baragwanath</strong> (via Wits) or <strong>Kenyatta National Hospital</strong> (Kenya). Baragwanath's penetrating trauma volume is unmatched globally; students consistently report greater hands-on involvement than any Western training environment. Start the HPCSA process 6 months early.</div>
     </div>
-    <a href="#" class="view-all">View all resources →</a>
-  </div>
-
-  <div class="resources-grid">
-    <a href="#" class="res-card reveal">
-      <div class="res-ico">📋</div>
-      <div class="res-title">Pre-Rotation Master Checklist</div>
-      <p class="res-desc">A comprehensive checklist covering visas, vaccinations, insurance, elective letters, packing, and arrival orientation — so you never miss a step.</p>
-      <span class="res-link">Download free →</span>
-    </a>
-    <a href="#" class="res-card reveal reveal-delay-1">
-      <div class="res-ico">🛡️</div>
-      <div class="res-title">Medical Travel Insurance Guide</div>
-      <p class="res-desc">An honest comparison of GeoBlue, HTH, IMG, and others — what's covered, what isn't, and what medical students on clinical rotations specifically need.</p>
-      <span class="res-link">Read guide →</span>
-    </a>
-    <a href="#" class="res-card reveal reveal-delay-2">
-      <div class="res-ico">💉</div>
-      <div class="res-title">Vaccination &amp; Health Requirements</div>
-      <p class="res-desc">Region-by-region breakdown of recommended and required vaccines, malaria prophylaxis options, and what to discuss at your pre-travel appointment.</p>
-      <span class="res-link">Browse by region →</span>
-    </a>
-    <a href="#" class="res-card reveal">
-      <div class="res-ico">📝</div>
-      <div class="res-title">Application Toolkit</div>
-      <p class="res-desc">Email templates for reaching out to programs, elective request letter formats, personal statement frameworks for global health applications.</p>
-      <span class="res-link">Get toolkit →</span>
-    </a>
-    <a href="#" class="res-card reveal reveal-delay-1">
-      <div class="res-ico">💬</div>
-      <div class="res-title">Cultural Preparation Guides</div>
-      <p class="res-desc">Region-specific primers on clinical hierarchy, communication styles, what to expect as a visiting student, and how to show up as a respectful guest.</p>
-      <span class="res-link">Explore guides →</span>
-    </a>
-    <a href="#" class="res-card reveal reveal-delay-2">
-      <div class="res-ico">💰</div>
-      <div class="res-title">Funding &amp; Scholarships</div>
-      <p class="res-desc">A curated, regularly updated list of grants, scholarships, and funding sources available to medical students pursuing international clinical training.</p>
-      <span class="res-link">Find funding →</span>
-    </a>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials-section section">
-  <div class="reveal">
-    <span class="section-eyebrow">Student Stories</span>
-    <h2 class="section-h">What Students <em>Say</em></h2>
-  </div>
-  <div class="testi-grid">
-    <div class="tcard reveal">
-      <div class="tcard-quote">&ldquo;</div>
-      <div class="tcard-stars">★★★★★</div>
-      <p class="tcard-text">The only place I could find a comprehensive list of programs in East Africa. I found my Nairobi rotation in under an hour and applied directly — no agency, no fees, no runaround.</p>
-      <div class="tcard-auth">
-        <div class="tcard-av" style="background:linear-gradient(135deg,#0b3d2e,#2a9d8f)">ER</div>
-        <div>
-          <div class="tcard-name">Emily R.</div>
-          <div class="tcard-detail">MS4 · University of Michigan · Rotation: Kenya</div>
-        </div>
-      </div>
+    <div class="tip-card" style="--c:#b8933f">
+      <div class="tip-num">02</div>
+      <div class="tip-title">For Tropical Medicine → India or Thailand</div>
+      <div class="tip-body">Apply to <strong>CMC Vellore</strong> (~$40/week, world-renowned CHAD program) or <strong>Mahidol University, Bangkok</strong> (Siriraj or Ramathibodi, ~$145/week). India offers the deepest pathology but requires 4–6 months of visa/NMC prep. Thailand is faster to set up and offers unique Traditional Medicine exposure.</div>
     </div>
-    <div class="tcard reveal reveal-delay-1">
-      <div class="tcard-quote">&ldquo;</div>
-      <div class="tcard-stars">★★★★★</div>
-      <p class="tcard-text">I found a mentor who'd done a rotation in Uganda before I went. The insurance guide alone saved me hours of research. This is exactly what global health education needed.</p>
-      <div class="tcard-auth">
-        <div class="tcard-av" style="background:linear-gradient(135deg,#2d1050,#7b5ea7)">JS</div>
-        <div>
-          <div class="tcard-name">John S.</div>
-          <div class="tcard-detail">MS3 · Georgetown · Rotation: Uganda</div>
-        </div>
-      </div>
+    <div class="tip-card" style="--c:#6b4fa0">
+      <div class="tip-num">03</div>
+      <div class="tip-title">For Academic Prestige → Oxford or Yale</div>
+      <div class="tip-body"><strong>Oxford University Hospitals</strong> — free tuition, but hyper-competitive and no accommodation. Apply 12–18 months in advance. <strong>Yale</strong> via VSLO — only ~20% acceptance rate, 4-week electives only, final year only. Both look exceptional on residency applications and open networking opportunities.</div>
     </div>
-    <div class="tcard reveal reveal-delay-2">
-      <div class="tcard-quote">&ldquo;</div>
-      <div class="tcard-stars">★★★★★</div>
-      <p class="tcard-text">My AIIMS rotation was career-defining. The detail in each listing — clinical expectations, real costs, timeline — is unlike anything else out there. I tell every MS2 about this site.</p>
-      <div class="tcard-auth">
-        <div class="tcard-av" style="background:linear-gradient(135deg,#3a1a00,#b8933f)">PM</div>
-        <div>
-          <div class="tcard-name">Priya M.</div>
-          <div class="tcard-detail">MS4 · NYU Grossman · Rotation: India</div>
-        </div>
-      </div>
+    <div class="tip-card" style="--c:#2a9d8f">
+      <div class="tip-num">04</div>
+      <div class="tip-title">For Rural/Remote Medicine → PNG or Fiji</div>
+      <div class="tip-body"><strong>Kompiam District Hospital</strong> (Papua New Guinea) for true "bush medicine" — fly-in only, mission hospital, high tribal trauma and TB/malaria burden. Requires high adaptability. <strong>CWM Hospital Fiji</strong> for more structured Pacific island medicine with NCD focus. Both are profoundly formative.</div>
+    </div>
+    <div class="tip-card" style="--c:#1a5fa8">
+      <div class="tip-num">05</div>
+      <div class="tip-title">For Logistical Ease → Use a Provider</div>
+      <div class="tip-body">If navigating work permits, housing, and hospital access solo feels daunting — particularly in <strong>Vietnam or Latin America</strong> — use <strong>Work the World</strong> (premium, structured) or <strong>CFHI</strong> (non-profit, ethical curriculum) to handle logistics. Budget-conscious students should look at <strong>PMGY</strong> ($600–1,200 vs. $2,500–3,500).</div>
+    </div>
+    <div class="tip-card" style="--c:#3bbfb0">
+      <div class="tip-num">06</div>
+      <div class="tip-title">The Language Barrier — Know Before You Go</div>
+      <div class="tip-body"><strong>Brazil (Portuguese B1/B2)</strong>, <strong>Argentina (Spanish B1/B2)</strong>, and <strong>Germany (German B2/C1)</strong> strictly enforce language requirements for patient-contact rotations. If you don't meet these, Charité may accept you in a purely observational role. <strong>Don't misrepresent your language level</strong> — it affects patient safety and your reputation.</div>
     </div>
   </div>
 </section>
 
-<!-- BIG QUOTE -->
-<div class="big-quote-section reveal">
-  <p class="bq-text">"The students who train across borders don't just become <strong>better clinicians</strong> — they become the physicians the world actually needs."</p>
-  <div class="bq-attr">The Case for Global Medical Education</div>
-</div>
+<!-- GLOSSARY -->
+<section class="glossary-section section">
+  <span class="eyebrow">Reference</span>
+  <h2 class="section-h">Key Terms <em>Glossary</em></h2>
+  <div class="gloss-grid">
+    <div class="gloss-item"><div class="gloss-term">VSLO</div><div class="gloss-def">Visiting Student Learning Opportunities — AAMC's centralized platform for U.S. and international student exchange. Required for most U.S. electives. Your home institution must be a paid VSLO Global Network member.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Famulatur</div><div class="gloss-def">The German term for a clinical elective rotation. Used at Charité Berlin and other German medical institutions. Typically requires B2/C1 German for patient contact.</div></div>
+    <div class="gloss-item"><div class="gloss-term">HPCSA</div><div class="gloss-def">Health Professions Council of South Africa. Registration is mandatory before any clinical activity in South Africa. Usually facilitated by host university. Process takes 2–6 months.</div></div>
+    <div class="gloss-item"><div class="gloss-term">NMC</div><div class="gloss-def">National Medical Commission of India. All foreign students doing clinical rotations in India must obtain NMC clearance (plus Indian Ministry of Health approval). Takes 4–6 months.</div></div>
+    <div class="gloss-item"><div class="gloss-term">MoU</div><div class="gloss-def">Memorandum of Understanding — a bilateral agreement between two universities that formalizes student exchange. MoU partnerships often bypass standard fees and competitive application pools.</div></div>
+    <div class="gloss-item"><div class="gloss-term">ICEP</div><div class="gloss-def">International Clinical Electives Program. Used by GWU and some other U.S. institutions to describe their specifically structured program for visiting international students from affiliated schools.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Freemover</div><div class="gloss-def">A student applying to an institution without a formal MoU bilateral exchange agreement — i.e., as an independent applicant rather than through a partner institution. Increasingly restricted at places like Karolinska.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Elective vs. Clerkship</div><div class="gloss-def">In U.S. terminology: core clerkships are required rotations (Medicine, Surgery, Pediatrics, etc.); electives are optional specialty rotations. Most U.S. institutions only offer electives — not core clerkships — to visiting international students.</div></div>
+  </div>
+</section>
 
-<!-- SUBMIT CTA -->
+<!-- CTA -->
 <section class="cta-section section" id="submit">
-  <div class="cta-inner">
-    <span class="section-eyebrow" style="display:block;text-align:center;margin-bottom:1rem">Help the Community Grow</span>
+  <div class="cta-inner reveal">
+    <span class="eyebrow" style="display:block;text-align:center;margin-bottom:1rem">Grow the Database</span>
     <h2 class="cta-h">Know a Program <em>We're Missing?</em></h2>
-    <p class="cta-p">Global Rotation Gateway grows through community contributions. If you've completed a rotation or know of a program not yet listed, submit it — every addition helps another student find their path.</p>
+    <p class="cta-p">This directory is built on community knowledge. If you've completed a rotation, know of an unlisted program, or have updated cost/requirement information, submit it here — free forever.</p>
     <div class="cta-form">
-      <input class="cta-input" type="email" placeholder="Your email address" />
-      <button class="cta-btn">Submit a Rotation</button>
+      <input class="cta-input" type="email" placeholder="Your email address"/>
+      <button class="cta-btn">Submit a Program</button>
     </div>
-    <p class="cta-fine">We'll send you a short submission form. All listings are free.</p>
+    <p class="cta-fine">We'll send you a short submission form. All listings are free and unsponsored.</p>
   </div>
 </section>
 
 <!-- PARTNERS -->
-<div class="partners-section">
-  <div class="partners-label">Trusted Partners &amp; Sponsors</div>
-  <div class="partners-logos">
-    <div class="partner-name">Child Family Health Intl.</div>
-    <div class="partner-name">IFMSA</div>
-    <div class="partner-name">GeoBlue Insurance</div>
-    <div class="partner-name">Global Health Learning</div>
-    <div class="partner-name">WHO Student Network</div>
-    <div class="partner-name">StudentUniverse</div>
+<div class="partners-bar">
+  <div class="partners-lbl">Information Sources</div>
+  <div class="partners-list">
+    <a href="https://vslo.aamc.org" target="_blank" class="partner">AAMC / VSLO</a>
+    <a href="https://worktheworld.com" target="_blank" class="partner">Work the World</a>
+    <a href="https://www.cfhi.org" target="_blank" class="partner">CFHI</a>
+    <a href="https://www.electiveafrica.com" target="_blank" class="partner">Elective Africa</a>
+    <a href="https://www.pmgy.co.uk" target="_blank" class="partner">PMGY</a>
+    <a href="https://www.gapmedics.com" target="_blank" class="partner">Gap Medics</a>
   </div>
 </div>
 
 <!-- FOOTER -->
-<footer id="about">
-  <div class="footer-top">
-    <div class="footer-brand">
-      <div class="footer-logo">Global Rotation <em>Gateway</em></div>
-      <p class="footer-desc">A free, comprehensive directory of international clinical rotation opportunities for medical students. Built for students, by students — powered by community contributions.</p>
+<footer>
+  <div class="ft">
+    <div>
+      <div class="f-brand-logo">Global Rotation <em>Gateway</em></div>
+      <p class="f-desc">A free, verified directory of international clinical rotation opportunities for medical students. No registration required. No hidden fees. Community-maintained.</p>
     </div>
-    <div class="footer-col">
-      <h5>Explore</h5>
-      <a href="#">Browse All Programs</a>
-      <a href="#">By Region</a>
-      <a href="#">By Specialty</a>
-      <a href="#">Featured Rotations</a>
-      <a href="#">Newly Added</a>
+    <div class="f-col">
+      <h5>Browse</h5>
+      <a href="#programs">All Programs</a>
+      <a href="#" onclick="setRegion('africa');return false">Africa</a>
+      <a href="#" onclick="setRegion('europe');return false">Europe</a>
+      <a href="#" onclick="setRegion('asia');return false">Asia</a>
+      <a href="#" onclick="setRegion('americas');return false">Americas</a>
+      <a href="#" onclick="setRegion('pacific');return false">Pacific</a>
     </div>
-    <div class="footer-col">
+    <div class="f-col">
       <h5>Resources</h5>
-      <a href="#">Preparation Checklist</a>
-      <a href="#">Insurance Guide</a>
-      <a href="#">Vaccination Info</a>
-      <a href="#">Funding Sources</a>
-      <a href="#">Cultural Guides</a>
+      <a href="#requirements">Visa Requirements</a>
+      <a href="#requirements">Insurance Guide</a>
+      <a href="#requirements">Funding Sources</a>
+      <a href="#tips">How to Choose</a>
+      <a href="#glossary">Glossary</a>
     </div>
-    <div class="footer-col">
+    <div class="f-col">
       <h5>Site</h5>
-      <a href="#">About</a>
-      <a href="#">Submit a Rotation</a>
-      <a href="#">Contact</a>
-      <a href="#">Partner With Us</a>
+      <a href="#submit">Submit a Rotation</a>
+      <a href="#providers">3rd-Party Providers</a>
+      <a href="https://vslo.aamc.org" target="_blank">VSLO ↗</a>
+      <a href="#submit">Partner With Us</a>
       <a href="#">Privacy Policy</a>
     </div>
   </div>
-  <div class="footer-bottom">
-    <p>&copy; 2025 Global Rotation Gateway. Always free for medical students.</p>
-    <div class="footer-bottom-links">
+  <div class="f-bot">
+    <p>© 2025 Global Rotation Gateway. Program data sourced from institutional documentation. Always verify requirements directly with the host institution before applying.</p>
+    <div class="f-bot-links">
       <a href="#">Partner / Advertise</a>
       <a href="#">Privacy</a>
-      <a href="#">Terms</a>
     </div>
   </div>
 </footer>
 
+<!-- MODAL DATA -->
 <script>
-/* ── CURSOR ── */
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
-(function animRing(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+const PROGRAMS = [
+  {flag:'🇰🇪',loc:'Kenya · Nairobi',name:'Kenyatta National Hospital',spec:'Internal Medicine, Pediatrics, Oncology',
+   cost:'$300–500/month (varies by department)',duration:'Flexible duration',year:'MS3/MS4',lang:'English',
+   desc:'The largest referral hospital in East and Central Africa, serving millions across the region. One of the few institutions accepting direct applications without going through an agency — making it significantly more affordable than agency-mediated alternatives. Exceptional volume and pathology diversity including HIV/TB co-management, advanced oncology, pediatric disease burden, and trauma.',
+   reqs:['Direct application via KNH Training Centre','Malpractice insurance required','Vaccination requirements: Yellow fever, Typhoid, Hep A/B, Malaria prophylaxis','No formal language test required'],
+   url:'https://www.knh.or.ke',urlLabel:'KNH Training Centre'},
+  {flag:'🇿🇦',loc:'South Africa · Soweto',name:'Chris Hani Baragwanath Academic Hospital',spec:'Trauma Surgery, Emergency Medicine',
+   cost:'HPCSA registration fee + Wits admin fee (verify current rates)',duration:'Flexible',year:'Final Year',lang:'English',
+   desc:'The third-largest hospital in the world by bed count, serving Soweto — one of Africa\'s most densely populated urban areas. The Trauma Unit has a global reputation for penetrating trauma volume (gunshot and stab wounds). Students who train here consistently report more hands-on involvement than anywhere else — suturing, resuscitation, and complex wound care under supervision. Applied through the University of the Witwatersrand (Wits).',
+   reqs:['Apply via University of the Witwatersrand (Wits) international office','HPCSA registration is mandatory — process takes 2–6 months','Study visa required for stays over 90 days','Malpractice insurance required','Vaccinations: Yellow fever, Typhoid, Hep A/B','⚠️ Do NOT attempt to enter on a tourist visa for clinical work — illegal in South Africa'],
+   url:'https://www.wits.ac.za/health/students/international-students/',urlLabel:'Apply via Wits'},
+  {flag:'🇿🇦',loc:'South Africa · Cape Town',name:'Groote Schuur Hospital / UCT',spec:'Surgery, Internal Medicine, Cardiology',
+   cost:'ZAR 7,500 (~$400 USD) per 2-week block (includes HPCSA registration fee)',duration:'2-week blocks',year:'Final Year',lang:'English',
+   desc:'Home of the world\'s first heart transplant in 1967. Groote Schuur is operated by the University of Cape Town Faculty of Health Sciences and offers a highly structured elective program with a dedicated Elective Office. A blend of cutting-edge tertiary care, research, and resource-constrained public health in one of the world\'s most beautiful cities. Apply extraordinarily early — 2027 spots may open as early as November 2025.',
+   reqs:['Apply through UCT Elective Office only — direct department contact is discouraged','HPCSA registration included in the ZAR 7,500 fee','Apply 1.5–2 years before your target start date','Study visa if stay exceeds 90 days','⚠️ Tourist visa for clinical work is illegal in South Africa'],
+   url:'https://www.uct.ac.za/main/research/global-health/electives',urlLabel:'UCT Elective Office'},
+  {flag:'🇬🇭',loc:'Ghana · Accra',name:'Korle Bu Teaching Hospital',spec:'Tropical Medicine, Emergency Medicine, OB/GYN',
+   cost:'Pro-rated from ~$5,000/year (long-term); contact for short elective rates',duration:'Flexible',year:'MS3/MS4',lang:'English',
+   desc:'Ghana\'s premier teaching hospital, affiliated with the University of Ghana Medical School. Known for a very busy Accident & Emergency department, specialist tropical medicine, and obstetrics. English is the primary language of instruction throughout Ghana\'s health system, making it one of the most accessible African destinations for international students.',
+   reqs:['Apply via University of Ghana Medical School international office','Malpractice insurance required','Yellow fever vaccination certificate mandatory for entry into Ghana','No formal language test (English)'],
+   url:'https://www.ugms.edu.gh/electives',urlLabel:'University of Ghana Medical School'},
+  {flag:'🇹🇿',loc:'Tanzania · Arusha',name:'Mt. Meru Regional Hospital',spec:'Surgery, Internal Medicine, Tropical Infectious Disease',
+   cost:'$1,500–2,500 USD via agency (4 weeks, includes housing)',duration:'2–8 weeks',year:'MS2–MS4',lang:'English/Swahili',
+   desc:'A popular destination near the base of Kilimanjaro, offering genuine exposure to tropical diseases, trauma, and surgical cases alongside the extraordinary natural environment of Northern Tanzania. Most students access this hospital through Work the World or Elective Africa, who manage work permits, housing, and transport — the agency premium pays for significant logistical complexity.',
+   reqs:['Book via Work the World or Elective Africa','Yellow fever vaccination mandatory','Anti-malaria prophylaxis strongly recommended','Some Swahili is helpful but translators available via agencies','Tanzanian work permit handled by agency'],
+   url:'https://worktheworld.com/tanzania',urlLabel:'Work the World Tanzania'},
+  {flag:'🇺🇬',loc:'Uganda · Kampala',name:'Mulago National Referral Hospital',spec:'OB/GYN, Pediatrics, Surgery',
+   cost:'$2,000–3,000 via CFHI (4 weeks)',duration:'2–8 weeks',year:'MS3/MS4',lang:'English',
+   desc:'Uganda\'s national referral center with extraordinary volume in obstetrics and gynecology — students often describe the obstetric exposure as career-defining. Child Family Health International (CFHI) offers structured, ethically-oriented placements that include a formal global health curriculum, homestays with local families, and orientation to Uganda\'s health system context.',
+   reqs:['Book via CFHI (cfhi.org) for structured placement','Yellow fever vaccination certificate required for Uganda entry','Anti-malaria prophylaxis required','CFHI includes orientation and ethical global health curriculum','Homestay accommodation typical'],
+   url:'https://www.cfhi.org/programs/uganda',urlLabel:'CFHI Uganda Programs'},
+  {flag:'🇬🇧',loc:'United Kingdom · Oxford',name:'Oxford University Hospitals',spec:'Multiple Clinical Electives',
+   cost:'No tuition fee — living costs only (Oxford is expensive; budget £800–1,200/month for accommodation)',duration:'4–10 weeks',year:'Final Year Only',lang:'English',
+   desc:'Widely considered one of the most coveted elective destinations in the world — and uniquely charges no tuition fee. This zero-tuition policy is what makes it extraordinarily competitive. The program receives applications from around the world; early planning (12–18 months ahead) is essential. No accommodation is provided. Students are placed across the various Oxford hospitals including JR, Churchill, and Radcliffe.',
+   reqs:['Must be in final year of medical school','Apply 12–18 months in advance via Oxford Elective Office','UK Standard Visitor visa (medical elective is a permitted activity — get letter from Oxford)','No accommodation provided — arrange independently (expensive)','Malpractice insurance required','No tuition fee but high cost of living'],
+   url:'https://www.medsci.ox.ac.uk/study/electives',urlLabel:'Oxford Elective Office'},
+  {flag:'🇬🇧',loc:'United Kingdom · London',name:'King\'s College London',spec:'Surgery, Emergency Medicine, Cardiology, Internal Medicine',
+   cost:'£100–200 non-refundable application fee + ~£100/week placement fee (e.g., £400 for 4 weeks)',duration:'4+ weeks',year:'Final Year',lang:'English (IELTS 6.5+)',
+   desc:'Rotations at Guy\'s Hospital, St Thomas\' Hospital, and King\'s College Hospital — some of London\'s busiest and most prestigious trauma and specialist centers. Unlike Oxford, KCL has an aggressive fee structure. IELTS language requirements are strictly enforced even for many native English speakers if their home university\'s primary instruction language is not deemed sufficient.',
+   reqs:['Application fee £100–200 (non-refundable)','Placement fee ~£100/week','IELTS 6.5+ required even for some native English speakers','UK Standard Visitor visa','Malpractice insurance required','Final year of medical school'],
+   url:'https://www.kcl.ac.uk/study/postgraduate-research/fees-and-funding/visiting-students',urlLabel:'KCL Visiting Students'},
+  {flag:'🇬🇧',loc:'United Kingdom · London',name:'UCL / National Hospital for Neurology & Neurosurgery',spec:'Neurology, Neurosurgery',
+   cost:'Admin fee — contact UCL for current rate',duration:'4+ weeks',year:'3+ years clinical training',lang:'English',
+   desc:'Based at Queen Square — the world-renowned National Hospital for Neurology and Neurosurgery. UCL explicitly emphasizes that visiting students are expected to have the same duties and responsibilities as local students. This means a high degree of independence is expected; it\'s not a passive observership. Minimum 3 years of clinical training is required.',
+   reqs:['Minimum 3 years of completed clinical training','Apply via UCL Medical School international office','UK Standard Visitor visa','Same duties as local students — high independence expected','Malpractice insurance required'],
+   url:'https://www.ucl.ac.uk/medical-school/current-students/electives',urlLabel:'UCL Medical School'},
+  {flag:'🇮🇪',loc:'Ireland · Dublin',name:'Royal College of Surgeons in Ireland (RCSI)',spec:'Surgery, Internal Medicine, Pediatrics',
+   cost:'Admin fee — contact RCSI',duration:'Summer only (July/August)',year:'Final Year',lang:'English',
+   desc:'One of Ireland\'s leading medical institutions with rotations at Beaumont Hospital and other Dublin teaching hospitals. For non-partner students, placements are strictly limited to summer months (July and August). During the academic year, spots are entirely reserved for bilateral exchange partners (including GWU and UMN). Applications for summer placements close in January.',
+   reqs:['Apply by January for July/August start','Non-partner students: summer only','Partner institutions (GWU, UMN): year-round available','Malpractice insurance required','Irish tourist/student visa depending on duration and nationality'],
+   url:'https://www.rcsi.com/dublin/research/postgraduate-research/visiting-students',urlLabel:'RCSI Visiting Students'},
+  {flag:'🇩🇪',loc:'Germany · Berlin',name:'Charité – Universitätsmedizin Berlin',spec:'Surgery, Anesthesiology, Internal Medicine',
+   cost:'Administrative fees only — public university, no substantial tuition',duration:'Flexible',year:'MS3/MS4',lang:'German B2/C1 for clinical; some English-only obs roles',
+   desc:'Europe\'s largest university clinic with campuses across Berlin. Clinical rotations are called "Famulatur." Departments requiring patient interaction (most of them) require B2/C1 German proficiency. Some technically-oriented departments (Anesthesiology, some surgical subspecialties) may accept English speakers in a purely observational role. Cost is minimal as a public German university.',
+   reqs:['German B2/C1 certificate required for patient-contact roles','Some observational roles available in English','Low admin fees only (public university)','German health system visitor documentation','Malpractice insurance recommended'],
+   url:'https://www.charite.de/en/research/international_students/',urlLabel:'Charité International Students'},
+  {flag:'🇸🇪',loc:'Sweden · Stockholm',name:'Karolinska Institutet',spec:'Research, Internal Medicine, Surgery',
+   cost:'Varies — partner institutions may have waived fees; freemover fees contact Karolinska',duration:'4-week blocks',year:'Advanced (MS3/MS4+)',lang:'Swedish for clinical; English for research',
+   desc:'One of the world\'s most prestigious medical universities and home of the Nobel Assembly that awards the Nobel Prize in Physiology or Medicine. Prioritizes partner universities (Monash, NUS, etc.) heavily. "Freemover" applications from non-partner institutions are increasingly difficult to secure and not guaranteed. Clinical work typically requires Swedish; English rotations exist in research-heavy departments.',
+   reqs:['Partner institution students have priority','Freemover applications: check current availability','Swedish proficiency for clinical rotations','English often sufficient for research departments','Contact Karolinska International Office well in advance'],
+   url:'https://ki.se/en/education/study-at-ki/exchange-studies',urlLabel:'Karolinska Exchange Studies'},
+  {flag:'🇺🇸',loc:'USA · New Haven, CT',name:'Yale School of Medicine',spec:'Multiple Clinical Electives (no core clerkships)',
+   cost:'VSLO application fee + Yale tuition fee for visiting students',duration:'4 weeks (strict — no variation)',year:'Final Year Only',lang:'English',
+   desc:'The Office of Global Health Education manages the Visiting International Student Elective Program. Receives 450–500 applications per year and accepts only ~100 (~20% acceptance rate). All rotations are strictly 4 weeks — no exceptions. Hands-on clinical electives are available, not observerships, but core clerkships are not offered to visitors. Bilateral exchange agreements (e.g., with Makerere University, Uganda) may bypass standard competition.',
+   reqs:['Must apply via VSLO — home institution must be a VSLO Global Network member','Final year of medical school only (no earlier-year students)','4-week duration only — non-negotiable','Malpractice insurance: $1M per occurrence / $3M aggregate minimum','USMLE Step 1 scores often reviewed','No core clerkships — electives only'],
+   url:'https://medicine.yale.edu/education/visiting-students/',urlLabel:'Yale Visiting Students'},
+  {flag:'🇺🇸',loc:'USA · Washington D.C.',name:'George Washington University (GWU)',spec:'Multiple Specialties',
+   cost:'Tuition fees for visiting students — contact GWU',duration:'Varies',year:'Final Year',lang:'English',
+   desc:'GWU\'s International Clinical Electives Program (ICEP) uses a "closed-loop" model common among elite U.S. institutions. The program only accepts applications from students currently enrolled at specific affiliated international institutions. Unsolicited applications from non-affiliates are automatically rejected without review. Affiliated schools include USP Brazil, FMUSP, UNAM, AUB Lebanon, Weill Cornell Qatar, Technion Israel, RCSI Ireland, and Medical University of Graz.',
+   reqs:['Must be enrolled at a GWU-affiliated institution','Affiliated schools include: USP (Brazil), AUB (Lebanon), RCSI (Ireland), Technion (Israel), Graz (Austria), Weill Cornell Qatar, UNAM (Mexico), MAMC Jaipur (India)','Apply via your home institution\'s international office','Malpractice insurance required','VSLO not required — GWU has its own bilateral system'],
+   url:'https://smhs.gwu.edu/education/visiting-students',urlLabel:'GWU Visiting Students'},
+  {flag:'🇺🇸',loc:'USA · Albuquerque, NM',name:'University of New Mexico',spec:'Internal Medicine, Family Medicine, Surgery',
+   cost:'VSLO fees + UNM tuition for visiting students',duration:'Varies',year:'Final Year Only',lang:'English',
+   desc:'UNM exemplifies the strict regulatory environment of U.S. state medical schools. All applications must go through VSLO — any attempt to contact faculty directly to pre-arrange placement is strictly prohibited and results in automatic disqualification. Only final-year students are eligible. No observerships or research electives are offered to visitors — only credit-bearing clinical rotations. Placement confirmations often come very late (sometimes late May for summer starts).',
+   reqs:['VSLO required — no exceptions, no direct contact','Final year only','No observerships or research electives','Home institution must be VSLO Global Network member','Expect late placement confirmation (late May typical)','Malpractice insurance required'],
+   url:'https://hsc.unm.edu/medicine/education/visiting-students.html',urlLabel:'UNM Visiting Students'},
+  {flag:'🇧🇷',loc:'Brazil · São Paulo',name:'Hospital das Clínicas USP (FMUSP)',spec:'Tropical Medicine, Infectious Disease, Trauma, Surgery',
+   cost:'Partners: contact USP. Americas/Africa/Asia: ~$1,000/4wks. Europe/North America: ~$2,000/4wks',duration:'4-week modules',year:'MS3/MS4',lang:'Portuguese B1/B2 required for patient contact',
+   desc:'Latin America\'s largest hospital complex, affiliated with the University of São Paulo — Brazil\'s most prestigious research university. The HCFMUSP Experience and standard exchange program offer specialized tracks in Trauma, Infectious Diseases, and Tropical Medicine. Portuguese proficiency at B1/B2 level is strictly required for any rotation involving patient contact. Electives conducted entirely in English may sometimes be arranged depending on the supervisor, but this is the exception, not the rule.',
+   reqs:['Portuguese B1/B2 level CELU or equivalent required for patient contact','FMUSP partner institutions receive fee waiver or discount','Non-partner Americas/Africa/Asia: ~$1,000 per 4-week module','Non-partner Europe/North America: ~$2,000 per 4-week module','Brazilian student visa required','Apply via FMUSP International Office'],
+   url:'https://www.fm.usp.br/fmusp/portal.php/en',urlLabel:'FMUSP International'},
+  {flag:'🇦🇷',loc:'Argentina · Buenos Aires',name:'Universidad de Buenos Aires (UBA)',spec:'Internal Medicine, Surgery, Public Health',
+   cost:'Nominal administrative fee (verify current rate — ARS inflates rapidly)',duration:'Flexible',year:'MS3/MS4',lang:'Spanish B1/B2 required',
+   desc:'One of Latin America\'s largest and most respected public universities. The elective program is accessible but notoriously bureaucratic. Students must submit a B1/B2 Spanish certificate (CELU or equivalent), a letter of recommendation from their Dean, and proof of malpractice insurance. The administrative fee is nominally low but verify the current rate as Argentine inflation makes ARS-denominated costs volatile.',
+   reqs:['B1/B2 Spanish certificate (CELU or equivalent) mandatory','Dean\'s letter of recommendation required','Proof of malpractice insurance required','Argentine student visa for stays over 90 days','Verify current ARS administrative fee at time of application'],
+   url:'http://www.medicina.uba.ar/',urlLabel:'UBA Faculty of Medicine'},
+  {flag:'🇮🇳',loc:'India · Vellore, Tamil Nadu',name:'Christian Medical College (CMC) Vellore',spec:'Community Health, Tropical Medicine, Internal Medicine',
+   cost:'~INR 3,250/week (~$40 USD) tuition + registration fee',duration:'Flexible',year:'MS3/MS4',lang:'English',
+   desc:'Consistently ranked India\'s top medical college and home of the globally renowned CHAD (Community Health and Development) program. At ~$40/week tuition, CMC Vellore is the most affordable high-quality elective destination on the planet. The catch: foreign students must obtain clearance from both the Indian Ministry of Health and the National Medical Commission (NMC) — a process that takes 4–6 months minimum. Additionally, a Student Visa is mandatory; tourists are explicitly forbidden from clinical floors. Begin the process at least 6 months before your target start date.',
+   reqs:['Indian Ministry of Health clearance: 4–6 months','NMC (National Medical Commission) clearance: 4–6 months (concurrent)','Student visa mandatory — tourist visa is illegal for clinical work','Vaccinations: Typhoid, Hep A/B, Japanese Encephalitis (for rural), Rabies (for animal contact)','Apply to CMC Vellore International Students Cell well in advance'],
+   url:'https://www.cmch-vellore.edu/',urlLabel:'CMC Vellore International'},
+  {flag:'🇮🇳',loc:'India · New Delhi',name:'AIIMS New Delhi',spec:'Surgery, Internal Medicine, Cardiology, Radiology',
+   cost:'Low admin fee; NMC processing fees apply',duration:'2–6 weeks',year:'MS3/MS4',lang:'English',
+   desc:'All India Institute of Medical Sciences — India\'s most prestigious government medical institution, established by Parliament and ranked #1 in India\'s NIRF medical rankings. Extremely high patient volume and exposure to pathological complexity rarely seen in Western training. Requires the same NMC + Ministry of Health clearance process as all Indian institutions (4–6 months). Tourist visa for clinical floors is explicitly illegal.',
+   reqs:['NMC clearance required (4–6 months)','Indian Ministry of Health clearance required','Student visa mandatory','⚠️ Tourist visa is illegal for clinical work in India','Apply via AIIMS International Division'],
+   url:'https://www.aiims.edu/en/international-students.html',urlLabel:'AIIMS International Division'},
+  {flag:'🇹🇭',loc:'Thailand · Bangkok',name:'Siriraj Hospital, Mahidol University',spec:'Internal Medicine, Tropical Medicine, Traditional Thai Medicine',
+   cost:'~5,000 THB/week (~$145 USD)',duration:'Fixed windows (typically apply in November for spring)',year:'MS3/MS4',lang:'English',
+   desc:'Thailand\'s oldest and most distinguished hospital, located on the Chao Phraya riverside in Bangkok. Affiliated with Mahidol University — Thailand\'s highest-ranked medical institution. Very affordable at ~$145/week. Unique offering of Traditional Thai Medicine alongside modern tertiary care. Fixed application windows; apply in November for spring. Hospital access is available for hands-on rotations (unlike Ramathibodi).',
+   reqs:['Apply via Mahidol International Office — fixed windows (November for spring)','~5,000 THB (~$145 USD) per week','Thai tourist/non-immigrant visa depending on duration','Malpractice insurance recommended','Vaccinations: Hep A/B, Typhoid, Japanese Encephalitis'],
+   url:'https://www.si.mahidol.ac.th/en/',urlLabel:'Siriraj Hospital International'},
+  {flag:'🇹🇭',loc:'Thailand · Bangkok',name:'Ramathibodi Hospital, Mahidol University',spec:'Observational · All Specialties',
+   cost:'~5,000 THB/week (~$145 USD)',duration:'Fixed windows',year:'MS2–MS4',lang:'English',
+   desc:'Important caveat for students seeking hands-on experience: The Thai Medical Council explicitly prohibits foreign students from performing any hands-on procedures at Ramathibodi. Rotations here are strictly observational. However, it\'s still valuable for observing exotic pathology and Thai clinical culture. Same application process and cost as Siriraj. Good for students who want passive clinical exposure without hands-on pressure.',
+   reqs:['⚠️ Strictly observational — no hands-on procedures permitted (Thai Medical Council rule)','Apply via Mahidol International Office — November for spring','~5,000 THB (~$145 USD) per week','Thai tourist/non-immigrant visa'],
+   url:'https://www.rama.mahidol.ac.th/en',urlLabel:'Ramathibodi International'},
+  {flag:'🇻🇳',loc:'Vietnam · Ho Chi Minh City',name:'Cho Ray Hospital',spec:'Emergency Medicine, Tropical Diseases, Trauma',
+   cost:'$2,500–3,500 via Work the World (4 weeks, includes housing and translators)',duration:'2–8 weeks',year:'MS2–MS4',lang:'Vietnamese (translators provided via agencies)',
+   desc:'High-volume hospital in Ho Chi Minh City with extraordinary trauma and tropical disease exposure. Students often witness advanced presentations of diseases at stages they would never see in a Western emergency department. Ward rounds are conducted in Vietnamese — agencies like Work the World provide dedicated translators for ward rounds. Direct access via UMP (University of Medicine and Pharmacy) is possible but navigating the bureaucracy independently is complex.',
+   reqs:['Book via Work the World for translator and housing access','Direct access via UMP possible but complex','Vietnamese work permit handled by agency','Vaccinations: Typhoid, Hep A/B, Japanese Encephalitis, Rabies','No Vietnamese language required if going via agency'],
+   url:'https://worktheworld.com/vietnam',urlLabel:'Work the World Vietnam'},
+  {flag:'🇱🇧',loc:'Lebanon · Beirut',name:'American University of Beirut (AUB)',spec:'Internal Medicine, Surgery, Emergency Medicine, Psychiatry',
+   cost:'$50 USD application fee + tuition (contact AUB for current rate)',duration:'Flexible',year:'MS3/MS4',lang:'English',
+   desc:'ACGME-I accredited — one of only a handful of non-US institutions offering US-style, ACGME-accredited residency training. Provides truly unique exposure: refugee health (one of the world\'s highest per capita refugee populations in Lebanon), war-related trauma, complex geopolitical health contexts, and high-tech tertiary care at the same institution. English is the primary language of instruction.',
+   reqs:['$50 application fee + tuition','ACGME-I accredited — US-standard training','Apply via AUB Faculty of Medicine international office','Check current travel advisories for Lebanon (volatile security environment)','Malpractice insurance required'],
+   url:'https://www.aub.edu.lb/fm/Pages/visiting-students.aspx',urlLabel:'AUB Faculty of Medicine'},
+  {flag:'🇳🇵',loc:'Nepal · Dharan',name:'BP Koirala Institute of Health Sciences',spec:'Family Medicine, Community Health, Rural Medicine',
+   cost:'~$600–1,000 for 4 weeks (direct application)',duration:'4 weeks',year:'MS2–MS4',lang:'English',
+   desc:'A world-class institution nestled in the foothills of the Himalayas in eastern Nepal. BPKIHS offers an extraordinary setting for community-oriented family medicine — the mountainous geography means the hospital serves a catchment area with limited alternative healthcare access, resulting in rich continuity-of-care experiences. Direct application is possible, making this one of the most cost-effective Asian options. English is the primary language of instruction.',
+   reqs:['Direct application to BPKIHS International Office','Nepalese tourist/student visa depending on duration','Vaccinations: Typhoid, Hep A/B, Japanese Encephalitis, Rabies, Meningococcal','Malaria prophylaxis for lower-altitude areas','Altitude awareness for trekking outside campus'],
+   url:'https://www.bpkihs.edu.np/',urlLabel:'BPKIHS International Office'},
+  {flag:'🇫🇯',loc:'Fiji · Suva / Lautoka',name:'Colonial War Memorial (CWM) Hospital',spec:'Internal Medicine, Community Health, NCD Management, Pediatrics',
+   cost:'Suva: AUD 3,795 / Lautoka: AUD 2,395 (4 weeks) + FJD 1,000 local registration fee',duration:'4 weeks',year:'MS3/MS4',lang:'English',
+   desc:'"Island medicine" at its most formative — managing the Pacific\'s NCD (non-communicable disease) crisis: diabetes, obesity, cardiovascular disease at rates among the world\'s highest. Two location options: Suva (the capital, more complex cases) and Lautoka (western Fiji, lower cost). Local medical registration fee of ~FJD 1,000 (~$450 USD) applies in addition to placement fee. Typically booked via DocTours or similar Pacific elective agencies.',
+   reqs:['Book via DocTours (doctours.com.au) or similar Pacific agency','Local Fijian medical registration fee: ~FJD 1,000 (~$450 USD)','Suva: AUD 3,795 / Lautoka: AUD 2,395 placement fee','Fijian tourist visa (most nationalities)','Vaccinations: Typhoid, Hep A/B, Typhoid, consider Dengue awareness'],
+   url:'https://www.doctours.com.au/fiji',urlLabel:'DocTours Fiji'},
+  {flag:'🇵🇬',loc:'Papua New Guinea · Enga Province',name:'Kompiam District Hospital',spec:'Rural Medicine, Surgery, Infectious Disease, Tribal Trauma',
+   cost:'Direct arrangement with Medical Superintendent — contact for costs',duration:'Flexible',year:'Advanced/Final Year Students',lang:'English / Tok Pisin',
+   desc:'One of the most remote and challenging medical elective destinations in the world. Students fly in via missionary aviation (SIL Aviation or similar) to a remote highland location. The hospital manages a high burden of tribal conflict trauma, tuberculosis, malaria, and obstetric emergencies with extremely limited resources. This is "bush medicine" at its most unfiltered — not appropriate for early students or those without high psychological resilience. Direct contact with the Medical Superintendent is required to arrange placement.',
+   reqs:['Direct contact with Medical Superintendent required — no agency access','Fly-in via missionary/charter aviation only','⚠️ High psychological resilience and adaptability required','Not suitable for early-year students','Yellow fever and extensive tropical vaccine panel','Malaria prophylaxis mandatory','Reliable satellite communication equipment recommended'],
+   url:'https://www.lutheranhealth.com.pg/',urlLabel:'Lutheran Health PNG'},
+  {flag:'🇧🇿',loc:'Belize · San Ignacio',name:'Medical Electives Belize',spec:'Tropical Medicine, Rural Health, Emergency Medicine, Family Medicine',
+   cost:'~$7,590 USD for 6-week package via Kaya (includes accommodation, meals, transport, orientation)',duration:'4–6 weeks',year:'MS2–MS4',lang:'English',
+   desc:'A unique English-speaking Central American destination that is frequently overlooked. High exposure to tropical diseases, rural health management, and resource-constrained medicine in a setting where communication is never a barrier. The Kaya package at ~$7,590 for 6 weeks includes housing, meals, airport transfers, in-country orientation, and hospital placement — making it one of the more comprehensive logistical packages available relative to cost.',
+   reqs:['Book via Kaya (kayavolunteer.com) or Medical Electives Belize directly','Package includes housing, meals, transport, orientation','Belizean tourist entry (no visa for most nationalities)','Vaccinations: Typhoid, Hep A/B, Yellow fever recommended','Malaria prophylaxis for rural areas'],
+   url:'https://www.kayavolunteer.com/program/medical-electives-belize/',urlLabel:'Kaya Belize Programs'},
+  {flag:'🇻🇳',loc:'Vietnam · Hanoi',name:'Bach Mai Hospital',spec:'Infectious Disease, Toxicology, Internal Medicine',
+   cost:'$2,500–3,500 via Work the World (includes housing and translation)',duration:'2–8 weeks',year:'MS2–MS4',lang:'Vietnamese (French/English senior staff)',
+   desc:'Northern Vietnam\'s premier referral hospital with particular clinical strength in toxicology (one of the world\'s busiest poison control centers) and infectious disease. An unusual and academically distinctive option for students interested in medical toxicology — a speciality with limited elective options globally. Ward rounds are in Vietnamese but many senior staff speak French or English. Work the World facilitates access and provides translators.',
+   reqs:['Access via Work the World (Hanoi) for translators and housing','Direct access via Hanoi University of Medicine possible but complex','Vietnamese work permit handled by agency','Vaccinations: Typhoid, Hep A/B, Japanese Encephalitis, Rabies'],
+   url:'https://worktheworld.com/vietnam',urlLabel:'Work the World Vietnam'}
+];
 
-/* ── NAV SCROLL ── */
-window.addEventListener('scroll',()=>{
-  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
-});
-
-/* ── FILTER TAGS ── */
-document.querySelectorAll('.ftag').forEach(t=>{
-  t.addEventListener('click',function(){
-    document.querySelectorAll('.ftag').forEach(x=>x.classList.remove('on'));
-    this.classList.add('on');
-  });
-});
-
-/* ── SCROLL REVEAL ── */
-const revealObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealObs.unobserve(e.target)}});
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
-
-/* ── COUNTER ANIMATION ── */
-function animateCounter(el){
-  const target=+el.dataset.target;
-  const dur=1800;const start=performance.now();
-  (function step(now){
-    const p=Math.min((now-start)/dur,1);
-    const ease=1-Math.pow(1-p,3);
-    el.textContent=Math.floor(ease*target);
-    if(p<1)requestAnimationFrame(step);
-    else el.textContent=target;
-  })(start);
+/* MODAL OPEN/CLOSE */
+function openModal(i){
+  const p=PROGRAMS[i];
+  document.getElementById('modalBody').innerHTML=`
+    <div class="modal-flag">${p.flag}</div>
+    <div class="modal-loc">${p.loc}</div>
+    <div class="modal-title">${p.name}</div>
+    <div class="modal-spec">${p.spec}</div>
+    <div class="modal-divider"></div>
+    <div class="modal-section-title">Program Overview</div>
+    <p class="modal-desc">${p.desc}</p>
+    <div class="modal-grid">
+      <div class="modal-item"><div class="modal-item-label">Cost</div><div class="modal-item-value">${p.cost}</div></div>
+      <div class="modal-item"><div class="modal-item-label">Duration</div><div class="modal-item-value">${p.duration}</div></div>
+      <div class="modal-item"><div class="modal-item-label">Eligible Year</div><div class="modal-item-value">${p.year}</div></div>
+      <div class="modal-item"><div class="modal-item-label">Language</div><div class="modal-item-value">${p.lang}</div></div>
+    </div>
+    <div class="modal-section-title">Requirements & Important Notes</div>
+    <div class="modal-reqs">${p.reqs.map(r=>`<div class="modal-req ${r.startsWith('⚠️')?'style="color:#f87171"':''}">${r}</div>`).join('')}</div>
+    <div class="modal-actions">
+      <a href="${p.url}" target="_blank" class="modal-btn-primary">Visit Official Website →</a>
+      <a href="#submit" onclick="closeModal()" class="modal-btn-sec">Submit an Update</a>
+    </div>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:1.25rem;line-height:1.6">⚠️ Always verify costs, requirements, and deadlines directly with the host institution before applying. Program details change frequently.</p>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
 }
-const counterObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){animateCounter(e.target);counterObs.unobserve(e.target)}});
-},{threshold:.5});
-document.querySelectorAll('.counter').forEach(el=>counterObs.observe(el));
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
-/* ── REGION BARS (fill on scroll) ── */
-const barObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.rc-fill').forEach(b=>b.style.width=b.style.width||'0%')}});
-},{threshold:.3});
-document.querySelectorAll('.region-cell').forEach(el=>barObs.observe(el));
+/* CURSOR */
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(1.8)';cur.style.background='var(--teal)'});el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';cur.style.background='var(--gold)'})});
 
-/* ── WORLD MAP CANVAS ── */
+/* NAV SCROLL */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
+
+/* COUNTERS */
+const cObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const el=e.target,t=+el.dataset.t,s=performance.now();(function f(n){const p=Math.min((n-s)/1600,1),v=Math.floor((1-Math.pow(1-p,3))*t);el.textContent=v;if(p<1)requestAnimationFrame(f);else el.textContent=t})(s);cObs.unobserve(el)}})},{threshold:.5});
+document.querySelectorAll('.counter').forEach(el=>cObs.observe(el));
+
+/* REVEAL */
+const rObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rObs.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+
+/* SEARCH & FILTER */
+let activeRegion='all';
+function setRegion(r){
+  activeRegion=r;
+  document.querySelectorAll('[data-r]').forEach(b=>b.classList.toggle('on',b.dataset.r===r));
+  runSearch();
+  document.getElementById('programs').scrollIntoView({behavior:'smooth'});
+}
+document.querySelectorAll('[data-r]').forEach(b=>b.addEventListener('click',()=>setRegion(b.dataset.r)));
+
+function runSearch(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const sp=document.getElementById('specialtyFilter').value.toLowerCase();
+  const cards=document.querySelectorAll('.rcard');
+  let count=0;
+  cards.forEach(c=>{
+    const name=c.dataset.name||'';
+    const region=c.dataset.region||'';
+    const specs=c.dataset.specialties||'';
+    const matchQ=!q||name.includes(q)||specs.includes(q);
+    const matchR=activeRegion==='all'||region===activeRegion;
+    const matchS=!sp||specs.includes(sp);
+    const show=matchQ&&matchR&&matchS;
+    c.classList.toggle('hidden',!show);
+    if(show)count++;
+  });
+  document.getElementById('resultCount').textContent=count;
+  document.getElementById('noResults').classList.toggle('show',count===0);
+}
+document.getElementById('searchInput').addEventListener('input',runSearch);
+document.getElementById('specialtyFilter').addEventListener('change',runSearch);
+
+/* CANVAS MAP */
 const canvas=document.getElementById('worldCanvas');
 if(canvas){
-  const ctx=canvas.getContext('2d');
-  const W=canvas.width,H=canvas.height;
-  const dots=[];
-  /* A simplified set of lat/lon points representing land masses */
-  const landPoints=[
-    /* Africa */
-    [5,30],[10,20],[15,15],[20,10],[25,15],[30,20],[35,30],[40,35],[35,40],[30,35],[25,30],[20,25],[15,20],[10,25],[5,20],[-5,15],[-10,20],[-15,25],[-20,30],[-25,35],[-30,30],[0,30],[5,35],[10,40],
-    /* Europe */
-    [50,10],[55,15],[60,20],[55,25],[50,20],[48,5],[52,0],[54,-2],[56,10],[58,15],[60,10],[62,15],[65,20],[68,18],[65,10],[60,5],[55,5],[50,0],[48,15],[46,10],[44,12],[42,14],[40,10],[45,5],
-    /* Asia */
-    [40,45],[45,50],[50,60],[55,65],[60,70],[55,75],[50,80],[55,85],[50,90],[45,95],[40,100],[35,105],[30,110],[25,115],[20,120],[25,100],[30,95],[35,90],[40,85],[45,80],[50,75],[55,70],[60,65],[55,60],[50,55],[45,60],[40,70],[35,75],[30,80],[25,85],[20,80],[15,75],[10,78],[5,80],[10,85],[20,90],[25,95],[30,90],[35,85],[40,80],[45,75],[50,70],
-    /* North America */
-    [50,-60],[55,-65],[60,-70],[65,-75],[60,-80],[55,-75],[50,-70],[45,-65],[40,-70],[35,-75],[30,-80],[25,-80],[30,-90],[35,-95],[40,-100],[45,-95],[50,-90],[55,-85],[60,-80],[65,-75],[60,-70],[55,-65],[50,-60],[45,-65],[40,-80],[35,-85],[30,-90],[25,-85],[20,-90],[15,-85],[10,-83],[15,-90],[20,-100],[25,-105],[30,-110],[35,-115],[40,-120],[45,-115],[50,-120],[45,-125],
-    /* South America */
-    [0,-50],[-5,-55],[-10,-60],[-15,-65],[-20,-65],[-25,-60],[-30,-55],[-35,-60],[-40,-65],[-45,-65],[-40,-70],[-35,-70],[-30,-65],[-25,-70],[-20,-55],[-15,-55],[-10,-55],[-5,-60],[0,-60],[5,-55],[0,-50],
-    /* Australia */
-    [-20,120],[-25,125],[-30,130],[-35,135],[-40,140],[-35,145],[-30,140],[-25,135],[-20,130],[-15,130],[-25,120],[-30,115],[-25,115],[-20,125],
-  ];
-  landPoints.forEach(([lat,lon])=>{
-    const x=(lon+180)*(W/360);
-    const y=(90-lat)*(H/180);
-    dots.push({x,y,a:Math.random()*.6+.2,phase:Math.random()*Math.PI*2,speed:Math.random()*.01+.005});
-  });
-  function draw(t){
+  const ctx=canvas.getContext('2d'),W=540,H=360;
+  const pts=[[5,30],[15,15],[25,15],[30,20],[35,30],[30,35],[0,30],[10,40],[-5,15],[-15,25],[-25,35],[50,10],[55,15],[60,20],[55,25],[50,20],[48,5],[52,0],[54,-2],[56,10],[58,15],[60,10],[62,15],[65,20],[60,5],[55,5],[50,0],[48,15],[46,10],[44,12],[40,10],[40,45],[45,50],[50,60],[55,65],[55,75],[50,80],[55,85],[50,90],[45,95],[40,100],[35,105],[30,110],[25,115],[25,100],[30,95],[35,90],[40,85],[45,80],[50,75],[55,70],[60,65],[55,60],[50,55],[50,70],[55,85],[20,80],[15,75],[10,78],[20,90],[25,95],[30,90],[35,85],[40,80],[45,75],[50,70],[50,-60],[55,-65],[60,-70],[60,-80],[55,-75],[50,-70],[45,-65],[40,-70],[35,-75],[30,-80],[25,-80],[30,-90],[35,-95],[40,-100],[45,-95],[50,-90],[55,-85],[60,-80],[60,-70],[55,-65],[40,-80],[35,-85],[30,-90],[25,-85],[20,-90],[15,-85],[15,-90],[20,-100],[25,-105],[30,-110],[35,-115],[40,-120],[45,-115],[50,-120],[0,-50],[-10,-60],[-20,-65],[-30,-55],[-35,-60],[-40,-65],[-40,-70],[-25,-70],[-20,-55],[-10,-55],[0,-60],[5,-55],[-20,120],[-25,125],[-30,130],[-35,135],[-35,145],[-30,140],[-25,135],[-20,130],[-25,120],[-30,115],[-25,115]];
+  const dots=pts.map(([lat,lon])=>({x:(lon+180)*(W/360),y:(90-lat)*(H/180),a:Math.random()*.6+.2,ph:Math.random()*Math.PI*2,sp:Math.random()*.008+.004}));
+  (function draw(t){
     ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle='rgba(42,157,143,0.06)';ctx.lineWidth=.5;
+    for(let i=0;i<=6;i++){const x=i*(W/6);ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+    for(let i=0;i<=4;i++){const y=i*(H/4);ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
     dots.forEach(d=>{
-      const alpha=d.a*(0.5+0.5*Math.sin(t*d.speed+d.phase));
-      ctx.beginPath();ctx.arc(d.x,d.y,1.6,0,Math.PI*2);
-      ctx.fillStyle=`rgba(42,157,143,${alpha})`;ctx.fill();
+      const al=d.a*(0.45+0.55*Math.sin(t*d.sp+d.ph));
+      ctx.beginPath();ctx.arc(d.x,d.y,1.5,0,Math.PI*2);
+      ctx.fillStyle=`rgba(42,157,143,${al})`;ctx.fill();
     });
-    /* Draw grid lines */
-    ctx.strokeStyle='rgba(42,157,143,0.07)';ctx.lineWidth=.5;
-    for(let i=0;i<=180;i+=30){
-      const x=i*(W/180);ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();
-    }
-    for(let i=0;i<=90;i+=30){
-      const y=i*(H/90);ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();
-    }
     requestAnimationFrame(draw);
-  }
-  requestAnimationFrame(draw);
-}
-
-/* ── HORIZONTAL CARD DRAG SCROLL ── */
-const scroll=document.querySelector('.cards-scroll');
-if(scroll){
-  let down=false,sx=0,sl=0;
-  scroll.addEventListener('mousedown',e=>{down=true;sx=e.pageX-scroll.offsetLeft;sl=scroll.scrollLeft});
-  scroll.addEventListener('mouseleave',()=>down=false);
-  scroll.addEventListener('mouseup',()=>down=false);
-  scroll.addEventListener('mousemove',e=>{if(!down)return;e.preventDefault();const x=e.pageX-scroll.offsetLeft;scroll.scrollLeft=sl-(x-sx)*1.2});
+  })(0);
 }
 </script>
 </body>
