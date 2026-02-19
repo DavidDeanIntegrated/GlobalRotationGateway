@@ -1,74 +1,1025 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Rotation Gateway</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Rotation Gateway — International Medical Rotations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0b1f3a;
+      --teal:    #0d9488;
+      --teal-lt: #14b8a6;
+      --cream:   #f7f3ee;
+      --sand:    #e8e0d5;
+      --rust:    #c0533a;
+      --gold:    #d4a843;
+      --text:    #1a2e45;
+      --muted:   #6b7f93;
+      --white:   #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(11,31,58,0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--teal-lt); }
+    .nav-globe {
+      width: 28px; height: 28px; border: 2px solid var(--teal); border-radius: 50%;
+      position: relative; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .nav-globe::before {
+      content: ''; position: absolute;
+      width: 200%; height: 2px; background: var(--teal);
+      top: 50%; left: -50%; transform: translateY(-50%);
+    }
+    .nav-globe::after {
+      content: ''; position: absolute;
+      width: 2px; height: 200%; background: var(--teal);
+      left: 50%; top: -50%; transform: translateX(-50%);
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75); font-size: 0.875rem; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal-lt); }
+    .nav-cta {
+      background: var(--teal); color: var(--white) !important;
+      padding: 0.5rem 1.25rem; border-radius: 4px;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--teal-lt) !important; color: var(--navy) !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 6rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-map {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 70% 50%, rgba(13,148,136,0.12) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(192,83,58,0.08) 0%, transparent 40%);
+    }
+    .hero-grid-lines {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(255,255,255,1) 50px),
+        repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(255,255,255,1) 50px);
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(13,148,136,0.15); border: 1px solid rgba(13,148,136,0.4);
+      color: var(--teal-lt); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 1rem; border-radius: 2px; margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900; line-height: 1.1;
+      color: var(--white); margin-bottom: 1.5rem;
+    }
+    h1 em { font-style: italic; color: var(--teal-lt); }
+    .hero-sub {
+      font-size: 1.125rem; line-height: 1.7; color: rgba(255,255,255,0.65);
+      max-width: 500px; margin-bottom: 2.5rem;
+    }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--teal); color: var(--white);
+      padding: 0.875rem 2rem; border-radius: 4px;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { background: var(--teal-lt); color: var(--navy); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,148,136,0.3); }
+    .btn-outline {
+      background: transparent; color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.875rem 2rem; border-radius: 4px;
+      font-size: 0.9rem; font-weight: 500;
+      text-decoration: none; cursor: pointer;
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-outline:hover { border-color: var(--teal-lt); color: var(--teal-lt); }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3rem;
+      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-item { }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; color: var(--white);
+    }
+    .stat-num span { color: var(--teal-lt); }
+    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 0.2rem; }
+
+    /* Hero visual side */
+    .hero-visual { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; }
+    .world-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px; padding: 2rem;
+      backdrop-filter: blur(4px);
+      width: 100%; max-width: 420px;
+    }
+    .world-card-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;
+    }
+    .world-card-title { color: rgba(255,255,255,0.5); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .region-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .pill {
+      padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .pill-active { background: var(--teal); color: white; }
+    .pill-inactive { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.1); }
+    .pill-inactive:hover { background: rgba(255,255,255,0.12); color: white; }
+
+    .rotation-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.25rem; }
+    .rotation-card-mini {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px; padding: 0.875rem 1rem;
+      display: flex; align-items: center; gap: 1rem;
+      transition: all 0.2s; cursor: pointer;
+    }
+    .rotation-card-mini:hover { background: rgba(13,148,136,0.15); border-color: rgba(13,148,136,0.3); }
+    .rcm-flag { font-size: 1.5rem; width: 2rem; text-align: center; flex-shrink: 0; }
+    .rcm-info { flex: 1; }
+    .rcm-name { color: var(--white); font-size: 0.875rem; font-weight: 500; }
+    .rcm-specialty { color: var(--teal-lt); font-size: 0.75rem; margin-top: 0.15rem; }
+    .rcm-badge {
+      background: rgba(212,168,67,0.15); border: 1px solid rgba(212,168,67,0.4);
+      color: var(--gold); font-size: 0.65rem; font-weight: 700;
+      padding: 0.2rem 0.5rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    /* ─── SEARCH SECTION ─── */
+    .search-section {
+      background: var(--white); padding: 4rem 3rem;
+      border-bottom: 1px solid var(--sand);
+    }
+    .search-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); font-weight: 600; margin-bottom: 1rem; }
+    .search-bar {
+      display: flex; gap: 0; max-width: 800px; margin: 0 auto;
+      border: 2px solid var(--navy); border-radius: 6px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(11,31,58,0.08);
+    }
+    .search-bar input {
+      flex: 1; padding: 1rem 1.5rem; font-size: 1rem; font-family: 'DM Sans', sans-serif;
+      border: none; outline: none; color: var(--text); background: white;
+    }
+    .search-bar input::placeholder { color: #aab; }
+    .search-divider { width: 1px; background: var(--sand); }
+    .search-select {
+      padding: 1rem 1.5rem; border: none; outline: none; background: white;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--muted);
+      cursor: pointer; min-width: 160px;
+    }
+    .search-btn {
+      background: var(--navy); color: white; border: none;
+      padding: 1rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s; letter-spacing: 0.04em;
+    }
+    .search-btn:hover { background: var(--teal); }
+    .filter-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.25rem; justify-content: center; }
+    .filter-tag {
+      padding: 0.35rem 0.85rem; border: 1px solid var(--sand); border-radius: 20px;
+      font-size: 0.8rem; color: var(--muted); cursor: pointer; transition: all 0.2s; background: white;
+    }
+    .filter-tag:hover, .filter-tag.active { background: var(--navy); color: white; border-color: var(--navy); }
+    .search-section-inner { text-align: center; }
+
+    /* ─── FEATURED ROTATIONS ─── */
+    .section { padding: 5rem 3rem; }
+    .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+    .section-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; color: var(--teal); margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 2.25rem; font-weight: 700; color: var(--navy); line-height: 1.2; }
+    .section-link { color: var(--teal); font-size: 0.875rem; font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--teal); padding-bottom: 1px; white-space: nowrap; }
+    .section-link:hover { color: var(--navy); border-color: var(--navy); }
+
+    .rotations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .rotation-card {
+      background: white; border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--sand); transition: all 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .rotation-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(11,31,58,0.12); border-color: transparent; }
+    .rc-header {
+      padding: 1.5rem 1.5rem 1rem;
+      background: linear-gradient(135deg, var(--navy), #1a3d6b);
+      position: relative; overflow: hidden;
+    }
+    .rc-header::after {
+      content: ''; position: absolute; bottom: -30px; right: -30px;
+      width: 100px; height: 100px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.08);
+    }
+    .rc-header::before {
+      content: ''; position: absolute; bottom: -50px; right: -50px;
+      width: 150px; height: 150px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.05);
+    }
+    .rc-flag { font-size: 2rem; margin-bottom: 0.75rem; position: relative; z-index: 1; }
+    .rc-country { color: rgba(255,255,255,0.6); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem; position: relative; z-index: 1; }
+    .rc-hospital { color: white; font-size: 1rem; font-weight: 600; position: relative; z-index: 1; line-height: 1.3; }
+    .rc-body { padding: 1.25rem 1.5rem; flex: 1; }
+    .rc-specialty {
+      display: inline-block; background: rgba(13,148,136,0.1); color: var(--teal);
+      font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 3px;
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.85rem;
+    }
+    .rc-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+    .rc-meta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .rc-meta-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.775rem; color: var(--muted); }
+    .rc-meta-icon { font-size: 0.9rem; }
+    .rc-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--sand);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .rc-cost { font-size: 0.8rem; color: var(--muted); }
+    .rc-cost strong { color: var(--text); }
+    .rc-apply {
+      background: var(--teal); color: white; font-size: 0.8rem; font-weight: 600;
+      padding: 0.5rem 1.1rem; border-radius: 4px; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .rc-apply:hover { background: var(--navy); }
+    .featured-badge {
+      position: absolute; top: 1rem; right: 1rem; z-index: 2;
+      background: var(--gold); color: var(--navy); font-size: 0.65rem; font-weight: 800;
+      padding: 0.2rem 0.6rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    /* ─── REGIONS MAP STRIP ─── */
+    .regions-strip {
+      background: var(--navy); padding: 4rem 3rem;
+    }
+    .regions-strip .section-tag { color: var(--teal-lt); }
+    .regions-strip .section-title { color: var(--white); }
+    .regions-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-top: 2.5rem; }
+    .region-tile {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 1.5rem 1rem; text-align: center;
+      cursor: pointer; transition: all 0.2s; text-decoration: none; display: block;
+    }
+    .region-tile:hover { background: rgba(13,148,136,0.2); border-color: var(--teal); transform: translateY(-3px); }
+    .region-emoji { font-size: 2rem; margin-bottom: 0.5rem; }
+    .region-name { color: white; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .region-count { color: var(--teal-lt); font-size: 0.75rem; }
+
+    /* ─── HOW IT WORKS ─── */
+    .how-section { background: var(--cream); padding: 5rem 3rem; }
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; position: relative; }
+    .steps-grid::before {
+      content: ''; position: absolute; top: 2rem; left: 12.5%; right: 12.5%;
+      height: 2px; background: linear-gradient(90deg, transparent, var(--teal), var(--teal), transparent);
+      opacity: 0.3; z-index: 0;
+    }
+    .step { text-align: center; position: relative; z-index: 1; }
+    .step-num {
+      width: 4rem; height: 4rem; border-radius: 50%;
+      background: white; border: 2px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--teal);
+      box-shadow: 0 4px 16px rgba(13,148,136,0.15);
+    }
+    .step-title { font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; font-size: 1rem; }
+    .step-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── RESOURCES SECTION ─── */
+    .resources-section { background: white; padding: 5rem 3rem; }
+    .resources-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .resource-card {
+      border: 1px solid var(--sand); border-radius: 10px; padding: 2rem;
+      transition: all 0.2s; cursor: pointer; text-decoration: none; display: block;
+      position: relative; overflow: hidden;
+    }
+    .resource-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--teal); transform: scaleX(0); transition: transform 0.2s; transform-origin: left;
+    }
+    .resource-card:hover::before { transform: scaleX(1); }
+    .resource-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(11,31,58,0.08); }
+    .rc-icon { font-size: 2.25rem; margin-bottom: 1rem; }
+    .resource-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.6rem; }
+    .resource-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+    .resource-arrow { color: var(--teal); font-weight: 700; margin-top: 1rem; display: block; font-size: 0.875rem; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials-section { background: var(--cream); padding: 5rem 3rem; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .testimonial-card {
+      background: white; border-radius: 10px; padding: 2rem;
+      border: 1px solid var(--sand);
+      position: relative;
+    }
+    .testimonial-card::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif; font-size: 5rem; line-height: 0.7;
+      color: var(--teal); opacity: 0.15;
+      position: absolute; top: 1.5rem; left: 1.5rem;
+    }
+    .testimonial-text { font-size: 0.925rem; line-height: 1.7; color: var(--text); position: relative; z-index: 1; margin-bottom: 1.5rem; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+    .author-avatar {
+      width: 2.5rem; height: 2.5rem; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; font-size: 0.875rem; flex-shrink: 0;
+    }
+    .author-name { font-weight: 600; font-size: 0.875rem; color: var(--navy); }
+    .author-detail { font-size: 0.775rem; color: var(--muted); }
+    .stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 0.75rem; }
+
+    /* ─── SUBMIT CTA ─── */
+    .submit-cta {
+      background: linear-gradient(135deg, #0b2040, #0e3a5c);
+      padding: 5rem 3rem; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .submit-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle at 30% 50%, rgba(13,148,136,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 50%, rgba(212,168,67,0.08) 0%, transparent 50%);
+    }
+    .submit-cta-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
+    .submit-cta h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: white; margin-bottom: 1rem; line-height: 1.2; }
+    .submit-cta p { color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem; }
+    .submit-form {
+      display: flex; gap: 0; max-width: 480px; margin: 0 auto;
+      border-radius: 6px; overflow: hidden;
+    }
+    .submit-form input {
+      flex: 1; padding: 1rem 1.25rem; border: none; outline: none;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    }
+    .submit-form button {
+      background: var(--teal); color: white; border: none; padding: 1rem 1.5rem;
+      font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.875rem;
+      cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .submit-form button:hover { background: var(--teal-lt); color: var(--navy); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #070e1a; padding: 3rem;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    }
+    .footer-brand { }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: white;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .footer-logo span { color: var(--teal-lt); }
+    .footer-desc { font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 260px; }
+    .footer-col h4 { color: rgba(255,255,255,0.6); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1rem; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.4); font-size: 0.875rem; text-decoration: none; margin-bottom: 0.5rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--teal-lt); }
+    .footer-bottom {
+      background: #070e1a; padding: 1.25rem 3rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.25); }
+    .footer-bottom a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.8rem; }
+
+    /* ─── SPONSOR BANNER ─── */
+    .sponsor-bar {
+      background: rgba(212,168,67,0.08); border-top: 1px solid rgba(212,168,67,0.2); border-bottom: 1px solid rgba(212,168,67,0.2);
+      padding: 0.875rem 3rem; display: flex; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .sponsor-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); font-weight: 700; white-space: nowrap; }
+    .sponsor-logos { display: flex; gap: 2.5rem; align-items: center; }
+    .sponsor-logo {
+      font-size: 0.8rem; font-weight: 600; color: rgba(11,31,58,0.4);
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content > * { animation: fadeUp 0.6s ease both; }
+    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
+    .hero-visual { animation: fadeUp 0.7s ease 0.3s both; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .rotations-grid { grid-template-columns: repeat(2, 1fr); }
+      .regions-grid { grid-template-columns: repeat(3, 1fr); }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid::before { display: none; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 5rem 1.5rem 3rem; gap: 3rem; }
+      .hero-visual { display: none; }
+      .section { padding: 3.5rem 1.5rem; }
+      .search-section { padding: 3rem 1.5rem; }
+      .search-bar { flex-direction: column; border-radius: 8px; }
+      .search-bar input, .search-select, .search-btn { border-radius: 0; }
+      .search-divider { display: none; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .rotations-grid { grid-template-columns: 1fr; }
+      .regions-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid { grid-template-columns: 1fr; }
+      .resources-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.25rem 1.5rem; }
+      .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+      .sponsor-bar { flex-direction: column; gap: 1rem; }
+      .submit-form { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Global Rotation Gateway</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="rotations.html">Rotations</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="submit.html">Submit Rotation</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <section class="hero">
-        <div class="container">
-            <h2>Find Your Perfect International Medical Rotation</h2>
-            <p>Explore a world of opportunities and enhance your medical career.</p>
-            <a href="rotations.html" class="cta-button">Explore Rotations</a>
-        </div>
-    </section>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-globe"></div>
+    Global Rotation <span>Gateway</span>
+  </a>
+  <div class="nav-links">
+    <a href="#rotations">Rotations</a>
+    <a href="#regions">By Region</a>
+    <a href="#resources">Resources</a>
+    <a href="#about">About</a>
+    <a href="#submit" class="nav-cta">Submit a Rotation</a>
+  </div>
+</nav>
 
-    <section class="features">
-        <div class="container">
-            <div class="feature">
-                <img src="images/placeholder_icon_search.svg" alt="Search Icon">
-                <h3>Comprehensive Database</h3>
-                <p>Search and filter through a vast list of international rotations.</p>
-            </div>
-            <div class="feature">
-                <img src="images/placeholder_icon_resources.svg" alt="Resources Icon">
-                <h3>Valuable Resources</h3>
-                <p>Access guides, checklists, and tips for a successful rotation.</p>
-            </div>
-            <div class="feature">
-                <img src="images/placeholder_icon_community.svg" alt="Community Icon">
-                <h3>Community Support</h3>
-                <p>Connect with peers and mentors for advice and shared experiences.</p>
-            </div>
-        </div>
-    </section>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-map"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Free for Medical Students</div>
+    <h1>Your Gateway to <em>Global</em> Clinical Experience</h1>
+    <p class="hero-sub">The most comprehensive, freely searchable directory of international medical rotations — curated for students who want to train beyond borders.</p>
+    <div class="hero-buttons">
+      <a href="#rotations" class="btn-primary">Browse Rotations →</a>
+      <a href="#submit" class="btn-outline">+ Submit a Program</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">240<span>+</span></div>
+        <div class="stat-label">Programs Listed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">68<span>+</span></div>
+        <div class="stat-label">Countries</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">30<span>+</span></div>
+        <div class="stat-label">Specialties</div>
+      </div>
+    </div>
+  </div>
 
-    <section class="testimonials">
-      <div class="container">
-          <h2>What Students Say</h2>
-          <div class="testimonial">
-              <p>"The Global Rotation Gateway made finding and applying for my rotation in South Africa so much easier. The resources were incredibly helpful!" - Emily R.</p>
+  <div class="hero-visual">
+    <div class="world-card">
+      <div class="world-card-header">
+        <div class="world-card-title">Browse by Region</div>
+      </div>
+      <div class="region-pills">
+        <div class="pill pill-active">All</div>
+        <div class="pill pill-inactive">Africa</div>
+        <div class="pill pill-inactive">Asia</div>
+        <div class="pill pill-inactive">Americas</div>
+        <div class="pill pill-inactive">Europe</div>
+      </div>
+      <div class="rotation-list">
+        <div class="rotation-card-mini">
+          <div class="rcm-flag">🇰🇪</div>
+          <div class="rcm-info">
+            <div class="rcm-name">Kenyatta National Hospital</div>
+            <div class="rcm-specialty">Internal Medicine · Nairobi, Kenya</div>
           </div>
-          <div class="testimonial">
-            <p>"I was able to connect with a mentor who had done a rotation in Kenya before. Their advice was invaluable!" - John S.</p>
+          <div class="rcm-badge">Featured</div>
+        </div>
+        <div class="rotation-card-mini">
+          <div class="rcm-flag">🇮🇳</div>
+          <div class="rcm-info">
+            <div class="rcm-name">AIIMS New Delhi</div>
+            <div class="rcm-specialty">Surgery · New Delhi, India</div>
+          </div>
+          <div class="rcm-badge">New</div>
+        </div>
+        <div class="rotation-card-mini">
+          <div class="rcm-flag">🇧🇷</div>
+          <div class="rcm-info">
+            <div class="rcm-name">Hospital das Clínicas USP</div>
+            <div class="rcm-specialty">Pediatrics · São Paulo, Brazil</div>
+          </div>
+        </div>
+        <div class="rotation-card-mini">
+          <div class="rcm-flag">🇺🇬</div>
+          <div class="rcm-info">
+            <div class="rcm-name">Mulago National Referral</div>
+            <div class="rcm-specialty">OB/GYN · Kampala, Uganda</div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Global Rotation Gateway. All rights reserved.</p>
+<!-- SPONSOR BAR -->
+<div class="sponsor-bar">
+  <div class="sponsor-label">Trusted Partners</div>
+  <div class="sponsor-logos">
+    <div class="sponsor-logo">Child Family Health Intl.</div>
+    <div class="sponsor-logo">IFMSA</div>
+    <div class="sponsor-logo">GeoBlue Insurance</div>
+    <div class="sponsor-logo">Global Health Learning</div>
+    <div class="sponsor-logo">WHO Student Network</div>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<section class="search-section">
+  <div class="search-section-inner">
+    <div class="search-label">Search 240+ international rotation programs</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search by country, hospital, or specialty..." />
+      <div class="search-divider"></div>
+      <select class="search-select">
+        <option>All Specialties</option>
+        <option>Internal Medicine</option>
+        <option>Surgery</option>
+        <option>Pediatrics</option>
+        <option>OB/GYN</option>
+        <option>Psychiatry</option>
+        <option>Emergency Medicine</option>
+        <option>Family Medicine</option>
+        <option>Infectious Disease</option>
+        <option>Radiology</option>
+        <option>Neurology</option>
+      </select>
+      <button class="search-btn">Search →</button>
+    </div>
+    <div class="filter-tags">
+      <div class="filter-tag active">All Regions</div>
+      <div class="filter-tag">Sub-Saharan Africa</div>
+      <div class="filter-tag">South Asia</div>
+      <div class="filter-tag">Latin America</div>
+      <div class="filter-tag">Southeast Asia</div>
+      <div class="filter-tag">Middle East</div>
+      <div class="filter-tag">Eastern Europe</div>
+      <div class="filter-tag">Pacific Islands</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED ROTATIONS -->
+<section class="section" id="rotations" style="background: var(--cream);">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Featured Programs</div>
+      <div class="section-title">Top-Rated International Rotations</div>
+    </div>
+    <a href="#" class="section-link">View all 240+ programs →</a>
+  </div>
+
+  <div class="rotations-grid">
+
+    <!-- Card 1 -->
+    <div class="rotation-card">
+      <div class="rc-header" style="background: linear-gradient(135deg, #0b3d2e, #1a6b4a);">
+        <div class="featured-badge">Featured</div>
+        <div class="rc-flag">🇰🇪</div>
+        <div class="rc-country">Kenya · Nairobi</div>
+        <div class="rc-hospital">Kenyatta National Hospital</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-specialty">Internal Medicine</div>
+        <div class="rc-desc">Sub-Saharan Africa's largest referral hospital offering exceptional exposure to tropical medicine, HIV/TB management, and high-acuity inpatient care with hands-on supervision.</div>
+        <div class="rc-meta">
+          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 4–8 weeks</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS3, MS4</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> English</div>
         </div>
-    </footer>
+      </div>
+      <div class="rc-footer">
+        <div class="rc-cost">Cost: <strong>~$1,200–$1,800</strong></div>
+        <a href="#" class="rc-apply">View Program</a>
+      </div>
+    </div>
 
-    <script src="scripts.js"></script>
+    <!-- Card 2 -->
+    <div class="rotation-card">
+      <div class="rc-header" style="background: linear-gradient(135deg, #2d1050, #4a1e80);">
+        <div class="rc-flag">🇮🇳</div>
+        <div class="rc-country">India · New Delhi</div>
+        <div class="rc-hospital">AIIMS New Delhi</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-specialty">General Surgery</div>
+        <div class="rc-desc">One of Asia's premier academic medical centers. Students observe complex surgical cases, participate in ward rounds, and experience the breadth of pathology seen in a major South Asian tertiary center.</div>
+        <div class="rc-meta">
+          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 2–6 weeks</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS3, MS4</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> English</div>
+        </div>
+      </div>
+      <div class="rc-footer">
+        <div class="rc-cost">Cost: <strong>~$800–$1,400</strong></div>
+        <a href="#" class="rc-apply">View Program</a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="rotation-card">
+      <div class="rc-header" style="background: linear-gradient(135deg, #1a3a0e, #2e6b1a);">
+        <div class="featured-badge">New</div>
+        <div class="rc-flag">🇺🇬</div>
+        <div class="rc-country">Uganda · Kampala</div>
+        <div class="rc-hospital">Mulago National Referral Hospital</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-specialty">OB/GYN</div>
+        <div class="rc-desc">High-volume obstetric center with exceptional surgical exposure for students pursuing women's health. Experience a breadth of pathology rarely encountered in a US or Canadian training environment.</div>
+        <div class="rc-meta">
+          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 4 weeks</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS3, MS4</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> English</div>
+        </div>
+      </div>
+      <div class="rc-footer">
+        <div class="rc-cost">Cost: <strong>~$900–$1,500</strong></div>
+        <a href="#" class="rc-apply">View Program</a>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="rotation-card">
+      <div class="rc-header" style="background: linear-gradient(135deg, #0b1f3a, #183a6b);">
+        <div class="rc-flag">🇧🇷</div>
+        <div class="rc-country">Brazil · São Paulo</div>
+        <div class="rc-hospital">Hospital das Clínicas USP</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-specialty">Pediatrics</div>
+        <div class="rc-desc">Latin America's largest hospital complex affiliated with the University of São Paulo. Students gain experience in pediatric wards serving one of the world's most populous urban centers.</div>
+        <div class="rc-meta">
+          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 4–8 weeks</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS2–MS4</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> Portuguese</div>
+        </div>
+      </div>
+      <div class="rc-footer">
+        <div class="rc-cost">Cost: <strong>~$1,000–$1,800</strong></div>
+        <a href="#" class="rc-apply">View Program</a>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="rotation-card">
+      <div class="rc-header" style="background: linear-gradient(135deg, #3a0b0b, #7a2020);">
+        <div class="rc-flag">🇲🇼</div>
+        <div class="rc-country">Malawi · Blantyre</div>
+        <div class="rc-hospital">Queen Elizabeth Central Hospital</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-specialty">Emergency Medicine</div>
+        <div class="rc-desc">One of southern Africa's busiest emergency departments. Students experience resource-limited medicine at its most demanding, developing clinical decision-making skills that transform future practice.</div>
+        <div class="rc-meta">
+          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 4 weeks</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS3, MS4</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> English</div>
+        </div>
+      </div>
+      <div class="rc-footer">
+        <div class="rc-cost">Cost: <strong>~$700–$1,200</strong></div>
+        <a href="#" class="rc-apply">View Program</a>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="rotation-card">
+      <div class="rc-header" style="background: linear-gradient(135deg, #1a2a0b, #3a5e1a);">
+        <div class="rc-flag">🇹🇿</div>
+        <div class="rc-country">Tanzania · Dar es Salaam</div>
+        <div class="rc-hospital">Muhimbili National Hospital</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-specialty">Infectious Disease</div>
+        <div class="rc-desc">Tanzania's premier academic medical center offering unmatched exposure to tropical infectious diseases — malaria, typhoid, meningitis, and emerging pathogens — with direct patient contact.</div>
+        <div class="rc-meta">
+          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 4–8 weeks</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS2–MS4</div>
+          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> English/Swahili</div>
+        </div>
+      </div>
+      <div class="rc-footer">
+        <div class="rc-cost">Cost: <strong>~$900–$1,600</strong></div>
+        <a href="#" class="rc-apply">View Program</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REGIONS -->
+<section class="regions-strip" id="regions">
+  <div class="section-tag">Browse by Region</div>
+  <div class="section-title">Find Rotations Around the World</div>
+  <div class="regions-grid">
+    <a href="#" class="region-tile">
+      <div class="region-emoji">🌍</div>
+      <div class="region-name">Sub-Saharan Africa</div>
+      <div class="region-count">82 programs</div>
+    </a>
+    <a href="#" class="region-tile">
+      <div class="region-emoji">🌏</div>
+      <div class="region-name">South & SE Asia</div>
+      <div class="region-count">64 programs</div>
+    </a>
+    <a href="#" class="region-tile">
+      <div class="region-emoji">🌎</div>
+      <div class="region-name">Latin America</div>
+      <div class="region-count">47 programs</div>
+    </a>
+    <a href="#" class="region-tile">
+      <div class="region-emoji">🕌</div>
+      <div class="region-name">Middle East & N. Africa</div>
+      <div class="region-count">23 programs</div>
+    </a>
+    <a href="#" class="region-tile">
+      <div class="region-emoji">🏔️</div>
+      <div class="region-name">Eastern Europe & Balkans</div>
+      <div class="region-count">15 programs</div>
+    </a>
+    <a href="#" class="region-tile">
+      <div class="region-emoji">🌊</div>
+      <div class="region-name">Pacific & Oceania</div>
+      <div class="region-count">9 programs</div>
+    </a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="section-header" style="max-width: 600px; margin: 0 auto 3rem; text-align: center; display: block;">
+    <div class="section-tag" style="text-align:center;">How It Works</div>
+    <div class="section-title">From Discovery to Departure</div>
+  </div>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Search & Filter</div>
+      <div class="step-desc">Use our free search tool to browse by country, specialty, duration, cost, or language requirement. No account needed.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Review Programs</div>
+      <div class="step-desc">Read detailed profiles for each rotation — hospital overview, what to expect clinically, logistics, and reviews from past students.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Apply Directly</div>
+      <div class="step-desc">We link you directly to each program's application portal or contact. No middlemen, no hidden fees — just the connection.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Prepare & Go</div>
+      <div class="step-desc">Use our free preparation resources — packing checklists, visa guides, medical travel insurance tips, and cultural primers.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="resources-section" id="resources">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Resources</div>
+      <div class="section-title">Everything You Need to Prepare</div>
+    </div>
+    <a href="#" class="section-link">View all resources →</a>
+  </div>
+  <div class="resources-grid">
+    <a href="#" class="resource-card" style="text-decoration:none;">
+      <div class="rc-icon">📋</div>
+      <h3>Pre-Rotation Checklist</h3>
+      <p>A comprehensive checklist covering visas, vaccinations, insurance, elective letters, and packing — so you never miss a step.</p>
+      <span class="resource-arrow">Download free →</span>
+    </a>
+    <a href="#" class="resource-card" style="text-decoration:none;">
+      <div class="rc-icon">✈️</div>
+      <h3>Medical Travel Insurance Guide</h3>
+      <p>Comparing your options: GeoBlue, HTH, IMG, and others — what's covered, what isn't, and what medical students specifically need.</p>
+      <span class="resource-arrow">Read guide →</span>
+    </a>
+    <a href="#" class="resource-card" style="text-decoration:none;">
+      <div class="rc-icon">💉</div>
+      <h3>Vaccination & Health Requirements</h3>
+      <p>Region-by-region breakdown of recommended and required vaccines, malaria prophylaxis, and pre-travel health appointments.</p>
+      <span class="resource-arrow">Browse by region →</span>
+    </a>
+    <a href="#" class="resource-card" style="text-decoration:none;">
+      <div class="rc-icon">📝</div>
+      <h3>Personal Statement Templates</h3>
+      <p>Application toolkit with email templates for reaching out to programs, elective request letter formats, and MSPE guidance for global health.</p>
+      <span class="resource-arrow">Get templates →</span>
+    </a>
+    <a href="#" class="resource-card" style="text-decoration:none;">
+      <div class="rc-icon">💬</div>
+      <h3>Cultural Preparation Guides</h3>
+      <p>Region-specific primers on clinical culture, hierarchy norms, communication styles, and what to expect as a visiting student.</p>
+      <span class="resource-arrow">Explore guides →</span>
+    </a>
+    <a href="#" class="resource-card" style="text-decoration:none;">
+      <div class="rc-icon">💰</div>
+      <h3>Funding & Scholarships</h3>
+      <p>A curated list of grants, scholarships, and funding sources available to medical students pursuing international clinical training.</p>
+      <span class="resource-arrow">Find funding →</span>
+    </a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-header" style="max-width: 100%;">
+    <div>
+      <div class="section-tag">Student Stories</div>
+      <div class="section-title">What Students Say</div>
+    </div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">The Global Rotation Gateway was the only place I could find a comprehensive list of programs in East Africa. I found my rotation in Nairobi in under an hour and applied directly — no agency, no fees.</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">ER</div>
+        <div>
+          <div class="author-name">Emily R.</div>
+          <div class="author-detail">MS4 · University of Michigan · Rotation: Kenya</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">I was able to find a mentor who had done a rotation in Uganda before I went. The resources section helped me navigate vaccines and insurance in a way I couldn't piece together from scattered Google searches.</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">JS</div>
+        <div>
+          <div class="author-name">John S.</div>
+          <div class="author-detail">MS3 · Georgetown · Rotation: Uganda</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">My rotation in India was a career-defining experience and I never would have found the program without this site. The detail on each listing — clinical expectations, costs, timeline — saved me enormous time.</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">PM</div>
+        <div>
+          <div class="author-name">Priya M.</div>
+          <div class="author-detail">MS4 · NYU Grossman · Rotation: India</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBMIT CTA -->
+<section class="submit-cta" id="submit">
+  <div class="submit-cta-inner">
+    <div class="section-tag" style="color: var(--teal-lt); text-align:center; display:block; margin-bottom:1rem;">Help the Community Grow</div>
+    <h2>Know a Program We're Missing?</h2>
+    <p>Global Rotation Gateway is built by and for the global health community. If you've completed a rotation or know of a program not yet listed, submit it here — every addition helps another student find their path.</p>
+    <div class="submit-form">
+      <input type="email" placeholder="Your email address" />
+      <button>Submit a Rotation →</button>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.35);">We'll send you a short submission form. All listings are free.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="about">
+  <div class="footer-brand">
+    <div class="footer-logo">Global Rotation <span>Gateway</span></div>
+    <p class="footer-desc">A free, comprehensive directory of international clinical rotation opportunities for medical students around the world. Built for students, by students.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Explore</h4>
+    <a href="#">Browse All Rotations</a>
+    <a href="#">By Region</a>
+    <a href="#">By Specialty</a>
+    <a href="#">Featured Programs</a>
+    <a href="#">New Listings</a>
+  </div>
+  <div class="footer-col">
+    <h4>Resources</h4>
+    <a href="#">Preparation Checklist</a>
+    <a href="#">Insurance Guide</a>
+    <a href="#">Vaccination Info</a>
+    <a href="#">Funding Sources</a>
+    <a href="#">Cultural Guides</a>
+  </div>
+  <div class="footer-col">
+    <h4>Site</h4>
+    <a href="#">About</a>
+    <a href="#">Submit a Rotation</a>
+    <a href="#">Contact</a>
+    <a href="#">Partner With Us</a>
+    <a href="#">Privacy Policy</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2025 Global Rotation Gateway. Free for all medical students.</p>
+  <a href="#">Partner / Advertise</a>
+</div>
+
+<script>
+  // Filter tag toggle
+  document.querySelectorAll('.filter-tag').forEach(tag => {
+    tag.addEventListener('click', function() {
+      document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Pill toggle
+  document.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.pill').forEach(p => {
+        p.classList.remove('pill-active');
+        p.classList.add('pill-inactive');
+      });
+      this.classList.add('pill-active');
+      this.classList.remove('pill-inactive');
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.rotation-card, .resource-card, .step, .testimonial-card, .region-tile').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+
 </body>
 </html>
