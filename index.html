@@ -1,1025 +1,1424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Global Rotation Gateway — International Medical Rotations</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Global Rotation Gateway — International Medical Rotations</title>
+<meta name="description" content="The world's most comprehensive free directory of international clinical rotation opportunities for medical students."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#08111e;
+  --ink-soft:#0f1e35;
+  --ink-mid:#1a3352;
+  --ivory:#f0ead8;
+  --ivory-dim:#d8d0bc;
+  --ivory-faint:rgba(240,234,216,0.06);
+  --gold:#b8933f;
+  --gold-lt:#d4ae5a;
+  --teal:#2a9d8f;
+  --teal-lt:#3bbfb0;
+  --rust:#c0533a;
+  --muted:#4a6280;
+  --muted-lt:#6b8aaa;
+  --border:rgba(240,234,216,0.1);
+  --border-soft:rgba(240,234,216,0.06);
+  --radius:6px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Figtree',sans-serif;
+  background:var(--ink);
+  color:var(--ivory);
+  overflow-x:hidden;
+  cursor:none;
+}
+::selection{background:var(--teal);color:var(--ink)}
 
-    :root {
-      --navy:    #0b1f3a;
-      --teal:    #0d9488;
-      --teal-lt: #14b8a6;
-      --cream:   #f7f3ee;
-      --sand:    #e8e0d5;
-      --rust:    #c0533a;
-      --gold:    #d4a843;
-      --text:    #1a2e45;
-      --muted:   #6b7f93;
-      --white:   #ffffff;
-    }
+/* ── CUSTOM CURSOR ── */
+#cursor{
+  position:fixed;width:10px;height:10px;
+  background:var(--gold);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+  mix-blend-mode:difference;
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(184,147,63,0.4);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:all .12s ease;
+}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--teal)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:rgba(42,157,143,0.4)}
 
-    html { scroll-behavior: smooth; }
+/* ── GRAIN OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity:0.028;pointer-events:none;z-index:9997;
+}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: var(--text);
-      overflow-x: hidden;
-    }
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:1.5rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all .4s ease;
+}
+nav.scrolled{
+  background:rgba(8,17,30,0.92);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  padding:1rem 3rem;
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:.75rem;
+  text-decoration:none;
+}
+.logo-mark{
+  width:32px;height:32px;position:relative;flex-shrink:0;
+}
+.logo-mark svg{width:100%;height:100%}
+.logo-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:600;letter-spacing:.04em;
+  color:var(--ivory);line-height:1.2;
+}
+.logo-text span{color:var(--gold);font-style:italic}
+.nav-center{display:flex;gap:2.5rem;align-items:center}
+.nav-center a{
+  color:rgba(240,234,216,0.55);font-size:.8rem;font-weight:500;
+  text-decoration:none;letter-spacing:.1em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-center a:hover{color:var(--ivory)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-submit{
+  background:transparent;border:1px solid var(--gold);
+  color:var(--gold);padding:.5rem 1.25rem;border-radius:2px;
+  font-family:'Figtree',sans-serif;font-size:.78rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;cursor:none;
+  text-decoration:none;transition:all .25s;
+}
+.nav-submit:hover{background:var(--gold);color:var(--ink)}
 
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 3rem;
-      background: rgba(11,31,58,0.97);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem; font-weight: 700;
-      color: var(--white);
-      letter-spacing: 0.02em;
-      display: flex; align-items: center; gap: 0.6rem;
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--teal-lt); }
-    .nav-globe {
-      width: 28px; height: 28px; border: 2px solid var(--teal); border-radius: 50%;
-      position: relative; display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .nav-globe::before {
-      content: ''; position: absolute;
-      width: 200%; height: 2px; background: var(--teal);
-      top: 50%; left: -50%; transform: translateY(-50%);
-    }
-    .nav-globe::after {
-      content: ''; position: absolute;
-      width: 2px; height: 200%; background: var(--teal);
-      left: 50%; top: -50%; transform: translateX(-50%);
-    }
-    .nav-links { display: flex; align-items: center; gap: 2rem; }
-    .nav-links a {
-      color: rgba(255,255,255,0.75); font-size: 0.875rem; font-weight: 500;
-      text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--teal-lt); }
-    .nav-cta {
-      background: var(--teal); color: var(--white) !important;
-      padding: 0.5rem 1.25rem; border-radius: 4px;
-      transition: background 0.2s !important;
-    }
-    .nav-cta:hover { background: var(--teal-lt) !important; color: var(--navy) !important; }
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:8rem 3rem 5rem;
+  position:relative;overflow:hidden;
+  gap:4rem;
+}
+.hero-glow{
+  position:absolute;top:-20%;left:-10%;
+  width:70%;height:140%;
+  background:radial-gradient(ellipse at 30% 40%,rgba(42,157,143,.07) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-glow-2{
+  position:absolute;bottom:-10%;right:-5%;
+  width:50%;height:80%;
+  background:radial-gradient(ellipse,rgba(184,147,63,.05) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:2}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.6rem;
+  border:1px solid rgba(184,147,63,.3);
+  background:rgba(184,147,63,.06);
+  padding:.4rem 1rem;border-radius:2px;
+  font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:2rem;
+  animation:fadeUp .8s ease both .1s;
+}
+.hero-badge::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--gold);animation:pulse 2.5s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,5.5vw,5.5rem);
+  font-weight:300;line-height:1.08;
+  letter-spacing:-.01em;
+  color:var(--ivory);
+  margin-bottom:1.75rem;
+  animation:fadeUp .8s ease both .2s;
+}
+h1 em{font-style:italic;color:var(--gold-lt);font-weight:400}
+h1 strong{font-weight:600}
+.hero-body{
+  font-size:1.05rem;line-height:1.75;
+  color:rgba(240,234,216,.58);
+  max-width:480px;margin-bottom:2.5rem;
+  font-weight:300;
+  animation:fadeUp .8s ease both .3s;
+}
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:fadeUp .8s ease both .4s;
+}
+.btn-gold{
+  background:var(--gold);color:var(--ink);
+  padding:.9rem 2rem;border-radius:2px;
+  font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;border:none;cursor:none;
+  transition:all .25s;display:inline-flex;align-items:center;gap:.6rem;
+}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 12px 32px rgba(184,147,63,.3)}
+.btn-ghost{
+  background:transparent;color:var(--ivory-dim);
+  border:1px solid rgba(240,234,216,.2);
+  padding:.9rem 2rem;border-radius:2px;
+  font-size:.85rem;font-weight:500;letter-spacing:.04em;
+  text-decoration:none;cursor:none;
+  transition:all .25s;display:inline-flex;align-items:center;gap:.6rem;
+}
+.btn-ghost:hover{border-color:rgba(240,234,216,.45);color:var(--ivory)}
+.hero-stats{
+  display:flex;gap:2.5rem;margin-top:3.5rem;
+  padding-top:2.5rem;border-top:1px solid var(--border);
+  animation:fadeUp .8s ease both .5s;
+}
+.hstat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.4rem;font-weight:600;line-height:1;
+  color:var(--ivory);
+}
+.hstat-num .accent{color:var(--gold)}
+.hstat-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-lt);margin-top:.3rem}
 
-    /* ─── HERO ─── */
-    .hero {
-      min-height: 100vh;
-      background: var(--navy);
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 6rem 3rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-bg-map {
-      position: absolute; inset: 0;
-      background-image:
-        radial-gradient(circle at 70% 50%, rgba(13,148,136,0.12) 0%, transparent 60%),
-        radial-gradient(circle at 20% 80%, rgba(192,83,58,0.08) 0%, transparent 40%);
-    }
-    .hero-grid-lines {
-      position: absolute; inset: 0; opacity: 0.04;
-      background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(255,255,255,1) 50px),
-        repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(255,255,255,1) 50px);
-    }
-    .hero-content { position: relative; z-index: 2; }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(13,148,136,0.15); border: 1px solid rgba(13,148,136,0.4);
-      color: var(--teal-lt); font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 0.4rem 1rem; border-radius: 2px; margin-bottom: 1.5rem;
-    }
-    .hero-eyebrow::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 900; line-height: 1.1;
-      color: var(--white); margin-bottom: 1.5rem;
-    }
-    h1 em { font-style: italic; color: var(--teal-lt); }
-    .hero-sub {
-      font-size: 1.125rem; line-height: 1.7; color: rgba(255,255,255,0.65);
-      max-width: 500px; margin-bottom: 2.5rem;
-    }
-    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--teal); color: var(--white);
-      padding: 0.875rem 2rem; border-radius: 4px;
-      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em;
-      text-decoration: none; border: none; cursor: pointer;
-      transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
-    }
-    .btn-primary:hover { background: var(--teal-lt); color: var(--navy); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,148,136,0.3); }
-    .btn-outline {
-      background: transparent; color: rgba(255,255,255,0.85);
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 0.875rem 2rem; border-radius: 4px;
-      font-size: 0.9rem; font-weight: 500;
-      text-decoration: none; cursor: pointer;
-      transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
-    }
-    .btn-outline:hover { border-color: var(--teal-lt); color: var(--teal-lt); }
-    .hero-stats {
-      display: flex; gap: 2.5rem; margin-top: 3rem;
-      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .stat-item { }
-    .stat-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem; font-weight: 700; color: var(--white);
-    }
-    .stat-num span { color: var(--teal-lt); }
-    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 0.2rem; }
+/* ── HERO MAP CANVAS ── */
+.hero-map-wrap{
+  position:relative;z-index:2;
+  display:flex;align-items:center;justify-content:center;
+  animation:fadeUp .9s ease both .3s;
+}
+#worldCanvas{
+  width:100%;max-width:540px;
+  filter:drop-shadow(0 0 40px rgba(42,157,143,.15));
+}
+.map-overlay-card{
+  position:absolute;bottom:2rem;left:0;
+  background:rgba(15,30,53,.85);
+  border:1px solid var(--border);
+  backdrop-filter:blur(12px);
+  border-radius:var(--radius);
+  padding:1.25rem 1.5rem;
+  min-width:220px;
+}
+.moc-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted-lt);margin-bottom:.75rem}
+.moc-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem}
+.moc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.moc-name{font-size:.82rem;color:var(--ivory);font-weight:500}
+.moc-count{font-size:.75rem;color:var(--muted-lt);margin-left:auto}
 
-    /* Hero visual side */
-    .hero-visual { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; }
-    .world-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px; padding: 2rem;
-      backdrop-filter: blur(4px);
-      width: 100%; max-width: 420px;
-    }
-    .world-card-header {
-      display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;
-    }
-    .world-card-title { color: rgba(255,255,255,0.5); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; }
-    .region-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .pill {
-      padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .pill-active { background: var(--teal); color: white; }
-    .pill-inactive { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.1); }
-    .pill-inactive:hover { background: rgba(255,255,255,0.12); color: white; }
+/* ── TICKER ── */
+.ticker{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:.9rem 0;overflow:hidden;
+  background:rgba(15,30,53,.4);
+}
+.ticker-inner{
+  display:flex;gap:3rem;
+  animation:ticker 30s linear infinite;
+  width:max-content;
+}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{
+  display:flex;align-items:center;gap:.6rem;
+  white-space:nowrap;font-size:.75rem;
+  color:rgba(240,234,216,.4);letter-spacing:.06em;
+}
+.ticker-item .flag{font-size:1rem}
+.ticker-item .hi{color:var(--gold);font-weight:600}
 
-    .rotation-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.25rem; }
-    .rotation-card-mini {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px; padding: 0.875rem 1rem;
-      display: flex; align-items: center; gap: 1rem;
-      transition: all 0.2s; cursor: pointer;
-    }
-    .rotation-card-mini:hover { background: rgba(13,148,136,0.15); border-color: rgba(13,148,136,0.3); }
-    .rcm-flag { font-size: 1.5rem; width: 2rem; text-align: center; flex-shrink: 0; }
-    .rcm-info { flex: 1; }
-    .rcm-name { color: var(--white); font-size: 0.875rem; font-weight: 500; }
-    .rcm-specialty { color: var(--teal-lt); font-size: 0.75rem; margin-top: 0.15rem; }
-    .rcm-badge {
-      background: rgba(212,168,67,0.15); border: 1px solid rgba(212,168,67,0.4);
-      color: var(--gold); font-size: 0.65rem; font-weight: 700;
-      padding: 0.2rem 0.5rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em;
-      flex-shrink: 0;
-    }
+/* ── SECTION BASE ── */
+.section{padding:6rem 3rem}
+.section-eyebrow{
+  font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:.75rem;display:block;
+}
+.section-h{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,3.5vw,3.2rem);font-weight:400;
+  line-height:1.15;color:var(--ivory);
+}
+.section-h em{font-style:italic;color:var(--gold-lt)}
+.section-sub{
+  font-size:1rem;color:rgba(240,234,216,.5);line-height:1.75;
+  font-weight:300;max-width:520px;margin-top:.75rem;
+}
 
-    /* ─── SEARCH SECTION ─── */
-    .search-section {
-      background: var(--white); padding: 4rem 3rem;
-      border-bottom: 1px solid var(--sand);
-    }
-    .search-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); font-weight: 600; margin-bottom: 1rem; }
-    .search-bar {
-      display: flex; gap: 0; max-width: 800px; margin: 0 auto;
-      border: 2px solid var(--navy); border-radius: 6px; overflow: hidden;
-      box-shadow: 0 4px 20px rgba(11,31,58,0.08);
-    }
-    .search-bar input {
-      flex: 1; padding: 1rem 1.5rem; font-size: 1rem; font-family: 'DM Sans', sans-serif;
-      border: none; outline: none; color: var(--text); background: white;
-    }
-    .search-bar input::placeholder { color: #aab; }
-    .search-divider { width: 1px; background: var(--sand); }
-    .search-select {
-      padding: 1rem 1.5rem; border: none; outline: none; background: white;
-      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--muted);
-      cursor: pointer; min-width: 160px;
-    }
-    .search-btn {
-      background: var(--navy); color: white; border: none;
-      padding: 1rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
-      cursor: pointer; transition: background 0.2s; letter-spacing: 0.04em;
-    }
-    .search-btn:hover { background: var(--teal); }
-    .filter-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.25rem; justify-content: center; }
-    .filter-tag {
-      padding: 0.35rem 0.85rem; border: 1px solid var(--sand); border-radius: 20px;
-      font-size: 0.8rem; color: var(--muted); cursor: pointer; transition: all 0.2s; background: white;
-    }
-    .filter-tag:hover, .filter-tag.active { background: var(--navy); color: white; border-color: var(--navy); }
-    .search-section-inner { text-align: center; }
+/* ── SEARCH ── */
+.search-section{
+  background:var(--ink-soft);
+  padding:4rem 3rem;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.search-wrap{max-width:900px;margin:0 auto}
+.search-eyebrow{
+  text-align:center;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted-lt);margin-bottom:1.5rem;
+}
+.search-box{
+  display:flex;background:rgba(240,234,216,.04);
+  border:1px solid rgba(240,234,216,.14);border-radius:4px;
+  overflow:hidden;transition:border-color .25s;
+}
+.search-box:focus-within{border-color:rgba(42,157,143,.5)}
+.search-icon{
+  display:flex;align-items:center;justify-content:center;
+  padding:0 1.25rem;color:var(--muted);flex-shrink:0;
+}
+.search-input{
+  flex:1;padding:1.1rem .75rem;background:transparent;border:none;outline:none;
+  font-family:'Figtree',sans-serif;font-size:1rem;color:var(--ivory);
+  font-weight:300;
+}
+.search-input::placeholder{color:var(--muted)}
+.search-sep{width:1px;background:var(--border);margin:.75rem 0}
+.search-sel{
+  padding:1.1rem 1.25rem;background:transparent;border:none;outline:none;
+  font-family:'Figtree',sans-serif;font-size:.875rem;color:var(--muted-lt);
+  cursor:none;min-width:180px;
+  appearance:none;-webkit-appearance:none;
+}
+.search-sel option{background:#0f1e35;color:var(--ivory)}
+.search-go{
+  background:var(--teal);color:var(--ink);
+  padding:0 2rem;border:none;cursor:none;
+  font-family:'Figtree',sans-serif;font-size:.82rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  transition:background .2s;flex-shrink:0;
+}
+.search-go:hover{background:var(--teal-lt)}
+.filter-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.25rem;justify-content:center}
+.ftag{
+  padding:.35rem .9rem;border-radius:20px;font-size:.75rem;font-weight:500;
+  border:1px solid var(--border);color:var(--muted-lt);
+  cursor:none;transition:all .2s;background:transparent;
+}
+.ftag:hover,.ftag.on{background:var(--teal);border-color:var(--teal);color:var(--ink);font-weight:700}
 
-    /* ─── FEATURED ROTATIONS ─── */
-    .section { padding: 5rem 3rem; }
-    .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
-    .section-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; color: var(--teal); margin-bottom: 0.5rem; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: 2.25rem; font-weight: 700; color: var(--navy); line-height: 1.2; }
-    .section-link { color: var(--teal); font-size: 0.875rem; font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--teal); padding-bottom: 1px; white-space: nowrap; }
-    .section-link:hover { color: var(--navy); border-color: var(--navy); }
+/* ── ROTATIONS ── */
+.rotations-section{background:var(--ink);padding:6rem 0 6rem 3rem}
+.rotations-header{display:flex;justify-content:space-between;align-items:flex-end;padding-right:3rem;margin-bottom:3rem}
+.view-all{
+  font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,147,63,.3);
+  padding-bottom:2px;transition:all .2s;
+}
+.view-all:hover{border-color:var(--gold)}
 
-    .rotations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .rotation-card {
-      background: white; border-radius: 10px; overflow: hidden;
-      border: 1px solid var(--sand); transition: all 0.25s;
-      display: flex; flex-direction: column;
-    }
-    .rotation-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(11,31,58,0.12); border-color: transparent; }
-    .rc-header {
-      padding: 1.5rem 1.5rem 1rem;
-      background: linear-gradient(135deg, var(--navy), #1a3d6b);
-      position: relative; overflow: hidden;
-    }
-    .rc-header::after {
-      content: ''; position: absolute; bottom: -30px; right: -30px;
-      width: 100px; height: 100px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.08);
-    }
-    .rc-header::before {
-      content: ''; position: absolute; bottom: -50px; right: -50px;
-      width: 150px; height: 150px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.05);
-    }
-    .rc-flag { font-size: 2rem; margin-bottom: 0.75rem; position: relative; z-index: 1; }
-    .rc-country { color: rgba(255,255,255,0.6); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem; position: relative; z-index: 1; }
-    .rc-hospital { color: white; font-size: 1rem; font-weight: 600; position: relative; z-index: 1; line-height: 1.3; }
-    .rc-body { padding: 1.25rem 1.5rem; flex: 1; }
-    .rc-specialty {
-      display: inline-block; background: rgba(13,148,136,0.1); color: var(--teal);
-      font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 3px;
-      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.85rem;
-    }
-    .rc-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
-    .rc-meta { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .rc-meta-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.775rem; color: var(--muted); }
-    .rc-meta-icon { font-size: 0.9rem; }
-    .rc-footer {
-      padding: 1rem 1.5rem;
-      border-top: 1px solid var(--sand);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .rc-cost { font-size: 0.8rem; color: var(--muted); }
-    .rc-cost strong { color: var(--text); }
-    .rc-apply {
-      background: var(--teal); color: white; font-size: 0.8rem; font-weight: 600;
-      padding: 0.5rem 1.1rem; border-radius: 4px; text-decoration: none;
-      transition: background 0.2s;
-    }
-    .rc-apply:hover { background: var(--navy); }
-    .featured-badge {
-      position: absolute; top: 1rem; right: 1rem; z-index: 2;
-      background: var(--gold); color: var(--navy); font-size: 0.65rem; font-weight: 800;
-      padding: 0.2rem 0.6rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em;
-    }
+.cards-scroll{
+  display:flex;gap:1.5rem;
+  overflow-x:auto;padding-right:3rem;padding-bottom:1rem;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.cards-scroll::-webkit-scrollbar{display:none}
 
-    /* ─── REGIONS MAP STRIP ─── */
-    .regions-strip {
-      background: var(--navy); padding: 4rem 3rem;
-    }
-    .regions-strip .section-tag { color: var(--teal-lt); }
-    .regions-strip .section-title { color: var(--white); }
-    .regions-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-top: 2.5rem; }
-    .region-tile {
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px; padding: 1.5rem 1rem; text-align: center;
-      cursor: pointer; transition: all 0.2s; text-decoration: none; display: block;
-    }
-    .region-tile:hover { background: rgba(13,148,136,0.2); border-color: var(--teal); transform: translateY(-3px); }
-    .region-emoji { font-size: 2rem; margin-bottom: 0.5rem; }
-    .region-name { color: white; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem; }
-    .region-count { color: var(--teal-lt); font-size: 0.75rem; }
+.rcard{
+  flex:0 0 340px;
+  background:var(--ink-soft);
+  border:1px solid var(--border);border-radius:8px;
+  overflow:hidden;transition:all .3s ease;cursor:none;
+  display:flex;flex-direction:column;
+}
+.rcard:hover{
+  transform:translateY(-6px);
+  border-color:rgba(42,157,143,.35);
+  box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 0 1px rgba(42,157,143,.1);
+}
+.rcard-top{
+  padding:1.75rem;
+  background:linear-gradient(135deg,var(--c1,#0b3a2e),var(--c2,#1a5e45));
+  position:relative;overflow:hidden;min-height:130px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.rcard-top::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,0,0,.2) 0%,transparent 60%);
+}
+.rcard-top::after{
+  content:'';position:absolute;
+  width:200px;height:200px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.06);
+  top:-60px;right:-60px;
+}
+.rcard-badge{
+  position:absolute;top:1rem;right:1rem;
+  padding:.2rem .65rem;border-radius:2px;
+  font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  z-index:2;
+}
+.badge-gold{background:var(--gold);color:var(--ink)}
+.badge-teal{background:var(--teal);color:var(--ink)}
+.rcard-flag{font-size:2rem;margin-bottom:.6rem;position:relative;z-index:1;line-height:1}
+.rcard-loc{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-bottom:.2rem;position:relative;z-index:1}
+.rcard-name{font-size:1.05rem;font-weight:600;color:#fff;line-height:1.3;position:relative;z-index:1}
+.rcard-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+.rcard-spec{
+  display:inline-block;
+  background:rgba(42,157,143,.12);color:var(--teal-lt);
+  font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.2rem .65rem;border-radius:2px;margin-bottom:1rem;
+  border:1px solid rgba(42,157,143,.2);
+}
+.rcard-desc{font-size:.84rem;color:rgba(240,234,216,.5);line-height:1.65;flex:1;font-weight:300}
+.rcard-meta{display:flex;gap:1.25rem;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border-soft)}
+.rm-item{display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--muted-lt)}
+.rm-icon{font-size:.875rem}
+.rcard-foot{
+  padding:1rem 1.5rem;border-top:1px solid var(--border-soft);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.rcard-cost{font-size:.78rem;color:var(--muted);font-weight:300}
+.rcard-cost strong{color:var(--ivory);font-weight:600}
+.rcard-cta{
+  font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--teal);text-decoration:none;
+  display:flex;align-items:center;gap:.3rem;transition:color .2s;
+}
+.rcard-cta:hover{color:var(--teal-lt)}
 
-    /* ─── HOW IT WORKS ─── */
-    .how-section { background: var(--cream); padding: 5rem 3rem; }
-    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; position: relative; }
-    .steps-grid::before {
-      content: ''; position: absolute; top: 2rem; left: 12.5%; right: 12.5%;
-      height: 2px; background: linear-gradient(90deg, transparent, var(--teal), var(--teal), transparent);
-      opacity: 0.3; z-index: 0;
-    }
-    .step { text-align: center; position: relative; z-index: 1; }
-    .step-num {
-      width: 4rem; height: 4rem; border-radius: 50%;
-      background: white; border: 2px solid var(--teal);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 1.25rem;
-      font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--teal);
-      box-shadow: 0 4px 16px rgba(13,148,136,0.15);
-    }
-    .step-title { font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; font-size: 1rem; }
-    .step-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+/* ── SCROLL HINT ── */
+.scroll-hint{
+  display:flex;align-items:center;gap:.75rem;
+  padding-right:3rem;margin-top:1.5rem;
+}
+.sh-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.sh-text{font-size:.7rem;color:var(--muted);white-space:nowrap;letter-spacing:.08em}
 
-    /* ─── RESOURCES SECTION ─── */
-    .resources-section { background: white; padding: 5rem 3rem; }
-    .resources-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
-    .resource-card {
-      border: 1px solid var(--sand); border-radius: 10px; padding: 2rem;
-      transition: all 0.2s; cursor: pointer; text-decoration: none; display: block;
-      position: relative; overflow: hidden;
-    }
-    .resource-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: var(--teal); transform: scaleX(0); transition: transform 0.2s; transform-origin: left;
-    }
-    .resource-card:hover::before { transform: scaleX(1); }
-    .resource-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(11,31,58,0.08); }
-    .rc-icon { font-size: 2.25rem; margin-bottom: 1rem; }
-    .resource-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.6rem; }
-    .resource-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
-    .resource-arrow { color: var(--teal); font-weight: 700; margin-top: 1rem; display: block; font-size: 0.875rem; }
+/* ── REGIONS ── */
+.regions-section{
+  background:linear-gradient(180deg,var(--ink) 0%,var(--ink-soft) 100%);
+  padding:6rem 3rem;
+  position:relative;overflow:hidden;
+}
+.regions-section::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:1px;height:100%;background:linear-gradient(180deg,transparent,var(--border) 20%,var(--border) 80%,transparent);
+}
+.regions-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  border:1px solid var(--border);border-radius:8px;overflow:hidden;
+  margin-top:3rem;background:var(--border);
+}
+.region-cell{
+  background:var(--ink-soft);
+  padding:2.5rem 2rem;
+  display:flex;flex-direction:column;
+  cursor:none;transition:background .25s;
+  text-decoration:none;
+  position:relative;overflow:hidden;
+}
+.region-cell::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--c,var(--teal));transform:scaleX(0);
+  transition:transform .3s;transform-origin:left;
+}
+.region-cell:hover{background:rgba(42,157,143,.06)}
+.region-cell:hover::after{transform:scaleX(1)}
+.rc-emoji{font-size:2.25rem;margin-bottom:1rem;line-height:1}
+.rc-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;color:var(--ivory);margin-bottom:.4rem}
+.rc-programs{font-size:.78rem;color:var(--muted-lt);margin-bottom:1.25rem}
+.rc-bar{height:2px;background:var(--border);border-radius:1px;overflow:hidden}
+.rc-fill{height:100%;border-radius:1px;background:var(--c,var(--teal));transition:width .8s ease}
+.rc-arrow{margin-top:1.5rem;font-size:.75rem;color:var(--muted);transition:color .2s;letter-spacing:.04em}
+.region-cell:hover .rc-arrow{color:var(--teal)}
 
-    /* ─── TESTIMONIALS ─── */
-    .testimonials-section { background: var(--cream); padding: 5rem 3rem; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
-    .testimonial-card {
-      background: white; border-radius: 10px; padding: 2rem;
-      border: 1px solid var(--sand);
-      position: relative;
-    }
-    .testimonial-card::before {
-      content: '\201C';
-      font-family: 'Playfair Display', serif; font-size: 5rem; line-height: 0.7;
-      color: var(--teal); opacity: 0.15;
-      position: absolute; top: 1.5rem; left: 1.5rem;
-    }
-    .testimonial-text { font-size: 0.925rem; line-height: 1.7; color: var(--text); position: relative; z-index: 1; margin-bottom: 1.5rem; font-style: italic; }
-    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
-    .author-avatar {
-      width: 2.5rem; height: 2.5rem; border-radius: 50%;
-      background: linear-gradient(135deg, var(--navy), var(--teal));
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-weight: 700; font-size: 0.875rem; flex-shrink: 0;
-    }
-    .author-name { font-weight: 600; font-size: 0.875rem; color: var(--navy); }
-    .author-detail { font-size: 0.775rem; color: var(--muted); }
-    .stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 0.75rem; }
+/* ── HOW IT WORKS ── */
+.how-section{background:var(--ink);padding:6rem 3rem}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:4rem}
+.how-steps{display:flex;flex-direction:column;gap:0}
+.how-step{
+  display:flex;gap:2rem;
+  padding:2rem 0;
+  border-bottom:1px solid var(--border-soft);
+  position:relative;
+}
+.how-step:last-child{border-bottom:none}
+.hs-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem;font-weight:600;color:rgba(240,234,216,.07);
+  line-height:1;flex-shrink:0;width:60px;
+  transition:color .3s;
+}
+.how-step:hover .hs-num{color:rgba(184,147,63,.2)}
+.hs-content{}
+.hs-title{font-size:1.05rem;font-weight:600;color:var(--ivory);margin-bottom:.5rem}
+.hs-body{font-size:.875rem;color:rgba(240,234,216,.5);line-height:1.7;font-weight:300}
+.how-visual{
+  background:var(--ink-soft);border:1px solid var(--border);
+  border-radius:8px;padding:2.5rem;
+  position:relative;overflow:hidden;
+}
+.how-visual::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:180px;height:180px;border-radius:50%;
+  border:1px solid var(--border-soft);
+}
+.how-visual::after{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:260px;height:260px;border-radius:50%;
+  border:1px solid var(--border-soft);
+}
+.hv-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted-lt);margin-bottom:1.5rem}
+.hv-path{
+  display:flex;flex-direction:column;gap:.75rem;position:relative;z-index:1;
+}
+.hv-node{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.25rem;border-radius:6px;
+  background:rgba(240,234,216,.03);border:1px solid var(--border-soft);
+  transition:all .25s;
+}
+.hv-node.active{background:rgba(42,157,143,.1);border-color:rgba(42,157,143,.25)}
+.hv-icon{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
+  background:rgba(240,234,216,.05);border:1px solid var(--border);
+}
+.hv-node.active .hv-icon{background:rgba(42,157,143,.15);border-color:var(--teal)}
+.hv-ntxt{font-size:.85rem;color:rgba(240,234,216,.6);font-weight:400}
+.hv-node.active .hv-ntxt{color:var(--ivory)}
+.hv-connector{width:1px;height:20px;background:var(--border);margin-left:29px}
 
-    /* ─── SUBMIT CTA ─── */
-    .submit-cta {
-      background: linear-gradient(135deg, #0b2040, #0e3a5c);
-      padding: 5rem 3rem; text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .submit-cta::before {
-      content: ''; position: absolute; inset: 0;
-      background-image: radial-gradient(circle at 30% 50%, rgba(13,148,136,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 70% 50%, rgba(212,168,67,0.08) 0%, transparent 50%);
-    }
-    .submit-cta-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
-    .submit-cta h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: white; margin-bottom: 1rem; line-height: 1.2; }
-    .submit-cta p { color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem; }
-    .submit-form {
-      display: flex; gap: 0; max-width: 480px; margin: 0 auto;
-      border-radius: 6px; overflow: hidden;
-    }
-    .submit-form input {
-      flex: 1; padding: 1rem 1.25rem; border: none; outline: none;
-      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-    }
-    .submit-form button {
-      background: var(--teal); color: white; border: none; padding: 1rem 1.5rem;
-      font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.875rem;
-      cursor: pointer; transition: background 0.2s; white-space: nowrap;
-    }
-    .submit-form button:hover { background: var(--teal-lt); color: var(--navy); }
+/* ── RESOURCES ── */
+.resources-section{
+  background:var(--ink-soft);padding:6rem 3rem;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.resources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.res-card{
+  border:1px solid var(--border);border-radius:8px;
+  padding:2rem;background:rgba(240,234,216,.02);
+  transition:all .25s;cursor:none;text-decoration:none;display:block;
+  position:relative;overflow:hidden;
+}
+.res-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--teal),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.res-card:hover{background:rgba(240,234,216,.04);transform:translateY(-3px)}
+.res-card:hover::before{opacity:1}
+.res-ico{font-size:1.75rem;margin-bottom:1.25rem}
+.res-title{font-size:1rem;font-weight:600;color:var(--ivory);margin-bottom:.6rem}
+.res-desc{font-size:.84rem;color:rgba(240,234,216,.45);line-height:1.65;font-weight:300}
+.res-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  margin-top:1.25rem;font-size:.75rem;font-weight:600;
+  color:var(--teal);letter-spacing:.04em;
+}
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: #070e1a; padding: 3rem;
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
-    }
-    .footer-brand { }
-    .footer-logo {
-      font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: white;
-      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
-    }
-    .footer-logo span { color: var(--teal-lt); }
-    .footer-desc { font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 260px; }
-    .footer-col h4 { color: rgba(255,255,255,0.6); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1rem; }
-    .footer-col a { display: block; color: rgba(255,255,255,0.4); font-size: 0.875rem; text-decoration: none; margin-bottom: 0.5rem; transition: color 0.2s; }
-    .footer-col a:hover { color: var(--teal-lt); }
-    .footer-bottom {
-      background: #070e1a; padding: 1.25rem 3rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.25); }
-    .footer-bottom a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.8rem; }
+/* ── TESTIMONIALS ── */
+.testimonials-section{background:var(--ink);padding:6rem 3rem}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.tcard{
+  border:1px solid var(--border);border-radius:8px;
+  padding:2.25rem;background:rgba(240,234,216,.02);
+  position:relative;overflow:hidden;transition:all .25s;
+}
+.tcard:hover{border-color:rgba(184,147,63,.2);background:rgba(184,147,63,.02)}
+.tcard-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;line-height:.6;color:var(--gold);opacity:.12;
+  position:absolute;top:1.5rem;left:1.75rem;
+  font-style:italic;user-select:none;
+}
+.tcard-stars{color:var(--gold);font-size:.85rem;margin-bottom:1rem;position:relative;z-index:1}
+.tcard-text{
+  font-size:.925rem;line-height:1.75;color:rgba(240,234,216,.7);
+  font-style:italic;font-weight:300;
+  position:relative;z-index:1;margin-bottom:1.75rem;
+}
+.tcard-auth{display:flex;align-items:center;gap:.875rem;position:relative;z-index:1}
+.tcard-av{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;font-weight:700;color:var(--ink);
+}
+.tcard-name{font-size:.875rem;font-weight:600;color:var(--ivory)}
+.tcard-detail{font-size:.75rem;color:var(--muted-lt);margin-top:.15rem}
 
-    /* ─── SPONSOR BANNER ─── */
-    .sponsor-bar {
-      background: rgba(212,168,67,0.08); border-top: 1px solid rgba(212,168,67,0.2); border-bottom: 1px solid rgba(212,168,67,0.2);
-      padding: 0.875rem 3rem; display: flex; align-items: center; justify-content: center; gap: 2rem;
-    }
-    .sponsor-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); font-weight: 700; white-space: nowrap; }
-    .sponsor-logos { display: flex; gap: 2.5rem; align-items: center; }
-    .sponsor-logo {
-      font-size: 0.8rem; font-weight: 600; color: rgba(11,31,58,0.4);
-      letter-spacing: 0.05em; text-transform: uppercase;
-    }
+/* ── BIG QUOTE ── */
+.big-quote-section{
+  padding:6rem 3rem;
+  background:linear-gradient(135deg,rgba(42,157,143,.05),transparent 50%,rgba(184,147,63,.04));
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  text-align:center;
+}
+.bq-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.5rem,3vw,2.5rem);
+  font-weight:300;font-style:italic;
+  line-height:1.5;color:rgba(240,234,216,.7);
+  max-width:820px;margin:0 auto;
+}
+.bq-text strong{color:var(--ivory);font-style:normal;font-weight:500}
+.bq-attr{margin-top:1.5rem;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-lt)}
 
-    /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .hero-content > * { animation: fadeUp 0.6s ease both; }
-    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
-    .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
-    .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
-    .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
-    .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
-    .hero-visual { animation: fadeUp 0.7s ease 0.3s both; }
+/* ── SUBMIT CTA ── */
+.cta-section{
+  background:var(--ink-soft);padding:6rem 3rem;
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+.cta-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(42,157,143,.1) 0%,transparent 60%);
+}
+.cta-section::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 100%,rgba(184,147,63,.06) 0%,transparent 50%);
+}
+.cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.cta-h{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.25rem,4vw,3.5rem);font-weight:400;
+  color:var(--ivory);margin-bottom:1rem;line-height:1.15;
+}
+.cta-h em{font-style:italic;color:var(--gold-lt)}
+.cta-p{font-size:1rem;color:rgba(240,234,216,.5);line-height:1.75;font-weight:300;margin-bottom:2.5rem}
+.cta-form{
+  display:flex;max-width:480px;margin:0 auto;
+  border:1px solid rgba(240,234,216,.15);border-radius:4px;overflow:hidden;
+  background:rgba(240,234,216,.04);
+  transition:border-color .25s;
+}
+.cta-form:focus-within{border-color:rgba(42,157,143,.4)}
+.cta-input{
+  flex:1;padding:1rem 1.25rem;background:transparent;border:none;outline:none;
+  font-family:'Figtree',sans-serif;font-size:.9rem;color:var(--ivory);
+}
+.cta-input::placeholder{color:var(--muted)}
+.cta-btn{
+  background:var(--teal);color:var(--ink);border:none;
+  padding:1rem 1.5rem;cursor:none;
+  font-family:'Figtree',sans-serif;font-size:.8rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  transition:background .2s;white-space:nowrap;
+}
+.cta-btn:hover{background:var(--teal-lt)}
+.cta-fine{margin-top:1rem;font-size:.75rem;color:rgba(240,234,216,.25)}
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 1024px) {
-      .rotations-grid { grid-template-columns: repeat(2, 1fr); }
-      .regions-grid { grid-template-columns: repeat(3, 1fr); }
-      .steps-grid { grid-template-columns: repeat(2, 1fr); }
-      .steps-grid::before { display: none; }
-    }
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 5rem 1.5rem 3rem; gap: 3rem; }
-      .hero-visual { display: none; }
-      .section { padding: 3.5rem 1.5rem; }
-      .search-section { padding: 3rem 1.5rem; }
-      .search-bar { flex-direction: column; border-radius: 8px; }
-      .search-bar input, .search-select, .search-btn { border-radius: 0; }
-      .search-divider { display: none; }
-      .section-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
-      .rotations-grid { grid-template-columns: 1fr; }
-      .regions-grid { grid-template-columns: repeat(2, 1fr); }
-      .steps-grid { grid-template-columns: 1fr; }
-      .resources-grid { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      footer { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
-      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.25rem 1.5rem; }
-      .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
-      .sponsor-bar { flex-direction: column; gap: 1rem; }
-      .submit-form { flex-direction: column; }
-    }
-  </style>
+/* ── PARTNERS ── */
+.partners-section{
+  padding:3rem 3rem;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;gap:3rem;flex-wrap:wrap;
+}
+.partners-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.partners-logos{display:flex;gap:2.5rem;align-items:center;flex-wrap:wrap}
+.partner-name{font-size:.8rem;font-weight:600;color:rgba(240,234,216,.2);letter-spacing:.06em;text-transform:uppercase;transition:color .2s;cursor:none}
+.partner-name:hover{color:rgba(240,234,216,.45)}
+
+/* ── FOOTER ── */
+footer{
+  background:#050c16;padding:4rem 3rem 2rem;
+  border-top:1px solid var(--border);
+}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand{}
+.footer-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem;font-weight:500;color:var(--ivory);
+  margin-bottom:1rem;
+}
+.footer-logo em{font-style:italic;color:var(--gold)}
+.footer-desc{font-size:.84rem;color:rgba(240,234,216,.3);line-height:1.75;font-weight:300;max-width:280px}
+.footer-col h5{font-size:.65rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-bottom:1.25rem;font-weight:700}
+.footer-col a{display:block;color:rgba(240,234,216,.35);font-size:.85rem;text-decoration:none;margin-bottom:.6rem;transition:color .2s;font-weight:300}
+.footer-col a:hover{color:var(--teal-lt)}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:2rem;border-top:1px solid var(--border-soft);
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-bottom p{font-size:.78rem;color:rgba(240,234,216,.2)}
+.footer-bottom-links{display:flex;gap:1.5rem}
+.footer-bottom-links a{font-size:.78rem;color:rgba(240,234,216,.2);text-decoration:none;transition:color .2s}
+.footer-bottom-links a:hover{color:rgba(240,234,216,.5)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;padding:7rem 2rem 4rem}
+  .hero-map-wrap{display:none}
+  .how-grid{grid-template-columns:1fr;gap:3rem}
+  .regions-grid{grid-template-columns:repeat(2,1fr)}
+  .resources-grid{grid-template-columns:repeat(2,1fr)}
+  .testi-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  nav.scrolled{padding:.875rem 1.5rem}
+  .nav-center,.nav-submit{display:none}
+  .hero{padding:6rem 1.5rem 3rem}
+  .section{padding:4rem 1.5rem}
+  .search-section{padding:3rem 1.5rem}
+  .search-box{flex-direction:column;border-radius:6px}
+  .search-sep,.search-sel{display:none}
+  .search-go{padding:1rem;text-align:center}
+  .rotations-section{padding:4rem 0 4rem 1.5rem}
+  .rotations-header{padding-right:1.5rem}
+  .cards-scroll{padding-right:1.5rem}
+  .rcard{flex:0 0 290px}
+  .regions-grid{grid-template-columns:1fr}
+  .resources-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .partners-section{flex-direction:column;align-items:flex-start;gap:1.5rem}
+  #cursor,#cursor-ring{display:none}
+  body{cursor:auto}
+  a,button{cursor:pointer}
+  .cta-form{flex-direction:column}
+  .cta-btn{padding:.875rem}
+}
+</style>
 </head>
 <body>
 
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
 <!-- NAV -->
-<nav>
+<nav id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-globe"></div>
-    Global Rotation <span>Gateway</span>
+    <div class="logo-mark">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="14" stroke="#b8933f" stroke-width="1.2"/>
+        <ellipse cx="16" cy="16" rx="6" ry="14" stroke="#b8933f" stroke-width="1.2"/>
+        <line x1="2" y1="16" x2="30" y2="16" stroke="#b8933f" stroke-width="1.2"/>
+        <line x1="4" y1="9" x2="28" y2="9" stroke="#b8933f" stroke-width=".8" opacity=".5"/>
+        <line x1="4" y1="23" x2="28" y2="23" stroke="#b8933f" stroke-width=".8" opacity=".5"/>
+      </svg>
+    </div>
+    <div class="logo-text">Global Rotation <span>Gateway</span></div>
   </a>
-  <div class="nav-links">
+  <div class="nav-center">
     <a href="#rotations">Rotations</a>
     <a href="#regions">By Region</a>
     <a href="#resources">Resources</a>
     <a href="#about">About</a>
-    <a href="#submit" class="nav-cta">Submit a Rotation</a>
+  </div>
+  <div class="nav-right">
+    <a href="#submit" class="nav-submit">Submit a Rotation</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg-map"></div>
-  <div class="hero-grid-lines"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
   <div class="hero-content">
-    <div class="hero-eyebrow">Free for Medical Students</div>
-    <h1>Your Gateway to <em>Global</em> Clinical Experience</h1>
-    <p class="hero-sub">The most comprehensive, freely searchable directory of international medical rotations — curated for students who want to train beyond borders.</p>
-    <div class="hero-buttons">
-      <a href="#rotations" class="btn-primary">Browse Rotations →</a>
-      <a href="#submit" class="btn-outline">+ Submit a Program</a>
+    <div class="hero-badge">Free for all medical students</div>
+    <h1>Your Gateway to<br/><em>Global</em> Clinical<br/><strong>Excellence</strong></h1>
+    <p class="hero-body">The most comprehensive, freely searchable directory of international medical rotations — meticulously curated for students who want to train beyond borders and transform their practice.</p>
+    <div class="hero-actions">
+      <a href="#rotations" class="btn-gold">Explore Rotations &rarr;</a>
+      <a href="#submit" class="btn-ghost">Submit a Program</a>
     </div>
     <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-num">240<span>+</span></div>
-        <div class="stat-label">Programs Listed</div>
+      <div>
+        <div class="hstat-num"><span class="counter" data-target="240">0</span><span class="accent">+</span></div>
+        <div class="hstat-label">Programs Listed</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">68<span>+</span></div>
-        <div class="stat-label">Countries</div>
+      <div>
+        <div class="hstat-num"><span class="counter" data-target="68">0</span><span class="accent">+</span></div>
+        <div class="hstat-label">Countries</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">30<span>+</span></div>
-        <div class="stat-label">Specialties</div>
+      <div>
+        <div class="hstat-num"><span class="counter" data-target="30">0</span><span class="accent">+</span></div>
+        <div class="hstat-label">Specialties</div>
       </div>
     </div>
   </div>
 
-  <div class="hero-visual">
-    <div class="world-card">
-      <div class="world-card-header">
-        <div class="world-card-title">Browse by Region</div>
-      </div>
-      <div class="region-pills">
-        <div class="pill pill-active">All</div>
-        <div class="pill pill-inactive">Africa</div>
-        <div class="pill pill-inactive">Asia</div>
-        <div class="pill pill-inactive">Americas</div>
-        <div class="pill pill-inactive">Europe</div>
-      </div>
-      <div class="rotation-list">
-        <div class="rotation-card-mini">
-          <div class="rcm-flag">🇰🇪</div>
-          <div class="rcm-info">
-            <div class="rcm-name">Kenyatta National Hospital</div>
-            <div class="rcm-specialty">Internal Medicine · Nairobi, Kenya</div>
-          </div>
-          <div class="rcm-badge">Featured</div>
-        </div>
-        <div class="rotation-card-mini">
-          <div class="rcm-flag">🇮🇳</div>
-          <div class="rcm-info">
-            <div class="rcm-name">AIIMS New Delhi</div>
-            <div class="rcm-specialty">Surgery · New Delhi, India</div>
-          </div>
-          <div class="rcm-badge">New</div>
-        </div>
-        <div class="rotation-card-mini">
-          <div class="rcm-flag">🇧🇷</div>
-          <div class="rcm-info">
-            <div class="rcm-name">Hospital das Clínicas USP</div>
-            <div class="rcm-specialty">Pediatrics · São Paulo, Brazil</div>
-          </div>
-        </div>
-        <div class="rotation-card-mini">
-          <div class="rcm-flag">🇺🇬</div>
-          <div class="rcm-info">
-            <div class="rcm-name">Mulago National Referral</div>
-            <div class="rcm-specialty">OB/GYN · Kampala, Uganda</div>
-          </div>
-        </div>
-      </div>
+  <div class="hero-map-wrap">
+    <canvas id="worldCanvas" width="540" height="380"></canvas>
+    <div class="map-overlay-card">
+      <div class="moc-label">Top Destinations</div>
+      <div class="moc-row"><div class="moc-dot" style="background:#2a9d8f"></div><div class="moc-name">Kenya</div><div class="moc-count">18 programs</div></div>
+      <div class="moc-row"><div class="moc-dot" style="background:#b8933f"></div><div class="moc-name">India</div><div class="moc-count">24 programs</div></div>
+      <div class="moc-row"><div class="moc-dot" style="background:#c0533a"></div><div class="moc-name">Uganda</div><div class="moc-count">12 programs</div></div>
+      <div class="moc-row"><div class="moc-dot" style="background:#7b5ea7"></div><div class="moc-name">Brazil</div><div class="moc-count">15 programs</div></div>
     </div>
   </div>
 </section>
 
-<!-- SPONSOR BAR -->
-<div class="sponsor-bar">
-  <div class="sponsor-label">Trusted Partners</div>
-  <div class="sponsor-logos">
-    <div class="sponsor-logo">Child Family Health Intl.</div>
-    <div class="sponsor-logo">IFMSA</div>
-    <div class="sponsor-logo">GeoBlue Insurance</div>
-    <div class="sponsor-logo">Global Health Learning</div>
-    <div class="sponsor-logo">WHO Student Network</div>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="tickerInner">
+    <div class="ticker-item"><span class="flag">🇰🇪</span> <span class="hi">Kenya</span> — Kenyatta National Hospital &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇮🇳</span> <span class="hi">India</span> — AIIMS New Delhi &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇺🇬</span> <span class="hi">Uganda</span> — Mulago National Referral &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇧🇷</span> <span class="hi">Brazil</span> — Hospital das Clínicas USP &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇹🇿</span> <span class="hi">Tanzania</span> — Muhimbili National Hospital &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇲🇼</span> <span class="hi">Malawi</span> — Queen Elizabeth Central &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇬🇭</span> <span class="hi">Ghana</span> — Korle Bu Teaching Hospital &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇵🇪</span> <span class="hi">Peru</span> — Hospital Nacional Cayetano &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇳🇵</span> <span class="hi">Nepal</span> — BP Koirala Institute &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇿🇦</span> <span class="hi">South Africa</span> — Groote Schuur Hospital &nbsp;&bull;</div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item"><span class="flag">🇰🇪</span> <span class="hi">Kenya</span> — Kenyatta National Hospital &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇮🇳</span> <span class="hi">India</span> — AIIMS New Delhi &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇺🇬</span> <span class="hi">Uganda</span> — Mulago National Referral &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇧🇷</span> <span class="hi">Brazil</span> — Hospital das Clínicas USP &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇹🇿</span> <span class="hi">Tanzania</span> — Muhimbili National Hospital &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇲🇼</span> <span class="hi">Malawi</span> — Queen Elizabeth Central &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇬🇭</span> <span class="hi">Ghana</span> — Korle Bu Teaching Hospital &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇵🇪</span> <span class="hi">Peru</span> — Hospital Nacional Cayetano &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇳🇵</span> <span class="hi">Nepal</span> — BP Koirala Institute &nbsp;&bull;</div>
+    <div class="ticker-item"><span class="flag">🇿🇦</span> <span class="hi">South Africa</span> — Groote Schuur Hospital &nbsp;&bull;</div>
   </div>
 </div>
 
 <!-- SEARCH -->
 <section class="search-section">
-  <div class="search-section-inner">
-    <div class="search-label">Search 240+ international rotation programs</div>
-    <div class="search-bar">
-      <input type="text" placeholder="Search by country, hospital, or specialty..." />
-      <div class="search-divider"></div>
-      <select class="search-select">
-        <option>All Specialties</option>
+  <div class="search-wrap">
+    <div class="search-eyebrow">Search 240+ international rotation programs — always free</div>
+    <div class="search-box">
+      <div class="search-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
+      <input class="search-input" type="text" placeholder="Country, hospital, city, or specialty…" />
+      <div class="search-sep"></div>
+      <select class="search-sel">
+        <option value="">All Specialties</option>
         <option>Internal Medicine</option>
-        <option>Surgery</option>
+        <option>General Surgery</option>
         <option>Pediatrics</option>
         <option>OB/GYN</option>
-        <option>Psychiatry</option>
         <option>Emergency Medicine</option>
-        <option>Family Medicine</option>
         <option>Infectious Disease</option>
-        <option>Radiology</option>
+        <option>Psychiatry</option>
+        <option>Family Medicine</option>
         <option>Neurology</option>
+        <option>Radiology</option>
+        <option>Orthopedic Surgery</option>
+        <option>Anesthesiology</option>
+        <option>Cardiology</option>
+        <option>Dermatology</option>
+        <option>Ophthalmology</option>
       </select>
-      <button class="search-btn">Search →</button>
+      <button class="search-go">Search</button>
     </div>
-    <div class="filter-tags">
-      <div class="filter-tag active">All Regions</div>
-      <div class="filter-tag">Sub-Saharan Africa</div>
-      <div class="filter-tag">South Asia</div>
-      <div class="filter-tag">Latin America</div>
-      <div class="filter-tag">Southeast Asia</div>
-      <div class="filter-tag">Middle East</div>
-      <div class="filter-tag">Eastern Europe</div>
-      <div class="filter-tag">Pacific Islands</div>
+    <div class="filter-row" id="filterRow">
+      <button class="ftag on" data-filter="all">All Regions</button>
+      <button class="ftag" data-filter="africa">Sub-Saharan Africa</button>
+      <button class="ftag" data-filter="south-asia">South Asia</button>
+      <button class="ftag" data-filter="latam">Latin America</button>
+      <button class="ftag" data-filter="se-asia">Southeast Asia</button>
+      <button class="ftag" data-filter="mena">Middle East &amp; N. Africa</button>
+      <button class="ftag" data-filter="europe">Eastern Europe</button>
+      <button class="ftag" data-filter="pacific">Pacific &amp; Oceania</button>
     </div>
   </div>
 </section>
 
-<!-- FEATURED ROTATIONS -->
-<section class="section" id="rotations" style="background: var(--cream);">
-  <div class="section-header">
+<!-- ROTATIONS -->
+<section class="rotations-section" id="rotations">
+  <div class="rotations-header reveal">
     <div>
-      <div class="section-tag">Featured Programs</div>
-      <div class="section-title">Top-Rated International Rotations</div>
+      <span class="section-eyebrow">Featured Programs</span>
+      <h2 class="section-h">Top-Rated <em>International</em> Rotations</h2>
     </div>
-    <a href="#" class="section-link">View all 240+ programs →</a>
+    <a href="#" class="view-all">View all 240+ programs &rarr;</a>
   </div>
 
-  <div class="rotations-grid">
+  <div class="cards-scroll">
 
-    <!-- Card 1 -->
-    <div class="rotation-card">
-      <div class="rc-header" style="background: linear-gradient(135deg, #0b3d2e, #1a6b4a);">
-        <div class="featured-badge">Featured</div>
-        <div class="rc-flag">🇰🇪</div>
-        <div class="rc-country">Kenya · Nairobi</div>
-        <div class="rc-hospital">Kenyatta National Hospital</div>
+    <div class="rcard reveal">
+      <div class="rcard-top" style="--c1:#0b3d2e;--c2:#1a6b4a">
+        <div class="rcard-badge badge-gold">Featured</div>
+        <div class="rcard-flag">🇰🇪</div>
+        <div class="rcard-loc">Kenya &middot; Nairobi</div>
+        <div class="rcard-name">Kenyatta National Hospital</div>
       </div>
-      <div class="rc-body">
-        <div class="rc-specialty">Internal Medicine</div>
-        <div class="rc-desc">Sub-Saharan Africa's largest referral hospital offering exceptional exposure to tropical medicine, HIV/TB management, and high-acuity inpatient care with hands-on supervision.</div>
-        <div class="rc-meta">
-          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 4–8 weeks</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS3, MS4</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> English</div>
+      <div class="rcard-body">
+        <span class="rcard-spec">Internal Medicine</span>
+        <p class="rcard-desc">Sub-Saharan Africa's largest referral hospital — exceptional exposure to tropical medicine, HIV/TB management, and high-acuity inpatient care with close supervision.</p>
+        <div class="rcard-meta">
+          <div class="rm-item"><span class="rm-icon">📅</span> 4–8 wks</div>
+          <div class="rm-item"><span class="rm-icon">🎓</span> MS3/MS4</div>
+          <div class="rm-item"><span class="rm-icon">🌐</span> English</div>
         </div>
       </div>
-      <div class="rc-footer">
-        <div class="rc-cost">Cost: <strong>~$1,200–$1,800</strong></div>
-        <a href="#" class="rc-apply">View Program</a>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~$1,200–1,800</strong></div>
+        <a href="#" class="rcard-cta">View Program →</a>
       </div>
     </div>
 
-    <!-- Card 2 -->
-    <div class="rotation-card">
-      <div class="rc-header" style="background: linear-gradient(135deg, #2d1050, #4a1e80);">
-        <div class="rc-flag">🇮🇳</div>
-        <div class="rc-country">India · New Delhi</div>
-        <div class="rc-hospital">AIIMS New Delhi</div>
+    <div class="rcard reveal reveal-delay-1">
+      <div class="rcard-top" style="--c1:#2d1050;--c2:#4a1e80">
+        <div class="rcard-flag">🇮🇳</div>
+        <div class="rcard-loc">India &middot; New Delhi</div>
+        <div class="rcard-name">AIIMS New Delhi</div>
       </div>
-      <div class="rc-body">
-        <div class="rc-specialty">General Surgery</div>
-        <div class="rc-desc">One of Asia's premier academic medical centers. Students observe complex surgical cases, participate in ward rounds, and experience the breadth of pathology seen in a major South Asian tertiary center.</div>
-        <div class="rc-meta">
-          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 2–6 weeks</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS3, MS4</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> English</div>
+      <div class="rcard-body">
+        <span class="rcard-spec">General Surgery</span>
+        <p class="rcard-desc">Asia's premier academic medical center. Students observe complex surgical cases, participate in ward rounds, and experience pathology rarely seen in Western training.</p>
+        <div class="rcard-meta">
+          <div class="rm-item"><span class="rm-icon">📅</span> 2–6 wks</div>
+          <div class="rm-item"><span class="rm-icon">🎓</span> MS3/MS4</div>
+          <div class="rm-item"><span class="rm-icon">🌐</span> English</div>
         </div>
       </div>
-      <div class="rc-footer">
-        <div class="rc-cost">Cost: <strong>~$800–$1,400</strong></div>
-        <a href="#" class="rc-apply">View Program</a>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~$800–1,400</strong></div>
+        <a href="#" class="rcard-cta">View Program →</a>
       </div>
     </div>
 
-    <!-- Card 3 -->
-    <div class="rotation-card">
-      <div class="rc-header" style="background: linear-gradient(135deg, #1a3a0e, #2e6b1a);">
-        <div class="featured-badge">New</div>
-        <div class="rc-flag">🇺🇬</div>
-        <div class="rc-country">Uganda · Kampala</div>
-        <div class="rc-hospital">Mulago National Referral Hospital</div>
+    <div class="rcard reveal reveal-delay-2">
+      <div class="rcard-top" style="--c1:#1a3a0e;--c2:#2e6b1a">
+        <div class="rcard-badge badge-teal">New</div>
+        <div class="rcard-flag">🇺🇬</div>
+        <div class="rcard-loc">Uganda &middot; Kampala</div>
+        <div class="rcard-name">Mulago National Referral Hospital</div>
       </div>
-      <div class="rc-body">
-        <div class="rc-specialty">OB/GYN</div>
-        <div class="rc-desc">High-volume obstetric center with exceptional surgical exposure for students pursuing women's health. Experience a breadth of pathology rarely encountered in a US or Canadian training environment.</div>
-        <div class="rc-meta">
-          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 4 weeks</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS3, MS4</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> English</div>
+      <div class="rcard-body">
+        <span class="rcard-spec">OB/GYN</span>
+        <p class="rcard-desc">High-volume obstetric center with extraordinary surgical exposure for students pursuing women's health. A breadth of pathology rarely encountered in US/Canadian training.</p>
+        <div class="rcard-meta">
+          <div class="rm-item"><span class="rm-icon">📅</span> 4 wks</div>
+          <div class="rm-item"><span class="rm-icon">🎓</span> MS3/MS4</div>
+          <div class="rm-item"><span class="rm-icon">🌐</span> English</div>
         </div>
       </div>
-      <div class="rc-footer">
-        <div class="rc-cost">Cost: <strong>~$900–$1,500</strong></div>
-        <a href="#" class="rc-apply">View Program</a>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~$900–1,500</strong></div>
+        <a href="#" class="rcard-cta">View Program →</a>
       </div>
     </div>
 
-    <!-- Card 4 -->
-    <div class="rotation-card">
-      <div class="rc-header" style="background: linear-gradient(135deg, #0b1f3a, #183a6b);">
-        <div class="rc-flag">🇧🇷</div>
-        <div class="rc-country">Brazil · São Paulo</div>
-        <div class="rc-hospital">Hospital das Clínicas USP</div>
+    <div class="rcard reveal reveal-delay-3">
+      <div class="rcard-top" style="--c1:#0b1f3a;--c2:#183a6b">
+        <div class="rcard-flag">🇧🇷</div>
+        <div class="rcard-loc">Brazil &middot; São Paulo</div>
+        <div class="rcard-name">Hospital das Clínicas USP</div>
       </div>
-      <div class="rc-body">
-        <div class="rc-specialty">Pediatrics</div>
-        <div class="rc-desc">Latin America's largest hospital complex affiliated with the University of São Paulo. Students gain experience in pediatric wards serving one of the world's most populous urban centers.</div>
-        <div class="rc-meta">
-          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 4–8 weeks</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS2–MS4</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> Portuguese</div>
+      <div class="rcard-body">
+        <span class="rcard-spec">Pediatrics</span>
+        <p class="rcard-desc">Latin America's largest hospital complex — affiliated with the University of São Paulo. Rich pediatric experience serving one of the world's most diverse urban populations.</p>
+        <div class="rcard-meta">
+          <div class="rm-item"><span class="rm-icon">📅</span> 4–8 wks</div>
+          <div class="rm-item"><span class="rm-icon">🎓</span> MS2–MS4</div>
+          <div class="rm-item"><span class="rm-icon">🌐</span> Portuguese</div>
         </div>
       </div>
-      <div class="rc-footer">
-        <div class="rc-cost">Cost: <strong>~$1,000–$1,800</strong></div>
-        <a href="#" class="rc-apply">View Program</a>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~$1,000–1,800</strong></div>
+        <a href="#" class="rcard-cta">View Program →</a>
       </div>
     </div>
 
-    <!-- Card 5 -->
-    <div class="rotation-card">
-      <div class="rc-header" style="background: linear-gradient(135deg, #3a0b0b, #7a2020);">
-        <div class="rc-flag">🇲🇼</div>
-        <div class="rc-country">Malawi · Blantyre</div>
-        <div class="rc-hospital">Queen Elizabeth Central Hospital</div>
+    <div class="rcard reveal">
+      <div class="rcard-top" style="--c1:#3a0b0b;--c2:#7a2020">
+        <div class="rcard-flag">🇲🇼</div>
+        <div class="rcard-loc">Malawi &middot; Blantyre</div>
+        <div class="rcard-name">Queen Elizabeth Central Hospital</div>
       </div>
-      <div class="rc-body">
-        <div class="rc-specialty">Emergency Medicine</div>
-        <div class="rc-desc">One of southern Africa's busiest emergency departments. Students experience resource-limited medicine at its most demanding, developing clinical decision-making skills that transform future practice.</div>
-        <div class="rc-meta">
-          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 4 weeks</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS3, MS4</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> English</div>
+      <div class="rcard-body">
+        <span class="rcard-spec">Emergency Medicine</span>
+        <p class="rcard-desc">Southern Africa's busiest emergency department. Resource-limited medicine at its most demanding — developing clinical decision-making that transforms future practice.</p>
+        <div class="rcard-meta">
+          <div class="rm-item"><span class="rm-icon">📅</span> 4 wks</div>
+          <div class="rm-item"><span class="rm-icon">🎓</span> MS3/MS4</div>
+          <div class="rm-item"><span class="rm-icon">🌐</span> English</div>
         </div>
       </div>
-      <div class="rc-footer">
-        <div class="rc-cost">Cost: <strong>~$700–$1,200</strong></div>
-        <a href="#" class="rc-apply">View Program</a>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~$700–1,200</strong></div>
+        <a href="#" class="rcard-cta">View Program →</a>
       </div>
     </div>
 
-    <!-- Card 6 -->
-    <div class="rotation-card">
-      <div class="rc-header" style="background: linear-gradient(135deg, #1a2a0b, #3a5e1a);">
-        <div class="rc-flag">🇹🇿</div>
-        <div class="rc-country">Tanzania · Dar es Salaam</div>
-        <div class="rc-hospital">Muhimbili National Hospital</div>
+    <div class="rcard reveal reveal-delay-1">
+      <div class="rcard-top" style="--c1:#1a2a0b;--c2:#3a5e1a">
+        <div class="rcard-flag">🇹🇿</div>
+        <div class="rcard-loc">Tanzania &middot; Dar es Salaam</div>
+        <div class="rcard-name">Muhimbili National Hospital</div>
       </div>
-      <div class="rc-body">
-        <div class="rc-specialty">Infectious Disease</div>
-        <div class="rc-desc">Tanzania's premier academic medical center offering unmatched exposure to tropical infectious diseases — malaria, typhoid, meningitis, and emerging pathogens — with direct patient contact.</div>
-        <div class="rc-meta">
-          <div class="rc-meta-item"><span class="rc-meta-icon">📅</span> 4–8 weeks</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🎓</span> MS2–MS4</div>
-          <div class="rc-meta-item"><span class="rc-meta-icon">🌐</span> English/Swahili</div>
+      <div class="rcard-body">
+        <span class="rcard-spec">Infectious Disease</span>
+        <p class="rcard-desc">Tanzania's premier academic center offering unmatched exposure to tropical infectious diseases — malaria, typhoid, meningitis — with direct patient contact and mentorship.</p>
+        <div class="rcard-meta">
+          <div class="rm-item"><span class="rm-icon">📅</span> 4–8 wks</div>
+          <div class="rm-item"><span class="rm-icon">🎓</span> MS2–MS4</div>
+          <div class="rm-item"><span class="rm-icon">🌐</span> English/Swahili</div>
         </div>
       </div>
-      <div class="rc-footer">
-        <div class="rc-cost">Cost: <strong>~$900–$1,600</strong></div>
-        <a href="#" class="rc-apply">View Program</a>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~$900–1,600</strong></div>
+        <a href="#" class="rcard-cta">View Program →</a>
       </div>
     </div>
 
+    <div class="rcard reveal reveal-delay-2">
+      <div class="rcard-top" style="--c1:#0b2a3a;--c2:#1a5e7a">
+        <div class="rcard-flag">🇳🇵</div>
+        <div class="rcard-loc">Nepal &middot; Dharan</div>
+        <div class="rcard-name">BP Koirala Institute of Health Sciences</div>
+      </div>
+      <div class="rcard-body">
+        <span class="rcard-spec">Family Medicine</span>
+        <p class="rcard-desc">A world-class facility nestled in the foothills of the Himalayas — an extraordinary setting for community-oriented family medicine with remarkable continuity of care experience.</p>
+        <div class="rcard-meta">
+          <div class="rm-item"><span class="rm-icon">📅</span> 4 wks</div>
+          <div class="rm-item"><span class="rm-icon">🎓</span> MS2–MS4</div>
+          <div class="rm-item"><span class="rm-icon">🌐</span> English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~$600–1,000</strong></div>
+        <a href="#" class="rcard-cta">View Program →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="scroll-hint" style="padding-left:0">
+    <div class="sh-line" style="background:linear-gradient(90deg,transparent,var(--border))"></div>
+    <div class="sh-text">← scroll to explore more</div>
+    <div class="sh-line" style="background:linear-gradient(90deg,var(--border),transparent)"></div>
   </div>
 </section>
 
 <!-- REGIONS -->
-<section class="regions-strip" id="regions">
-  <div class="section-tag">Browse by Region</div>
-  <div class="section-title">Find Rotations Around the World</div>
+<section class="regions-section section" id="regions">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:0" class="reveal">
+    <div>
+      <span class="section-eyebrow">Browse by Region</span>
+      <h2 class="section-h">Find Rotations <em>Around the World</em></h2>
+    </div>
+    <a href="#" class="view-all">View all regions →</a>
+  </div>
   <div class="regions-grid">
-    <a href="#" class="region-tile">
-      <div class="region-emoji">🌍</div>
-      <div class="region-name">Sub-Saharan Africa</div>
-      <div class="region-count">82 programs</div>
+    <a href="#" class="region-cell reveal" style="--c:#2a9d8f">
+      <div class="rc-emoji">🌍</div>
+      <div class="rc-name">Sub-Saharan Africa</div>
+      <div class="rc-programs">82 programs across 24 countries</div>
+      <div class="rc-bar"><div class="rc-fill" style="width:82%;--c:#2a9d8f"></div></div>
+      <div class="rc-arrow">Explore region →</div>
     </a>
-    <a href="#" class="region-tile">
-      <div class="region-emoji">🌏</div>
-      <div class="region-name">South & SE Asia</div>
-      <div class="region-count">64 programs</div>
+    <a href="#" class="region-cell reveal reveal-delay-1" style="--c:#b8933f">
+      <div class="rc-emoji">🌏</div>
+      <div class="rc-name">South &amp; Southeast Asia</div>
+      <div class="rc-programs">64 programs across 12 countries</div>
+      <div class="rc-bar"><div class="rc-fill" style="width:64%;--c:#b8933f"></div></div>
+      <div class="rc-arrow">Explore region →</div>
     </a>
-    <a href="#" class="region-tile">
-      <div class="region-emoji">🌎</div>
-      <div class="region-name">Latin America</div>
-      <div class="region-count">47 programs</div>
+    <a href="#" class="region-cell reveal reveal-delay-2" style="--c:#c0533a">
+      <div class="rc-emoji">🌎</div>
+      <div class="rc-name">Latin America</div>
+      <div class="rc-programs">47 programs across 15 countries</div>
+      <div class="rc-bar"><div class="rc-fill" style="width:47%;--c:#c0533a"></div></div>
+      <div class="rc-arrow">Explore region →</div>
     </a>
-    <a href="#" class="region-tile">
-      <div class="region-emoji">🕌</div>
-      <div class="region-name">Middle East & N. Africa</div>
-      <div class="region-count">23 programs</div>
+    <a href="#" class="region-cell reveal" style="--c:#7b5ea7">
+      <div class="rc-emoji">🕌</div>
+      <div class="rc-name">Middle East &amp; N. Africa</div>
+      <div class="rc-programs">23 programs across 8 countries</div>
+      <div class="rc-bar"><div class="rc-fill" style="width:23%;--c:#7b5ea7"></div></div>
+      <div class="rc-arrow">Explore region →</div>
     </a>
-    <a href="#" class="region-tile">
-      <div class="region-emoji">🏔️</div>
-      <div class="region-name">Eastern Europe & Balkans</div>
-      <div class="region-count">15 programs</div>
+    <a href="#" class="region-cell reveal reveal-delay-1" style="--c:#4a7c8f">
+      <div class="rc-emoji">🏔️</div>
+      <div class="rc-name">Eastern Europe &amp; Balkans</div>
+      <div class="rc-programs">15 programs across 9 countries</div>
+      <div class="rc-bar"><div class="rc-fill" style="width:15%;--c:#4a7c8f"></div></div>
+      <div class="rc-arrow">Explore region →</div>
     </a>
-    <a href="#" class="region-tile">
-      <div class="region-emoji">🌊</div>
-      <div class="region-name">Pacific & Oceania</div>
-      <div class="region-count">9 programs</div>
+    <a href="#" class="region-cell reveal reveal-delay-2" style="--c:#3bbfb0">
+      <div class="rc-emoji">🌊</div>
+      <div class="rc-name">Pacific &amp; Oceania</div>
+      <div class="rc-programs">9 programs across 5 countries</div>
+      <div class="rc-bar"><div class="rc-fill" style="width:9%;--c:#3bbfb0"></div></div>
+      <div class="rc-arrow">Explore region →</div>
     </a>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how-section">
-  <div class="section-header" style="max-width: 600px; margin: 0 auto 3rem; text-align: center; display: block;">
-    <div class="section-tag" style="text-align:center;">How It Works</div>
-    <div class="section-title">From Discovery to Departure</div>
+<section class="how-section section">
+  <div class="reveal">
+    <span class="section-eyebrow">How It Works</span>
+    <h2 class="section-h">From Discovery <em>to Departure</em></h2>
+    <p class="section-sub">No agencies. No hidden fees. No middlemen. Just direct connections between curious medical students and transformative opportunities.</p>
   </div>
-  <div class="steps-grid">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-title">Search & Filter</div>
-      <div class="step-desc">Use our free search tool to browse by country, specialty, duration, cost, or language requirement. No account needed.</div>
+
+  <div class="how-grid">
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="hs-num">01</div>
+        <div class="hs-content">
+          <div class="hs-title">Search &amp; Filter Freely</div>
+          <div class="hs-body">Browse 240+ programs by country, specialty, duration, cost, or language. No account needed, no paywall — ever. The full database is yours.</div>
+        </div>
+      </div>
+      <div class="how-step reveal reveal-delay-1">
+        <div class="hs-num">02</div>
+        <div class="hs-content">
+          <div class="hs-title">Read Detailed Program Profiles</div>
+          <div class="hs-body">Every listing includes hospital context, clinical expectations, cost breakdowns, language requirements, and notes from students who've been there.</div>
+        </div>
+      </div>
+      <div class="how-step reveal reveal-delay-2">
+        <div class="hs-num">03</div>
+        <div class="hs-content">
+          <div class="hs-title">Apply Directly to Programs</div>
+          <div class="hs-body">We link you straight to each program's application portal or coordinator contact. No intermediary, no commission, no markup.</div>
+        </div>
+      </div>
+      <div class="how-step reveal reveal-delay-3">
+        <div class="hs-num">04</div>
+        <div class="hs-content">
+          <div class="hs-title">Prepare with Free Resources</div>
+          <div class="hs-body">Use our free toolkit — packing checklists, visa guides, vaccine recommendations, insurance comparisons, and cultural primers — to go in confident.</div>
+        </div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-title">Review Programs</div>
-      <div class="step-desc">Read detailed profiles for each rotation — hospital overview, what to expect clinically, logistics, and reviews from past students.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-title">Apply Directly</div>
-      <div class="step-desc">We link you directly to each program's application portal or contact. No middlemen, no hidden fees — just the connection.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-title">Prepare & Go</div>
-      <div class="step-desc">Use our free preparation resources — packing checklists, visa guides, medical travel insurance tips, and cultural primers.</div>
+
+    <div class="how-visual reveal">
+      <div class="hv-label">Your rotation journey</div>
+      <div class="hv-path">
+        <div class="hv-node active">
+          <div class="hv-icon">🔍</div>
+          <div class="hv-ntxt">Search &amp; shortlist programs</div>
+        </div>
+        <div class="hv-connector"></div>
+        <div class="hv-node active">
+          <div class="hv-icon">📄</div>
+          <div class="hv-ntxt">Read full program profiles</div>
+        </div>
+        <div class="hv-connector"></div>
+        <div class="hv-node active">
+          <div class="hv-icon">✉️</div>
+          <div class="hv-ntxt">Apply directly to programs</div>
+        </div>
+        <div class="hv-connector"></div>
+        <div class="hv-node">
+          <div class="hv-icon">💉</div>
+          <div class="hv-ntxt">Complete vaccine &amp; visa requirements</div>
+        </div>
+        <div class="hv-connector"></div>
+        <div class="hv-node">
+          <div class="hv-icon">✈️</div>
+          <div class="hv-ntxt">Depart with confidence</div>
+        </div>
+        <div class="hv-connector"></div>
+        <div class="hv-node">
+          <div class="hv-icon">🌍</div>
+          <div class="hv-ntxt">Transform your clinical perspective</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- RESOURCES -->
-<section class="resources-section" id="resources">
-  <div class="section-header">
+<section class="resources-section section" id="resources">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end" class="reveal">
     <div>
-      <div class="section-tag">Resources</div>
-      <div class="section-title">Everything You Need to Prepare</div>
+      <span class="section-eyebrow">Free Resources</span>
+      <h2 class="section-h">Everything You Need <em>to Prepare</em></h2>
     </div>
-    <a href="#" class="section-link">View all resources →</a>
+    <a href="#" class="view-all">View all resources →</a>
   </div>
+
   <div class="resources-grid">
-    <a href="#" class="resource-card" style="text-decoration:none;">
-      <div class="rc-icon">📋</div>
-      <h3>Pre-Rotation Checklist</h3>
-      <p>A comprehensive checklist covering visas, vaccinations, insurance, elective letters, and packing — so you never miss a step.</p>
-      <span class="resource-arrow">Download free →</span>
+    <a href="#" class="res-card reveal">
+      <div class="res-ico">📋</div>
+      <div class="res-title">Pre-Rotation Master Checklist</div>
+      <p class="res-desc">A comprehensive checklist covering visas, vaccinations, insurance, elective letters, packing, and arrival orientation — so you never miss a step.</p>
+      <span class="res-link">Download free →</span>
     </a>
-    <a href="#" class="resource-card" style="text-decoration:none;">
-      <div class="rc-icon">✈️</div>
-      <h3>Medical Travel Insurance Guide</h3>
-      <p>Comparing your options: GeoBlue, HTH, IMG, and others — what's covered, what isn't, and what medical students specifically need.</p>
-      <span class="resource-arrow">Read guide →</span>
+    <a href="#" class="res-card reveal reveal-delay-1">
+      <div class="res-ico">🛡️</div>
+      <div class="res-title">Medical Travel Insurance Guide</div>
+      <p class="res-desc">An honest comparison of GeoBlue, HTH, IMG, and others — what's covered, what isn't, and what medical students on clinical rotations specifically need.</p>
+      <span class="res-link">Read guide →</span>
     </a>
-    <a href="#" class="resource-card" style="text-decoration:none;">
-      <div class="rc-icon">💉</div>
-      <h3>Vaccination & Health Requirements</h3>
-      <p>Region-by-region breakdown of recommended and required vaccines, malaria prophylaxis, and pre-travel health appointments.</p>
-      <span class="resource-arrow">Browse by region →</span>
+    <a href="#" class="res-card reveal reveal-delay-2">
+      <div class="res-ico">💉</div>
+      <div class="res-title">Vaccination &amp; Health Requirements</div>
+      <p class="res-desc">Region-by-region breakdown of recommended and required vaccines, malaria prophylaxis options, and what to discuss at your pre-travel appointment.</p>
+      <span class="res-link">Browse by region →</span>
     </a>
-    <a href="#" class="resource-card" style="text-decoration:none;">
-      <div class="rc-icon">📝</div>
-      <h3>Personal Statement Templates</h3>
-      <p>Application toolkit with email templates for reaching out to programs, elective request letter formats, and MSPE guidance for global health.</p>
-      <span class="resource-arrow">Get templates →</span>
+    <a href="#" class="res-card reveal">
+      <div class="res-ico">📝</div>
+      <div class="res-title">Application Toolkit</div>
+      <p class="res-desc">Email templates for reaching out to programs, elective request letter formats, personal statement frameworks for global health applications.</p>
+      <span class="res-link">Get toolkit →</span>
     </a>
-    <a href="#" class="resource-card" style="text-decoration:none;">
-      <div class="rc-icon">💬</div>
-      <h3>Cultural Preparation Guides</h3>
-      <p>Region-specific primers on clinical culture, hierarchy norms, communication styles, and what to expect as a visiting student.</p>
-      <span class="resource-arrow">Explore guides →</span>
+    <a href="#" class="res-card reveal reveal-delay-1">
+      <div class="res-ico">💬</div>
+      <div class="res-title">Cultural Preparation Guides</div>
+      <p class="res-desc">Region-specific primers on clinical hierarchy, communication styles, what to expect as a visiting student, and how to show up as a respectful guest.</p>
+      <span class="res-link">Explore guides →</span>
     </a>
-    <a href="#" class="resource-card" style="text-decoration:none;">
-      <div class="rc-icon">💰</div>
-      <h3>Funding & Scholarships</h3>
-      <p>A curated list of grants, scholarships, and funding sources available to medical students pursuing international clinical training.</p>
-      <span class="resource-arrow">Find funding →</span>
+    <a href="#" class="res-card reveal reveal-delay-2">
+      <div class="res-ico">💰</div>
+      <div class="res-title">Funding &amp; Scholarships</div>
+      <p class="res-desc">A curated, regularly updated list of grants, scholarships, and funding sources available to medical students pursuing international clinical training.</p>
+      <span class="res-link">Find funding →</span>
     </a>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testimonials-section">
-  <div class="section-header" style="max-width: 100%;">
-    <div>
-      <div class="section-tag">Student Stories</div>
-      <div class="section-title">What Students Say</div>
-    </div>
+<section class="testimonials-section section">
+  <div class="reveal">
+    <span class="section-eyebrow">Student Stories</span>
+    <h2 class="section-h">What Students <em>Say</em></h2>
   </div>
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div>
-      <div class="testimonial-text">The Global Rotation Gateway was the only place I could find a comprehensive list of programs in East Africa. I found my rotation in Nairobi in under an hour and applied directly — no agency, no fees.</div>
-      <div class="testimonial-author">
-        <div class="author-avatar">ER</div>
+  <div class="testi-grid">
+    <div class="tcard reveal">
+      <div class="tcard-quote">&ldquo;</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">The only place I could find a comprehensive list of programs in East Africa. I found my Nairobi rotation in under an hour and applied directly — no agency, no fees, no runaround.</p>
+      <div class="tcard-auth">
+        <div class="tcard-av" style="background:linear-gradient(135deg,#0b3d2e,#2a9d8f)">ER</div>
         <div>
-          <div class="author-name">Emily R.</div>
-          <div class="author-detail">MS4 · University of Michigan · Rotation: Kenya</div>
+          <div class="tcard-name">Emily R.</div>
+          <div class="tcard-detail">MS4 · University of Michigan · Rotation: Kenya</div>
         </div>
       </div>
     </div>
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div>
-      <div class="testimonial-text">I was able to find a mentor who had done a rotation in Uganda before I went. The resources section helped me navigate vaccines and insurance in a way I couldn't piece together from scattered Google searches.</div>
-      <div class="testimonial-author">
-        <div class="author-avatar">JS</div>
+    <div class="tcard reveal reveal-delay-1">
+      <div class="tcard-quote">&ldquo;</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">I found a mentor who'd done a rotation in Uganda before I went. The insurance guide alone saved me hours of research. This is exactly what global health education needed.</p>
+      <div class="tcard-auth">
+        <div class="tcard-av" style="background:linear-gradient(135deg,#2d1050,#7b5ea7)">JS</div>
         <div>
-          <div class="author-name">John S.</div>
-          <div class="author-detail">MS3 · Georgetown · Rotation: Uganda</div>
+          <div class="tcard-name">John S.</div>
+          <div class="tcard-detail">MS3 · Georgetown · Rotation: Uganda</div>
         </div>
       </div>
     </div>
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div>
-      <div class="testimonial-text">My rotation in India was a career-defining experience and I never would have found the program without this site. The detail on each listing — clinical expectations, costs, timeline — saved me enormous time.</div>
-      <div class="testimonial-author">
-        <div class="author-avatar">PM</div>
+    <div class="tcard reveal reveal-delay-2">
+      <div class="tcard-quote">&ldquo;</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">My AIIMS rotation was career-defining. The detail in each listing — clinical expectations, real costs, timeline — is unlike anything else out there. I tell every MS2 about this site.</p>
+      <div class="tcard-auth">
+        <div class="tcard-av" style="background:linear-gradient(135deg,#3a1a00,#b8933f)">PM</div>
         <div>
-          <div class="author-name">Priya M.</div>
-          <div class="author-detail">MS4 · NYU Grossman · Rotation: India</div>
+          <div class="tcard-name">Priya M.</div>
+          <div class="tcard-detail">MS4 · NYU Grossman · Rotation: India</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- BIG QUOTE -->
+<div class="big-quote-section reveal">
+  <p class="bq-text">"The students who train across borders don't just become <strong>better clinicians</strong> — they become the physicians the world actually needs."</p>
+  <div class="bq-attr">The Case for Global Medical Education</div>
+</div>
+
 <!-- SUBMIT CTA -->
-<section class="submit-cta" id="submit">
-  <div class="submit-cta-inner">
-    <div class="section-tag" style="color: var(--teal-lt); text-align:center; display:block; margin-bottom:1rem;">Help the Community Grow</div>
-    <h2>Know a Program We're Missing?</h2>
-    <p>Global Rotation Gateway is built by and for the global health community. If you've completed a rotation or know of a program not yet listed, submit it here — every addition helps another student find their path.</p>
-    <div class="submit-form">
-      <input type="email" placeholder="Your email address" />
-      <button>Submit a Rotation →</button>
+<section class="cta-section section" id="submit">
+  <div class="cta-inner">
+    <span class="section-eyebrow" style="display:block;text-align:center;margin-bottom:1rem">Help the Community Grow</span>
+    <h2 class="cta-h">Know a Program <em>We're Missing?</em></h2>
+    <p class="cta-p">Global Rotation Gateway grows through community contributions. If you've completed a rotation or know of a program not yet listed, submit it — every addition helps another student find their path.</p>
+    <div class="cta-form">
+      <input class="cta-input" type="email" placeholder="Your email address" />
+      <button class="cta-btn">Submit a Rotation</button>
     </div>
-    <p style="margin-top: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.35);">We'll send you a short submission form. All listings are free.</p>
+    <p class="cta-fine">We'll send you a short submission form. All listings are free.</p>
   </div>
 </section>
+
+<!-- PARTNERS -->
+<div class="partners-section">
+  <div class="partners-label">Trusted Partners &amp; Sponsors</div>
+  <div class="partners-logos">
+    <div class="partner-name">Child Family Health Intl.</div>
+    <div class="partner-name">IFMSA</div>
+    <div class="partner-name">GeoBlue Insurance</div>
+    <div class="partner-name">Global Health Learning</div>
+    <div class="partner-name">WHO Student Network</div>
+    <div class="partner-name">StudentUniverse</div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer id="about">
-  <div class="footer-brand">
-    <div class="footer-logo">Global Rotation <span>Gateway</span></div>
-    <p class="footer-desc">A free, comprehensive directory of international clinical rotation opportunities for medical students around the world. Built for students, by students.</p>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">Global Rotation <em>Gateway</em></div>
+      <p class="footer-desc">A free, comprehensive directory of international clinical rotation opportunities for medical students. Built for students, by students — powered by community contributions.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Explore</h5>
+      <a href="#">Browse All Programs</a>
+      <a href="#">By Region</a>
+      <a href="#">By Specialty</a>
+      <a href="#">Featured Rotations</a>
+      <a href="#">Newly Added</a>
+    </div>
+    <div class="footer-col">
+      <h5>Resources</h5>
+      <a href="#">Preparation Checklist</a>
+      <a href="#">Insurance Guide</a>
+      <a href="#">Vaccination Info</a>
+      <a href="#">Funding Sources</a>
+      <a href="#">Cultural Guides</a>
+    </div>
+    <div class="footer-col">
+      <h5>Site</h5>
+      <a href="#">About</a>
+      <a href="#">Submit a Rotation</a>
+      <a href="#">Contact</a>
+      <a href="#">Partner With Us</a>
+      <a href="#">Privacy Policy</a>
+    </div>
   </div>
-  <div class="footer-col">
-    <h4>Explore</h4>
-    <a href="#">Browse All Rotations</a>
-    <a href="#">By Region</a>
-    <a href="#">By Specialty</a>
-    <a href="#">Featured Programs</a>
-    <a href="#">New Listings</a>
-  </div>
-  <div class="footer-col">
-    <h4>Resources</h4>
-    <a href="#">Preparation Checklist</a>
-    <a href="#">Insurance Guide</a>
-    <a href="#">Vaccination Info</a>
-    <a href="#">Funding Sources</a>
-    <a href="#">Cultural Guides</a>
-  </div>
-  <div class="footer-col">
-    <h4>Site</h4>
-    <a href="#">About</a>
-    <a href="#">Submit a Rotation</a>
-    <a href="#">Contact</a>
-    <a href="#">Partner With Us</a>
-    <a href="#">Privacy Policy</a>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Global Rotation Gateway. Always free for medical students.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Partner / Advertise</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
   </div>
 </footer>
-<div class="footer-bottom">
-  <p>© 2025 Global Rotation Gateway. Free for all medical students.</p>
-  <a href="#">Partner / Advertise</a>
-</div>
 
 <script>
-  // Filter tag toggle
-  document.querySelectorAll('.filter-tag').forEach(tag => {
-    tag.addEventListener('click', function() {
-      document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
+/* ── CURSOR ── */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
 
-  // Pill toggle
-  document.querySelectorAll('.pill').forEach(pill => {
-    pill.addEventListener('click', function() {
-      document.querySelectorAll('.pill').forEach(p => {
-        p.classList.remove('pill-active');
-        p.classList.add('pill-inactive');
-      });
-      this.classList.add('pill-active');
-      this.classList.remove('pill-inactive');
-    });
-  });
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+});
 
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.rotation-card, .resource-card, .step, .testimonial-card, .region-tile').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
+/* ── FILTER TAGS ── */
+document.querySelectorAll('.ftag').forEach(t=>{
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.ftag').forEach(x=>x.classList.remove('on'));
+    this.classList.add('on');
   });
+});
+
+/* ── SCROLL REVEAL ── */
+const revealObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealObs.unobserve(e.target)}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+/* ── COUNTER ANIMATION ── */
+function animateCounter(el){
+  const target=+el.dataset.target;
+  const dur=1800;const start=performance.now();
+  (function step(now){
+    const p=Math.min((now-start)/dur,1);
+    const ease=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(ease*target);
+    if(p<1)requestAnimationFrame(step);
+    else el.textContent=target;
+  })(start);
+}
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){animateCounter(e.target);counterObs.unobserve(e.target)}});
+},{threshold:.5});
+document.querySelectorAll('.counter').forEach(el=>counterObs.observe(el));
+
+/* ── REGION BARS (fill on scroll) ── */
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.rc-fill').forEach(b=>b.style.width=b.style.width||'0%')}});
+},{threshold:.3});
+document.querySelectorAll('.region-cell').forEach(el=>barObs.observe(el));
+
+/* ── WORLD MAP CANVAS ── */
+const canvas=document.getElementById('worldCanvas');
+if(canvas){
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  const dots=[];
+  /* A simplified set of lat/lon points representing land masses */
+  const landPoints=[
+    /* Africa */
+    [5,30],[10,20],[15,15],[20,10],[25,15],[30,20],[35,30],[40,35],[35,40],[30,35],[25,30],[20,25],[15,20],[10,25],[5,20],[-5,15],[-10,20],[-15,25],[-20,30],[-25,35],[-30,30],[0,30],[5,35],[10,40],
+    /* Europe */
+    [50,10],[55,15],[60,20],[55,25],[50,20],[48,5],[52,0],[54,-2],[56,10],[58,15],[60,10],[62,15],[65,20],[68,18],[65,10],[60,5],[55,5],[50,0],[48,15],[46,10],[44,12],[42,14],[40,10],[45,5],
+    /* Asia */
+    [40,45],[45,50],[50,60],[55,65],[60,70],[55,75],[50,80],[55,85],[50,90],[45,95],[40,100],[35,105],[30,110],[25,115],[20,120],[25,100],[30,95],[35,90],[40,85],[45,80],[50,75],[55,70],[60,65],[55,60],[50,55],[45,60],[40,70],[35,75],[30,80],[25,85],[20,80],[15,75],[10,78],[5,80],[10,85],[20,90],[25,95],[30,90],[35,85],[40,80],[45,75],[50,70],
+    /* North America */
+    [50,-60],[55,-65],[60,-70],[65,-75],[60,-80],[55,-75],[50,-70],[45,-65],[40,-70],[35,-75],[30,-80],[25,-80],[30,-90],[35,-95],[40,-100],[45,-95],[50,-90],[55,-85],[60,-80],[65,-75],[60,-70],[55,-65],[50,-60],[45,-65],[40,-80],[35,-85],[30,-90],[25,-85],[20,-90],[15,-85],[10,-83],[15,-90],[20,-100],[25,-105],[30,-110],[35,-115],[40,-120],[45,-115],[50,-120],[45,-125],
+    /* South America */
+    [0,-50],[-5,-55],[-10,-60],[-15,-65],[-20,-65],[-25,-60],[-30,-55],[-35,-60],[-40,-65],[-45,-65],[-40,-70],[-35,-70],[-30,-65],[-25,-70],[-20,-55],[-15,-55],[-10,-55],[-5,-60],[0,-60],[5,-55],[0,-50],
+    /* Australia */
+    [-20,120],[-25,125],[-30,130],[-35,135],[-40,140],[-35,145],[-30,140],[-25,135],[-20,130],[-15,130],[-25,120],[-30,115],[-25,115],[-20,125],
+  ];
+  landPoints.forEach(([lat,lon])=>{
+    const x=(lon+180)*(W/360);
+    const y=(90-lat)*(H/180);
+    dots.push({x,y,a:Math.random()*.6+.2,phase:Math.random()*Math.PI*2,speed:Math.random()*.01+.005});
+  });
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    dots.forEach(d=>{
+      const alpha=d.a*(0.5+0.5*Math.sin(t*d.speed+d.phase));
+      ctx.beginPath();ctx.arc(d.x,d.y,1.6,0,Math.PI*2);
+      ctx.fillStyle=`rgba(42,157,143,${alpha})`;ctx.fill();
+    });
+    /* Draw grid lines */
+    ctx.strokeStyle='rgba(42,157,143,0.07)';ctx.lineWidth=.5;
+    for(let i=0;i<=180;i+=30){
+      const x=i*(W/180);ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();
+    }
+    for(let i=0;i<=90;i+=30){
+      const y=i*(H/90);ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+}
+
+/* ── HORIZONTAL CARD DRAG SCROLL ── */
+const scroll=document.querySelector('.cards-scroll');
+if(scroll){
+  let down=false,sx=0,sl=0;
+  scroll.addEventListener('mousedown',e=>{down=true;sx=e.pageX-scroll.offsetLeft;sl=scroll.scrollLeft});
+  scroll.addEventListener('mouseleave',()=>down=false);
+  scroll.addEventListener('mouseup',()=>down=false);
+  scroll.addEventListener('mousemove',e=>{if(!down)return;e.preventDefault();const x=e.pageX-scroll.offsetLeft;scroll.scrollLeft=sl-(x-sx)*1.2});
+}
 </script>
-
 </body>
 </html>
