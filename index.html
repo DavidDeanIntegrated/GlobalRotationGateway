@@ -440,7 +440,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     <!-- ====== AFRICA ====== -->
 
     <!-- 1. Kenyatta -->
-    <div class="rcard reveal" data-region="africa" data-specialties="internal medicine,pediatrics,oncology" data-name="kenyatta national hospital nairobi kenya" data-modal="0">
+    <div class="rcard reveal" data-region="africa" data-specialties="internal medicine,pediatrics,oncology,trauma,emergency medicine,infectious disease,surgery,ob/gyn" data-name="kenyatta national hospital nairobi kenya" data-modal="0">
       <div class="rcard-top" style="background:linear-gradient(135deg,#0b3a28,#186b45)">
         <div class="badge badge-gold">Featured</div>
         <div class="rcard-flag">🇰🇪</div>
@@ -448,9 +448,9 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
         <div class="rcard-name">Kenyatta National Hospital</div>
       </div>
       <div class="rcard-body">
-        <span class="spec-pill">Internal Medicine · Pediatrics · Oncology</span>
-        <p class="rcard-desc">Largest referral hospital in East and Central Africa. Offers direct application without agency — exceptional volume and pathology diversity including HIV/TB management and advanced oncology.</p>
-        <div class="rcard-tags"><span class="rtag">Direct Apply</span><span class="rtag">English</span><span class="rtag">High Acuity</span></div>
+        <span class="spec-pill">Trauma · Infectious Disease · Pediatrics · more</span>
+        <p class="rcard-desc">Largest referral hospital in East and Central Africa (1,800+ beds). Unparalleled exposure to severe trauma, HIV/TB, oncology, and pediatric disease. KMPDC licensing required — apply via a vetted placement provider or directly through the University of Nairobi.</p>
+        <div class="rcard-tags"><span class="rtag">KMPDC License Required</span><span class="rtag">Agency or UoN Direct</span><span class="rtag">High Acuity</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 Flexible</div>
           <div class="rm">🎓 MS3/MS4</div>
@@ -458,7 +458,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>$300–500/month</strong>Dept. varies</div>
+        <div class="rcard-cost"><strong>$50–150 USD</strong>KMPDC license fee</div>
         <a href="#" class="rcard-cta" onclick="openModal(0);return false">Full Details →</a>
       </div>
     </div>
@@ -1335,11 +1335,20 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
 <!-- MODAL DATA -->
 <script>
 const PROGRAMS = [
-  {flag:'🇰🇪',loc:'Kenya · Nairobi',name:'Kenyatta National Hospital',spec:'Internal Medicine, Pediatrics, Oncology',
-   cost:'$300–500/month (varies by department)',duration:'Flexible duration',year:'MS3/MS4',lang:'English',
-   desc:'The largest referral hospital in East and Central Africa, serving millions across the region. One of the few institutions accepting direct applications without going through an agency — making it significantly more affordable than agency-mediated alternatives. Exceptional volume and pathology diversity including HIV/TB co-management, advanced oncology, pediatric disease burden, and trauma.',
-   reqs:['Direct application via KNH Training Centre','Malpractice insurance required','Vaccination requirements: Yellow fever, Typhoid, Hep A/B, Malaria prophylaxis','No formal language test required'],
-   url:'https://www.knh.or.ke',urlLabel:'KNH Training Centre'},
+  {flag:'🇰🇪',loc:'Kenya · Nairobi',name:'Kenyatta National Hospital',spec:'Trauma Surgery, Emergency Medicine, Infectious Disease (HIV/TB), Pediatrics, Oncology, Obstetrics & Gynaecology, Internal Medicine, Renal, Cardiology',
+   cost:'KMPDC licensing fee: $50–150 USD · Student Pass (Visa): Kshs. 5,000/year · Agency fees vary by provider',duration:'Flexible',year:'MS3/MS4',lang:'English',
+   desc:'The largest public tertiary referral hospital in East and Central Africa with over 1,800 beds — effectively operating as a small medical city. KNH is the primary teaching hospital for the University of Nairobi and is especially sought after for its unparalleled volume of severe trauma and complex infectious disease. The hospital manages a "triple burden of disease": major trauma, non-communicable diseases, and communicable diseases (HIV, TB, emerging outbreaks). <strong>Anyone doing clinical activities in Kenya — including visiting medical students — must obtain a short-term license from the Kenya Medical Practitioners and Dentists Council (KMPDC).</strong> Students have two pathways to navigate this: a vetted third-party provider, or direct application through the University of Nairobi.<br><br><a href="https://www.youtube.com/watch?v=HCnvn_fgEGo" target="_blank" style="color:#60a5fa">Watch: Documentary overview of the KNH visiting student experience →</a>',
+   reqs:[
+     '<strong>Pathway 1 — Third-Party Provider (Highly Recommended for most students):</strong> Vetted placement organizations handle KMPDC licensing, hospital clearance, and local housing. Providers include: <a href="https://goelective.com/blogs/medical-elective-licensing-requirements-in-africa" target="_blank" style="color:#60a5fa">Go Elective (Kenya licensing guide)</a> · <a href="https://www.electiveafrica.com/program/medical_electives" target="_blank" style="color:#60a5fa">Elective Africa</a> · <a href="https://landing.amopportunities.org/u.s.-electives-from-amopportunities" target="_blank" style="color:#60a5fa">AMO Opportunities</a>',
+     '<strong>Pathway 2 — Direct Application via University of Nairobi:</strong> Email the UoN International Office at <a href="mailto:international@uonbi.ac.ke" style="color:#60a5fa">international@uonbi.ac.ke</a> or <a href="mailto:director-swa@uonbi.ac.ke" style="color:#60a5fa">director-swa@uonbi.ac.ke</a> to initiate placement. Visit the <a href="https://uonbi.ac.ke/international-students-0" target="_blank" style="color:#60a5fa">UoN International Students Portal</a> for Student Pass (visa) requirements — you must download Form 30 and submit it with a cover letter from your US medical school, a police clearance certificate, and academic transcripts',
+     '<strong>Required dossier (both pathways):</strong> Formal letter from your home institution confirming student status and elective intent · Personal statement/motivation letter · Proof of medical and travel insurance · KMPDC licensing fee ($50–150 USD)',
+     'Vaccinations: Yellow Fever (required), Typhoid, Hep A/B, Malaria prophylaxis',
+     '<strong>Trauma &amp; Emergency:</strong> Adult A&amp;E (high-acuity emergencies, road traffic accidents, severe burns) · Paediatric Emergency Unit (PEU, ages 12 and under) · Orthopaedics &amp; Trauma Surgery · Neurosurgery (high volume of traumatic brain and spinal cord injuries)',
+     '<strong>Infectious Disease:</strong> Infectious Disease Unit (IDU, isolation and management of severe outbreaks) · Respiratory Infectious Disease Unit (drug-sensitive and MDR-TB) · Comprehensive Care Centre (CCC, HIV/AIDS center of excellence)',
+     '<strong>Internal Medicine &amp; Subspecialties:</strong> Cancer Treatment Centre (CTC, oncology referral center for the region — radiotherapy, chemotherapy, palliative care) · Renal Department (hemodialysis, transplant immunology) · Cardiology &amp; Endocrinology (heart failure, severe diabetes complications)',
+     '<strong>Maternal &amp; Child Health:</strong> Paediatrics (Paediatric Oncology, Neonatal ICU, Kangaroo Mother Care) · Obstetrics &amp; Gynaecology (high-risk pregnancies, emergency C-sections)'
+   ],
+   url:'https://goelective.com/blogs/medical-elective-licensing-requirements-in-africa',urlLabel:'Kenya KMPDC Licensing Guide (Go Elective)'},
   {flag:'🇿🇦',loc:'South Africa · Soweto',name:'Chris Hani Baragwanath Academic Hospital',spec:'Trauma Surgery, Emergency Medicine',
    cost:'HPCSA registration fee + Wits admin fee (verify current rates)',duration:'Flexible',year:'Final Year',lang:'English',
    desc:'The third-largest hospital in the world by bed count, serving Soweto — one of Africa\'s most densely populated urban areas. The Trauma Unit has a global reputation for penetrating trauma volume (gunshot and stab wounds). Students who train here consistently report more hands-on involvement than anywhere else — suturing, resuscitation, and complex wound care under supervision. Applied through the University of the Witwatersrand (Wits).',
