@@ -825,17 +825,17 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-body">
         <span class="spec-pill">Internal Medicine · Surgery · Public Health</span>
-        <p class="rcard-desc">One of the most accessible yet bureaucratically complex programs. Mandatory B1/B2 Spanish certificate (CELU or equivalent), Dean's letter of recommendation, and proof of malpractice insurance required. Administrative fee is nominal due to high Argentine inflation.</p>
-        <div class="rcard-tags"><span class="rtag">Spanish B1/B2 Required</span><span class="rtag">Dean's Letter Needed</span><span class="rtag">Nominal Admin Fee</span></div>
+        <p class="rcard-desc">No online portal — the entire application is handled manually by email through UBA's International Affairs Office. US students are "Extra-Mercosur" visitors. B2 Spanish required (CELU or equivalent). Closed mid-December through February.</p>
+        <div class="rcard-tags"><span class="rtag">Email Application Only</span><span class="rtag">Spanish B2 Required</span><span class="rtag">Closed Dec–Feb</span></div>
         <div class="rcard-meta">
-          <div class="rm">📅 Flexible</div>
-          <div class="rm">🎓 MS3/MS4</div>
-          <div class="rm">🌐 Spanish (B1/B2)</div>
+          <div class="rm">📅 Mar–Jul / Aug–Dec</div>
+          <div class="rm">🎓 Final Year</div>
+          <div class="rm">🌐 Spanish (B2)</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>Nominal admin fee</strong>Verify current rate</div>
-        <a href="http://www.medicina.uba.ar/" target="_blank" class="rcard-cta">Apply →</a>
+        <div class="rcard-cost"><strong>$250 + $50/mo</strong>Extra-Mercosur admin fee</div>
+        <a href="#" class="rcard-cta" onclick="openModal(16);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1476,10 +1476,19 @@ const PROGRAMS = [
    ],
    url:'https://fm.usp.br/en/international-students/how-to-apply',urlLabel:'FMUSP International Students — How to Apply'},
   {flag:'🇦🇷',loc:'Argentina · Buenos Aires',name:'Universidad de Buenos Aires (UBA)',spec:'Internal Medicine, Surgery, Public Health',
-   cost:'Nominal administrative fee (verify current rate — ARS inflates rapidly)',duration:'Flexible',year:'MS3/MS4',lang:'Spanish B1/B2 required',
-   desc:'One of Latin America\'s largest and most respected public universities. The elective program is accessible but notoriously bureaucratic. Students must submit a B1/B2 Spanish certificate (CELU or equivalent), a letter of recommendation from their Dean, and proof of malpractice insurance. The administrative fee is nominally low but verify the current rate as Argentine inflation makes ARS-denominated costs volatile.',
-   reqs:['B1/B2 Spanish certificate (CELU or equivalent) mandatory','Dean\'s letter of recommendation required','Proof of malpractice insurance required','Argentine student visa for stays over 90 days','Verify current ARS administrative fee at time of application'],
-   url:'http://www.medicina.uba.ar/',urlLabel:'UBA Faculty of Medicine'},
+   cost:'$250 USD first month + $50 USD each additional month (paid in person in ARS at official central bank rate — non-refundable)',duration:'Min. 1 month; Semester 1: Mar–Jul · Semester 2: Aug–Dec · Closed mid-Dec through Feb',year:'Final Year Only',lang:'Spanish B2 required (CELU or equivalent) — all clinical activities are in Spanish',
+   desc:'One of Latin America\'s largest and most respected public universities. UBA Facultad de Medicina has no online application portal — the entire process for international visiting students is handled manually by email through the Dirección de Relaciones Internacionales (International Affairs Office). US students are classified as "Extra-Mercosur" independent visiting students. Argentina\'s Southern Hemisphere academic calendar is the inverse of the US: Semester 1 runs March–July and Semester 2 runs August–December. The university and all administrative offices close from mid-December through the end of February — no visiting students are accepted during this window.',
+   reqs:[
+     'No online portal — email relint@fmed.uba.ar to request the current official application form and submit your completed dossier',
+     '<strong>Language:</strong> B2 Spanish certificate required (UBA recommends the CELU — Certificado de Español: Lengua y Uso — or an equivalent official test); all clinical activities and patient interactions are conducted in Spanish',
+     '<strong>Academic documents:</strong> (1) Two letters of recommendation — one from your Dean and one from your Director of Medical Curriculum (English or Spanish accepted); (2) Official transcripts, certified and officially translated into Spanish; (3) Letter of Motivation written in Spanish explaining why you wish to rotate in Argentina; (4) Proof of final-year medical school status',
+     '<strong>Admin fee (Extra-Mercosur):</strong> $250 USD first month + $50 USD each additional month — non-refundable, paid in person in Argentine Pesos at the official central bank rate at the School of Medicine Treasury Department before clinical start',
+     '<strong>In-person requirement:</strong> Accepted students must arrive in Buenos Aires before their rotation begins and present their signed acceptance letter, original documents, and pay the administrative fee in person at the International Affairs Office before they are cleared to step onto the hospital floor',
+     '<strong>Academic calendar:</strong> Semester 1: March–July | Semester 2: August–December | Closed: mid-December through end of February (Argentine summer — no visiting students accepted)',
+     '<strong>When to apply:</strong> Submit your dossier by email 3–4 months before your target start date. For Semester 1 (Mar–Jul): aim to apply by November. For Semester 2 (Aug–Dec): aim to apply by May. Rotation start dates must fall on a Monday',
+     '⚠️ Argentine Student Visa required for any stay exceeding 90 days — must be obtained from the Argentine consulate in your home country before traveling; this visa cannot be processed after arrival in Argentina'
+   ],
+   url:'http://www.medicina.uba.ar/',urlLabel:'UBA Facultad de Medicina'},
   {flag:'🇮🇳',loc:'India · Vellore, Tamil Nadu',name:'Christian Medical College (CMC) Vellore',spec:'Community Health, Tropical Medicine, Internal Medicine',
    cost:'~INR 3,250/week (~$40 USD) tuition + registration fee',duration:'Flexible',year:'MS3/MS4',lang:'English',
    desc:'Consistently ranked India\'s top medical college and home of the globally renowned CHAD (Community Health and Development) program. At ~$40/week tuition, CMC Vellore is the most affordable high-quality elective destination on the planet. The catch: foreign students must obtain clearance from both the Indian Ministry of Health and the National Medical Commission (NMC) — a process that takes 4–6 months minimum. Additionally, a Student Visa is mandatory; tourists are explicitly forbidden from clinical floors. Begin the process at least 6 months before your target start date.',
