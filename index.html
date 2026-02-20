@@ -1357,9 +1357,14 @@ const PROGRAMS = [
    url:'https://www.ugms.edu.gh/electives',urlLabel:'University of Ghana Medical School'},
   {flag:'🇹🇿',loc:'Tanzania · Arusha',name:'Mt. Meru Regional Hospital',spec:'Surgery, Internal Medicine, Tropical Infectious Disease',
    cost:'$1,500–2,500 USD via agency (4 weeks, includes housing)',duration:'2–8 weeks',year:'MS2–MS4',lang:'English/Swahili',
-   desc:'A popular destination near the base of Kilimanjaro, offering genuine exposure to tropical diseases, trauma, and surgical cases alongside the extraordinary natural environment of Northern Tanzania. Most students access this hospital through Work the World or Elective Africa, who manage work permits, housing, and transport — the agency premium pays for significant logistical complexity.',
-   reqs:['Book via Work the World or Elective Africa','Yellow fever vaccination mandatory','Anti-malaria prophylaxis strongly recommended','Some Swahili is helpful but translators available via agencies','Tanzanian work permit handled by agency'],
-   url:'https://worktheworld.com/tanzania',urlLabel:'Work the World Tanzania'},
+   desc:'A popular destination near the base of Kilimanjaro, offering genuine exposure to tropical diseases, trauma, and surgical cases alongside the extraordinary natural environment of Northern Tanzania. Mt. Meru does not host a direct application portal on its own website — elective placements are facilitated exclusively through partnered international medical travel organizations, who handle the hospital\'s required registration fees, supervision assignments, housing, transport, and local logistics.',
+   reqs:['Apply via World Unite!, Elective Africa, or Go Elective — no direct hospital application portal','Yellow fever vaccination mandatory','Anti-malaria prophylaxis strongly recommended','Some Swahili is helpful but translators available via agencies','Tanzanian work permit handled by agency'],
+   url:'https://mtmerurrh.go.tz',urlLabel:'Mt. Meru Regional Referral Hospital',
+   providers:[
+     {name:'World Unite!',url:'https://www.world-unite.de/en/internships-volunteering/tanzania/medical-clinical-elective-nursing-hospital-arusha'},
+     {name:'Elective Africa',url:'https://www.electiveafrica.com/destination/arusha'},
+     {name:'Go Elective',url:'https://goelective.com/our-destinations/arusha'}
+   ]},
   {flag:'🇺🇬',loc:'Uganda · Kampala',name:'Mulago National Referral Hospital',spec:'OB/GYN, Pediatrics, Surgery',
    cost:'$2,000–3,000 via CFHI (4 weeks)',duration:'2–8 weeks',year:'MS3/MS4',lang:'English',
    desc:'Uganda\'s national referral center with extraordinary volume in obstetrics and gynecology — students often describe the obstetric exposure as career-defining. Child Family Health International (CFHI) offers structured, ethically-oriented placements that include a formal global health curriculum, homestays with local families, and orientation to Uganda\'s health system context.',
@@ -1496,8 +1501,14 @@ function openModal(i){
     </div>
     <div class="modal-section-title">Requirements & Important Notes</div>
     <div class="modal-reqs">${p.reqs.map(r=>`<div class="modal-req ${r.startsWith('⚠️')?'style="color:#f87171"':''}">${r}</div>`).join('')}</div>
+    ${p.providers ? `
+    <div class="modal-section-title">Elective Placement Providers</div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:.75rem">This hospital does not host a direct application portal. Elective placements are coordinated through these authorized third-party organizations, who handle registration fees, supervision assignments, and local logistics:</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem">
+      ${p.providers.map(pv=>`<a href="${pv.url}" target="_blank" class="modal-btn-primary" style="flex:1;min-width:160px;text-align:center">${pv.name} →</a>`).join('')}
+    </div>` : ''}
     <div class="modal-actions">
-      <a href="${p.url}" target="_blank" class="modal-btn-primary">Visit Official Website →</a>
+      <a href="${p.url}" target="_blank" class="modal-btn-${p.providers?'sec':'primary'}">${p.providers?'Official Hospital Website →':'Visit Official Website →'}</a>
       <a href="#submit" onclick="closeModal()" class="modal-btn-sec">Submit an Update</a>
     </div>
     <p style="font-size:.72rem;color:var(--muted);margin-top:1.25rem;line-height:1.6">⚠️ Always verify costs, requirements, and deadlines directly with the host institution before applying. Program details change frequently.</p>
