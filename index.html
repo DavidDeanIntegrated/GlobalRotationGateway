@@ -699,25 +699,25 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     </div>
 
     <!-- 12. Karolinska -->
-    <div class="rcard reveal d2" data-region="europe" data-specialties="research,internal medicine,surgery" data-name="karolinska institute sweden stockholm" data-modal="11">
+    <div class="rcard reveal d2" data-region="europe" data-specialties="internal medicine,surgery,neurology,ob/gyn,pediatrics,psychiatry,emergency medicine" data-name="karolinska institutet sweden stockholm exchange" data-modal="11">
       <div class="rcard-top" style="background:linear-gradient(135deg,#001f3a,#003d6b)">
         <div class="rcard-flag">🇸🇪</div>
         <div class="rcard-loc">Sweden · Stockholm</div>
         <div class="rcard-name">Karolinska Institutet</div>
       </div>
       <div class="rcard-body">
-        <span class="spec-pill">Research · Internal Medicine · Surgery</span>
-        <p class="rcard-desc">World-renowned research institution. Heavily prioritizes partner universities (Monash, NUS, etc.). "Freemover" non-partner applications are increasingly difficult to secure. Clinical work typically requires Swedish; English rotations exist in research departments.</p>
-        <div class="rcard-tags"><span class="rtag">Partner Priority</span><span class="rtag">Swedish for Clinical</span><span class="rtag">Research Opportunities</span></div>
+        <span class="spec-pill">Internal Medicine · Surgery · Neurology · OB/GYN · more</span>
+        <p class="rcard-desc">World-renowned institution; home of the Nobel Prize in Physiology or Medicine. KI does not accept freemovers — access requires a formal bilateral exchange agreement between KI and your US medical school. 16 English-friendly 4-week clinical rotations available across 10 annual blocks.</p>
+        <div class="rcard-tags"><span class="rtag">Partner Schools Only</span><span class="rtag">No Freemovers</span><span class="rtag">English Clinical Blocks</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 4-week blocks</div>
-          <div class="rm">🎓 Advanced</div>
-          <div class="rm">🌐 Swedish/English</div>
+          <div class="rm">🎓 MS3/MS4</div>
+          <div class="rm">🌐 English (instruction)</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>Contact Karolinska</strong>Partner/freemover fees vary</div>
-        <a href="https://ki.se/en/education/study-at-ki/exchange-studies" target="_blank" class="rcard-cta">Apply →</a>
+        <div class="rcard-cost"><strong>No tuition</strong>Via exchange agreement</div>
+        <a href="#" class="rcard-cta" onclick="openModal(11);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1423,11 +1423,22 @@ const PROGRAMS = [
      'Low administrative fees only (public university — no substantial tuition)'
    ],
    url:'https://www.charite.de/en/international/for_students',urlLabel:'Charité International Students'},
-  {flag:'🇸🇪',loc:'Sweden · Stockholm',name:'Karolinska Institutet',spec:'Research, Internal Medicine, Surgery',
-   cost:'Varies — partner institutions may have waived fees; freemover fees contact Karolinska',duration:'4-week blocks',year:'Advanced (MS3/MS4+)',lang:'Swedish for clinical; English for research',
-   desc:'One of the world\'s most prestigious medical universities and home of the Nobel Assembly that awards the Nobel Prize in Physiology or Medicine. Prioritizes partner universities (Monash, NUS, etc.) heavily. "Freemover" applications from non-partner institutions are increasingly difficult to secure and not guaranteed. Clinical work typically requires Swedish; English rotations exist in research-heavy departments.',
-   reqs:['Partner institution students have priority','Freemover applications: check current availability','Swedish proficiency for clinical rotations','English often sufficient for research departments','Contact Karolinska International Office well in advance'],
-   url:'https://ki.se/en/education/study-at-ki/exchange-studies',urlLabel:'Karolinska Exchange Studies'},
+  {flag:'🇸🇪',loc:'Sweden · Stockholm',name:'Karolinska Institutet',spec:'Internal Medicine, Surgery, Neurology, OB/GYN, Paediatrics, Psychiatry, Emergency Medicine + more',
+   cost:'No tuition — costs handled through home institution exchange agreement',duration:'4-week blocks (one at a time); no rotations July–August',year:'MS3/MS4',lang:'English (medical instruction, charting, supervision); Swedish spoken by patients on wards',
+   desc:'One of the world\'s most prestigious medical universities and home of the Nobel Assembly that awards the Nobel Prize in Physiology or Medicine. KI operates a strict no-freemover policy: US medical students cannot independently apply for a rotation. Access is only available if your specific US medical school has a formal bilateral exchange agreement with KI (examples include Northwestern\'s Feinberg School of Medicine and the University of Iowa Carver College of Medicine). Applications are routed through the home institution — students are nominated internally before KI grants them access to the formal application system. KI offers 16 English-friendly 4-week clinical rotations structured into 10 annual blocks running September through early July.',
+   reqs:[
+     '⚠️ KI does not accept freemover applications — a formal bilateral exchange agreement between KI and your US medical school is required for access',
+     'Step 1: Contact your home medical school\'s Global Health or International Office to confirm an active exchange agreement with KI exists',
+     'Step 2: Apply internally at your home institution and be officially nominated for the KI exchange',
+     'Step 3: After KI receives your school\'s official nomination, you will be granted access to KI\'s Mobility-Online portal to submit your application, select clinical rotations, and upload documents',
+     'Application deadlines (initiated via your home institution): Autumn Semester (late Aug–mid-Jan) — nominate by May 1 | Spring Semester (mid-Jan–early Jun) — nominate by Oct 15',
+     '10 four-week blocks run September through early July (Block 1: Sep 1–28 through Block 10: Jun 8–Jul 5); no clinical rotations are offered in July or August',
+     'One rotation per block — full-time commitment of 40+ hours/week; rotations may not be stacked',
+     '16 English-friendly 4-week clinical rotations: Dermatology, Emergency Medicine, Family Medicine, Gynaecology, Hand Surgery, Inflammatory Diseases, Internal Medicine, Neurology, Oncology, Ophthalmology, ENT, Paediatrics, Plastic Surgery, Psychiatry, Surgery, Urology',
+     '⚠️ Medical instruction, charting, and supervision are conducted in English; bedside patient communication on the wards will naturally involve Swedish',
+     'Official resources: <a href="https://education.ki.se/incoming-student-exchange-and-traineeships/requirements-for-exchange-studies-at-karolinska-institutet" target="_blank" style="color:#60a5fa">Exchange Requirements & Freemover Policy</a> · <a href="https://education.ki.se/incoming-student-exchange-and-traineeships/apply-for-an-incoming-student-exchange" target="_blank" style="color:#60a5fa">Application Guide</a> · <a href="https://education.ki.se/incoming-student-exchange-and-traineeships/apply-for-an-incoming-student-exchange/courses-for-incoming-exchange-students-in-medicine-2025-2026" target="_blank" style="color:#60a5fa">English Medical Courses 2025–26</a>'
+   ],
+   url:'https://education.ki.se/incoming-student-exchange-and-traineeships/requirements-for-exchange-studies-at-karolinska-institutet',urlLabel:'KI Exchange Requirements & Freemover Policy'},
   {flag:'🇺🇸',loc:'USA · New Haven, CT',name:'Yale School of Medicine',spec:'Multiple Clinical Electives (no core clerkships)',
    cost:'VSLO application fee + Yale tuition fee for visiting students',duration:'4 weeks (strict — no variation)',year:'Final Year Only',lang:'English',
    desc:'The Office of Global Health Education manages the Visiting International Student Elective Program. Receives 450–500 applications per year and accepts only ~100 (~20% acceptance rate). All rotations are strictly 4 weeks — no exceptions. Hands-on clinical electives are available, not observerships, but core clerkships are not offered to visitors. Bilateral exchange agreements (e.g., with Makerere University, Uganda) may bypass standard competition.',
