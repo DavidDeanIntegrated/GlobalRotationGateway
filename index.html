@@ -842,7 +842,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     <!-- ====== ASIA ====== -->
 
     <!-- 18. CMC Vellore -->
-    <div class="rcard reveal" data-region="asia" data-specialties="community health,internal medicine,tropical medicine,infectious disease" data-name="christian medical college vellore cmc india tropical" data-modal="17">
+    <div class="rcard reveal" data-region="asia" data-specialties="community health,internal medicine,surgery,infectious disease,ob/gyn,pediatrics,psychiatry" data-name="christian medical college vellore cmc india tropical" data-modal="17">
       <div class="rcard-top" style="background:linear-gradient(135deg,#2a1a0b,#6b4020)">
         <div class="badge badge-gold">Best Value</div>
         <div class="rcard-flag">🇮🇳</div>
@@ -850,9 +850,9 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
         <div class="rcard-name">Christian Medical College (CMC) Vellore</div>
       </div>
       <div class="rcard-body">
-        <span class="spec-pill">Community Health · Tropical Medicine · Internal Medicine</span>
-        <p class="rcard-desc">Consistently ranked India's top medical college. Tuition is only ~INR 3,250/week (~$40 USD) — the most affordable high-quality elective in the world. However: requires Indian Ministry of Health + NMC clearance taking 4–6 months, plus a mandatory student visa. Start planning early.</p>
-        <div class="rcard-tags"><span class="rtag">~$40/week</span><span class="rtag">4–6 mo. visa process</span><span class="rtag">Student Visa Mandatory</span><span class="rtag">NMC Clearance</span></div>
+        <span class="spec-pill">Community Health · Internal Medicine · Surgery · more</span>
+        <p class="rcard-desc">India's top-ranked medical college with a dedicated online electives portal. Tuition ~$40/week — world's most affordable high-quality elective. Requires 3–4 months for NMC + MOH + Ministry of External Affairs government clearance. Observational role only by Indian law.</p>
+        <div class="rcard-tags"><span class="rtag">~$40/week</span><span class="rtag">Online Portal</span><span class="rtag">3–4 mo. Govt. Clearance</span><span class="rtag">Observational Only</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 Flexible</div>
           <div class="rm">🎓 MS3/MS4</div>
@@ -860,8 +860,8 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>~$40/week tuition</strong>+ registration fee</div>
-        <a href="https://www.cmch-vellore.edu/" target="_blank" class="rcard-cta">Apply →</a>
+        <div class="rcard-cost"><strong>~$40/week tuition</strong>+ ~INR 9,660 admin fee</div>
+        <a href="#" class="rcard-cta" onclick="openModal(17);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1489,11 +1489,23 @@ const PROGRAMS = [
      '⚠️ Argentine Student Visa required for any stay exceeding 90 days — must be obtained from the Argentine consulate in your home country before traveling; this visa cannot be processed after arrival in Argentina'
    ],
    url:'http://www.medicina.uba.ar/',urlLabel:'UBA Facultad de Medicina'},
-  {flag:'🇮🇳',loc:'India · Vellore, Tamil Nadu',name:'Christian Medical College (CMC) Vellore',spec:'Community Health, Tropical Medicine, Internal Medicine',
-   cost:'~INR 3,250/week (~$40 USD) tuition + registration fee',duration:'Flexible',year:'MS3/MS4',lang:'English',
-   desc:'Consistently ranked India\'s top medical college and home of the globally renowned CHAD (Community Health and Development) program. At ~$40/week tuition, CMC Vellore is the most affordable high-quality elective destination on the planet. The catch: foreign students must obtain clearance from both the Indian Ministry of Health and the National Medical Commission (NMC) — a process that takes 4–6 months minimum. Additionally, a Student Visa is mandatory; tourists are explicitly forbidden from clinical floors. Begin the process at least 6 months before your target start date.',
-   reqs:['Indian Ministry of Health clearance: 4–6 months','NMC (National Medical Commission) clearance: 4–6 months (concurrent)','Student visa mandatory — tourist visa is illegal for clinical work','Vaccinations: Typhoid, Hep A/B, Japanese Encephalitis (for rural), Rabies (for animal contact)','Apply to CMC Vellore International Students Cell well in advance'],
-   url:'https://www.cmch-vellore.edu/',urlLabel:'CMC Vellore International'},
+  {flag:'🇮🇳',loc:'India · Vellore, Tamil Nadu',name:'Christian Medical College (CMC) Vellore',spec:'Community Health (CHAD/RUHSA/LCECU), Internal Medicine, Surgery, OB/GYN, Paediatrics, Psychiatry, Emergency Medicine',
+   cost:'~INR 3,250/week (~$40 USD) tuition + non-refundable admin/processing fee of ~INR 9,660 (paid via SWIFT wire transfer to CMC Vellore Association)',duration:'Flexible — but requested dates cannot be changed once government clearance is granted',year:'MS3/MS4',lang:'English',
+   desc:'Consistently ranked India\'s top medical college and home of three globally renowned community health programs: CHAD, RUHSA, and LCECU. CMC Vellore now has a dedicated online electives portal for foreign medical students, making the initial application straightforward. However, CMC must then obtain formal government clearance on your behalf from three agencies — the National Medical Commission (NMC), the Ministry of Health (MOH), and the Ministry of External Affairs — before you may begin. This multi-agency process takes 3 to 4 months and the rotation dates you request cannot be changed once clearance is granted. Apply at least 3–4 months before your target start date.',
+   reqs:[
+     'Apply online — select "Foreign National" at the registration portal: <a href="https://cmcvellore.ac.in/electives/registration/" target="_blank" style="color:#60a5fa">cmcvellore.ac.in/electives/registration/</a>',
+     '<strong>Government clearance (3–4 months):</strong> CMC must obtain formal permission from the NMC (National Medical Commission), Ministry of Health, and Ministry of External Affairs on your behalf — plan accordingly and apply early',
+     'Requested rotation dates cannot be changed once government clearance is granted',
+     '<strong>Documents to upload:</strong> Formal Letter of Approval from your US medical school Dean · Passport bio-data page (clear copy) · Passport-sized photographs',
+     '<strong>Admin fee:</strong> ~INR 9,660 non-refundable, paid via wire transfer/SWIFT to the CMC Vellore Association account (covers NMC clearance and CMC administrative costs)',
+     'Student Visa mandatory — a standard tourist visa is strictly prohibited for clinical electives in India',
+     '⚠️ Observational role only — Indian law (NMC) prohibits foreign elective students from prescribing medications or performing any hands-on clinical procedures. Students may join ward rounds, attend lectures, and take patient histories with the attending physician\'s permission',
+     '<strong>Core clinical postings (main Vellore campus):</strong> Emergency Medicine · Internal Medicine &amp; subspecialties (Cardiology, Endocrinology, Gastroenterology, Infectious Diseases, Clinical Haematology) · Surgery (General, Trauma, Head &amp; Neck, Paediatric) · Obstetrics &amp; Gynaecology · General &amp; Developmental Paediatrics · Psychiatry (separate Mental Health Centre campus) · Dermatology · Neurology · Orthopaedics',
+     '<strong>Community health postings (highly recommended):</strong> CHAD — primary care, epidemiology &amp; public health in a rural 80-bed hospital (Bagayam campus) · RUHSA — integrated rural health &amp; social development with outreach camps and poverty alleviation programs (K.V. Kuppam Block) · LCECU — holistic primary &amp; secondary care for the urban poor in Vellore\'s slums',
+     'Students list their top 3 department choices during registration; CMC assigns placements based on departmental capacity',
+     'Questions: <a href="mailto:princi.elective@cmcvellore.ac.in" style="color:#60a5fa">princi.elective@cmcvellore.ac.in</a> (Vice Principal of Undergraduate Medical Education)'
+   ],
+   url:'https://cmcvellore.ac.in/electives/',urlLabel:'CMC Vellore Electives Program'},
   {flag:'🇮🇳',loc:'India · New Delhi',name:'AIIMS New Delhi',spec:'Surgery, Internal Medicine, Cardiology, Radiology',
    cost:'Low admin fee; NMC processing fees apply',duration:'2–6 weeks',year:'MS3/MS4',lang:'English',
    desc:'All India Institute of Medical Sciences — India\'s most prestigious government medical institution, established by Parliament and ranked #1 in India\'s NIRF medical rankings. Extremely high patient volume and exposure to pathological complexity rarely seen in Western training. Requires the same NMC + Ministry of Health clearance process as all Indian institutions (4–6 months). Tourist visa for clinical floors is explicitly illegal.',
