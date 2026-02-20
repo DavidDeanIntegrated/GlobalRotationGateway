@@ -684,17 +684,17 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-body">
         <span class="spec-pill">Surgery · Anesthesiology · Internal Medicine</span>
-        <p class="rcard-desc">Europe's largest university clinic — clinical rotations here are called "Famulatur." Patient-contact work requires B2/C1 German proficiency. Some departments (Anesthesiology, Surgery) may accept English speakers in a purely observational role.</p>
-        <div class="rcard-tags"><span class="rtag">German B2/C1 for Clinical</span><span class="rtag">Observational in English</span><span class="rtag">Admin Fees Only</span></div>
+        <p class="rcard-desc">Europe's largest university clinic — rotations are called "Famulatur." No centralized portal for US free-movers: students contact individual department secretariats directly. Patient-contact roles require B2/C1 German; observational English-only roles must be negotiated upfront.</p>
+        <div class="rcard-tags"><span class="rtag">Direct Dept. Contact</span><span class="rtag">German B2/C1 for Clinical</span><span class="rtag">Admin Fees Only</span></div>
         <div class="rcard-meta">
-          <div class="rm">📅 Flexible</div>
+          <div class="rm">📅 4–6 weeks</div>
           <div class="rm">🎓 MS3/MS4</div>
           <div class="rm">🌐 German (B2/C1)</div>
         </div>
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>Low admin fee only</strong>Public university</div>
-        <a href="https://www.charite.de/en/research/international_students/" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(10);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1409,10 +1409,20 @@ const PROGRAMS = [
    reqs:['Apply by January for July/August start','Non-partner students: summer only','Partner institutions (GWU, UMN): year-round available','Malpractice insurance required','Irish tourist/student visa depending on duration and nationality'],
    url:'https://www.rcsi.com/dublin/research/postgraduate-research/visiting-students',urlLabel:'RCSI Visiting Students'},
   {flag:'🇩🇪',loc:'Germany · Berlin',name:'Charité – Universitätsmedizin Berlin',spec:'Surgery, Anesthesiology, Internal Medicine',
-   cost:'Administrative fees only — public university, no substantial tuition',duration:'Flexible',year:'MS3/MS4',lang:'German B2/C1 for clinical; some English-only obs roles',
-   desc:'Europe\'s largest university clinic with campuses across Berlin. Clinical rotations are called "Famulatur." Departments requiring patient interaction (most of them) require B2/C1 German proficiency. Some technically-oriented departments (Anesthesiology, some surgical subspecialties) may accept English speakers in a purely observational role. Cost is minimal as a public German university.',
-   reqs:['German B2/C1 certificate required for patient-contact roles','Some observational roles available in English','Low admin fees only (public university)','German health system visitor documentation','Malpractice insurance recommended'],
-   url:'https://www.charite.de/en/research/international_students/',urlLabel:'Charité International Students'},
+   cost:'Administrative fees only — public university, no substantial tuition',duration:'4–6 weeks',year:'MS3/MS4',lang:'German B2/C1 for clinical; observational roles in English',
+   desc:'Europe\'s largest university clinic with campuses across Berlin. Clinical rotations are called "Famulatur." Unlike many institutions, Charité has no centralized online application portal for visiting US free-mover students who are not part of an official European exchange program (e.g., Erasmus). Instead, placements are arranged directly with the individual clinic or department of interest. Students must identify their target specialty in the Charité Clinics & Departments directory, locate the email for the Chefarzt (Head of Department) or department secretariat, and send a formal inquiry. Patient-contact roles require B2/C1 German; if proficiency is below this threshold, students should explicitly request a purely observational, English-speaking role in their cover letter. Once a department confirms a spot, administrative coordination (occupational health forms, housing, temporary enrollment) is handled through Charité International Cooperation (ChIC).',
+   reqs:[
+     'No centralized portal — US free-mover students apply directly to the target department',
+     'Step 1: Browse the Charité Clinics & Departments directory (charite.de/en/clinical_center/clinics_departments/) to identify your target specialty',
+     'Step 2: Locate the email for the Chefarzt (Head of Department) or the department\'s main secretariat',
+     'Step 3: Send a formal email inquiry including: Cover Letter / Letter of Motivation (negotiate observational English-only role here if German is below B2/C1), current CV, Letter of Good Standing from your home university, and proposed Famulatur dates (typically 4–6 weeks)',
+     'German B2/C1 proficiency required for any patient-contact role',
+     'English-only observational roles may be available in some departments — must be explicitly arranged in advance',
+     'Once a department confirms your placement, contact Charité International Cooperation (ChIC) at international-students@charite.de for occupational health forms, housing guidance, and temporary enrollment',
+     'Malpractice insurance recommended',
+     'Low administrative fees only (public university — no substantial tuition)'
+   ],
+   url:'https://www.charite.de/en/international/for_students',urlLabel:'Charité International Students'},
   {flag:'🇸🇪',loc:'Sweden · Stockholm',name:'Karolinska Institutet',spec:'Research, Internal Medicine, Surgery',
    cost:'Varies — partner institutions may have waived fees; freemover fees contact Karolinska',duration:'4-week blocks',year:'Advanced (MS3/MS4+)',lang:'Swedish for clinical; English for research',
    desc:'One of the world\'s most prestigious medical universities and home of the Nobel Assembly that awards the Nobel Prize in Physiology or Medicine. Prioritizes partner universities (Monash, NUS, etc.) heavily. "Freemover" applications from non-partner institutions are increasingly difficult to secure and not guaranteed. Clinical work typically requires Swedish; English rotations exist in research-heavy departments.',
