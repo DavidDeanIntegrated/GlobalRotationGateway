@@ -794,25 +794,25 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     </div>
 
     <!-- 16. Hospital das Clinicas Brazil -->
-    <div class="rcard reveal" data-region="americas" data-specialties="tropical medicine,infectious disease,pediatrics,surgery" data-name="hospital das clinicas usp sao paulo brazil fmusp" data-modal="15">
+    <div class="rcard reveal" data-region="americas" data-specialties="surgery,cardiology,oncology,internal medicine,anesthesiology,infectious disease" data-name="hospital das clinicas usp sao paulo brazil fmusp hcx" data-modal="15">
       <div class="rcard-top" style="background:linear-gradient(135deg,#1a0b2a,#3a1a5a)">
         <div class="rcard-flag">🇧🇷</div>
         <div class="rcard-loc">Brazil · São Paulo</div>
         <div class="rcard-name">Hospital das Clínicas USP (FMUSP)</div>
       </div>
       <div class="rcard-body">
-        <span class="spec-pill">Tropical Medicine · Infectious Disease · Surgery</span>
-        <p class="rcard-desc">Latin America's largest hospital complex. FMUSP runs the HCFMUSP Experience. Fee varies by origin: partners pay less; Americas/Africa/Asia ~$1,000; Europe/North America ~$2,000 per 4-week module. Portuguese B1/B2 strictly required for patient contact.</p>
-        <div class="rcard-tags"><span class="rtag">Portuguese B1/B2 Required</span><span class="rtag">Partner Discounts</span><span class="rtag">Largest in LatAm</span></div>
+        <span class="spec-pill">Surgery · Cardiology · Oncology · Internal Medicine · more</span>
+        <p class="rcard-desc">Latin America's largest hospital complex. Two distinct pathways depending on your school's USP partnership: bilateral exchange students attend tuition-free via internal nomination; non-partner students apply through the HCX paid Medical Rotations Program ($2,000/4wks). 8 English-friendly clinical modules available via HCX.</p>
+        <div class="rcard-tags"><span class="rtag">Two Pathways</span><span class="rtag">English HCX Modules</span><span class="rtag">Largest in LatAm</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 4-week modules</div>
           <div class="rm">🎓 MS3/MS4</div>
-          <div class="rm">🌐 Portuguese (B1/B2)</div>
+          <div class="rm">🌐 English (HCX) / Portuguese</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>$1,000–2,000</strong>Per 4-week module</div>
-        <a href="https://www.fm.usp.br/fmusp/portal.php/en" target="_blank" class="rcard-cta">Apply →</a>
+        <div class="rcard-cost"><strong>Free or $2,000/4wks</strong>Partner or HCX route</div>
+        <a href="#" class="rcard-cta" onclick="openModal(15);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1454,11 +1454,27 @@ const PROGRAMS = [
    desc:'UNM exemplifies the strict regulatory environment of U.S. state medical schools. All applications must go through VSLO — any attempt to contact faculty directly to pre-arrange placement is strictly prohibited and results in automatic disqualification. Only final-year students are eligible. No observerships or research electives are offered to visitors — only credit-bearing clinical rotations. Placement confirmations often come very late (sometimes late May for summer starts).',
    reqs:['VSLO required — no exceptions, no direct contact','Final year only','No observerships or research electives','Home institution must be VSLO Global Network member','Expect late placement confirmation (late May typical)','Malpractice insurance required'],
    url:'https://hsc.unm.edu/medicine/education/visiting-students.html',urlLabel:'UNM Visiting Students'},
-  {flag:'🇧🇷',loc:'Brazil · São Paulo',name:'Hospital das Clínicas USP (FMUSP)',spec:'Tropical Medicine, Infectious Disease, Trauma, Surgery',
-   cost:'Partners: contact USP. Americas/Africa/Asia: ~$1,000/4wks. Europe/North America: ~$2,000/4wks',duration:'4-week modules',year:'MS3/MS4',lang:'Portuguese B1/B2 required for patient contact',
-   desc:'Latin America\'s largest hospital complex, affiliated with the University of São Paulo — Brazil\'s most prestigious research university. The HCFMUSP Experience and standard exchange program offer specialized tracks in Trauma, Infectious Diseases, and Tropical Medicine. Portuguese proficiency at B1/B2 level is strictly required for any rotation involving patient contact. Electives conducted entirely in English may sometimes be arranged depending on the supervisor, but this is the exception, not the rule.',
-   reqs:['Portuguese B1/B2 level CELU or equivalent required for patient contact','FMUSP partner institutions receive fee waiver or discount','Non-partner Americas/Africa/Asia: ~$1,000 per 4-week module','Non-partner Europe/North America: ~$2,000 per 4-week module','Brazilian student visa required','Apply via FMUSP International Office'],
-   url:'https://www.fm.usp.br/fmusp/portal.php/en',urlLabel:'FMUSP International'},
+  {flag:'🇧🇷',loc:'Brazil · São Paulo',name:'Hospital das Clínicas USP (FMUSP)',spec:'Surgery, Cardiology, Oncology, Internal Medicine, Anesthesiology, Infectious Disease',
+   cost:'Pathway 1 (Partner/Exchange): Tuition-free · Pathway 2 (HCX Free Mover): $2,000 USD per 4-week module',duration:'4-week modules',year:'MS3/MS4',lang:'English (HCX modules); Portuguese B1/B2 (standard exchange track)',
+   desc:'Latin America\'s largest hospital complex, affiliated with the University of São Paulo — Brazil\'s most prestigious research university. Access depends entirely on whether your US medical school has a formal partnership with FMUSP, and the two routes differ significantly in process, cost, and language requirements. Choose the pathway that matches your situation below.',
+   reqs:[
+     '<strong>— PATHWAY 1: Bilateral Exchange (Partner Universities) —</strong>',
+     'If your US medical school has an active exchange agreement with FMUSP, you can attend tuition-free through the standard exchange route',
+     'Step 1: Contact your home medical school\'s Global Health or International Office to confirm an active USP exchange agreement exists',
+     'Step 2: Apply internally at your home institution and be officially nominated for the FMUSP exchange',
+     'Step 3: Once FMUSP receives your school\'s nomination, they will email you a unique private link to their internal "Mundus" platform to complete your application and upload required documents (transcripts, CV, passport, etc.)',
+     'There is no public application link for this route — the Mundus link is issued only after official nomination',
+     'Portuguese B1/B2 proficiency is required for patient-contact roles in the standard exchange track',
+     'Official resource: <a href="https://fm.usp.br/en/international-students/how-to-apply" target="_blank" style="color:#60a5fa">FMUSP How to Apply — eligibility rules and required documents</a>',
+     '<strong>— PATHWAY 2: Free Movers (Non-Partner Universities) —</strong>',
+     'If your school is not affiliated with FMUSP, you must apply through the HCX FMUSP Medical Rotations Program — a paid 4-week immersion designed specifically for visiting international students in their final years',
+     'Fee: $2,000 USD per 4-week module for students from the US and other developed nations',
+     'Clinical shadowing and academic components are conducted in English; patient interaction on the wards will be primarily in Portuguese',
+     '<strong>English-friendly modules available through HCX:</strong> Surgery &amp; Trauma: Trauma &amp; Acute Care Surgery, Vascular Surgery · Internal Medicine: Gastroenterology &amp; Hepatology, Nephrology, Clinical Cardiology (InCor Heart Institute) · Oncology: Precision Oncology, Head &amp; Neck Cancer · Anesthesiology: Fundamentals of Clinical Anesthesia',
+     'Apply and pay directly: <a href="https://ensino.hcxfmusp.org.br/en/hcfmusp-experience/p" target="_blank" style="color:#60a5fa">HCX FMUSP Medical Rotations Program →</a>',
+     '⚠️ Brazilian student visa required for all routes; confirm current requirements with the Brazilian consulate ahead of your planned rotation'
+   ],
+   url:'https://fm.usp.br/en/international-students/how-to-apply',urlLabel:'FMUSP International Students — How to Apply'},
   {flag:'🇦🇷',loc:'Argentina · Buenos Aires',name:'Universidad de Buenos Aires (UBA)',spec:'Internal Medicine, Surgery, Public Health',
    cost:'Nominal administrative fee (verify current rate — ARS inflates rapidly)',duration:'Flexible',year:'MS3/MS4',lang:'Spanish B1/B2 required',
    desc:'One of Latin America\'s largest and most respected public universities. The elective program is accessible but notoriously bureaucratic. Students must submit a B1/B2 Spanish certificate (CELU or equivalent), a letter of recommendation from their Dean, and proof of malpractice insurance. The administrative fee is nominally low but verify the current rate as Argentine inflation makes ARS-denominated costs volatile.',
