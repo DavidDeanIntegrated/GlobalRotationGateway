@@ -866,25 +866,25 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     </div>
 
     <!-- 19. AIIMS New Delhi -->
-    <div class="rcard reveal d1" data-region="asia" data-specialties="surgery,internal medicine,radiology,cardiology" data-name="aiims all india institute medical sciences new delhi" data-modal="18">
+    <div class="rcard reveal d1" data-region="asia" data-specialties="surgery,internal medicine,cardiology,neurology,oncology,trauma,ob/gyn,pediatrics,psychiatry" data-name="aiims all india institute medical sciences new delhi" data-modal="18">
       <div class="rcard-top" style="background:linear-gradient(135deg,#1a0b2a,#3a1a5a)">
         <div class="rcard-flag">🇮🇳</div>
         <div class="rcard-loc">India · New Delhi</div>
         <div class="rcard-name">AIIMS New Delhi</div>
       </div>
       <div class="rcard-body">
-        <span class="spec-pill">Surgery · Internal Medicine · Cardiology</span>
-        <p class="rcard-desc">India's most prestigious government medical institution. Extremely high patient volume and complex cases. Requires the same NMC + Ministry of Health clearance as all Indian institutions. Student visa mandatory; tourist visa is explicitly illegal for clinical floors.</p>
-        <div class="rcard-tags"><span class="rtag">NMC Clearance Required</span><span class="rtag">Student Visa Mandatory</span><span class="rtag">High Volume</span></div>
+        <span class="spec-pill">Surgery · Trauma · Cardiology · Neurology · more</span>
+        <p class="rcard-desc">India's most prestigious government medical institution. No online portal — apply by PDF form emailed to the Academic Section. Key advantage over CMC Vellore: NMC clearance is NOT required. Max 3 months; apply 3 months in advance. Observational role only.</p>
+        <div class="rcard-tags"><span class="rtag">No NMC Clearance</span><span class="rtag">PDF Email Application</span><span class="rtag">Observational Only</span></div>
         <div class="rcard-meta">
-          <div class="rm">📅 2–6 weeks</div>
+          <div class="rm">📅 Up to 3 months</div>
           <div class="rm">🎓 MS3/MS4</div>
           <div class="rm">🌐 English</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>Low admin fee</strong>NMC fees apply</div>
-        <a href="https://www.aiims.edu/en/international-students.html" target="_blank" class="rcard-cta">Apply →</a>
+        <div class="rcard-cost"><strong>$125 USD</strong>Admin processing fee</div>
+        <a href="#" class="rcard-cta" onclick="openModal(18);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1506,11 +1506,25 @@ const PROGRAMS = [
      'Questions: <a href="mailto:princi.elective@cmcvellore.ac.in" style="color:#60a5fa">princi.elective@cmcvellore.ac.in</a> (Vice Principal of Undergraduate Medical Education)'
    ],
    url:'https://cmcvellore.ac.in/electives/',urlLabel:'CMC Vellore Electives Program'},
-  {flag:'🇮🇳',loc:'India · New Delhi',name:'AIIMS New Delhi',spec:'Surgery, Internal Medicine, Cardiology, Radiology',
-   cost:'Low admin fee; NMC processing fees apply',duration:'2–6 weeks',year:'MS3/MS4',lang:'English',
-   desc:'All India Institute of Medical Sciences — India\'s most prestigious government medical institution, established by Parliament and ranked #1 in India\'s NIRF medical rankings. Extremely high patient volume and exposure to pathological complexity rarely seen in Western training. Requires the same NMC + Ministry of Health clearance process as all Indian institutions (4–6 months). Tourist visa for clinical floors is explicitly illegal.',
-   reqs:['NMC clearance required (4–6 months)','Indian Ministry of Health clearance required','Student visa mandatory','⚠️ Tourist visa is illegal for clinical work in India','Apply via AIIMS International Division'],
-   url:'https://www.aiims.edu/en/international-students.html',urlLabel:'AIIMS International Division'},
+  {flag:'🇮🇳',loc:'India · New Delhi',name:'AIIMS New Delhi',spec:'Surgery, Trauma, Cardiology, Neurology, Oncology, Internal Medicine, OB/GYN, Paediatrics, Psychiatry, Community Medicine',
+   cost:'$125 USD processing fee — pay via bank draft with application or in cash upon arrival',duration:'Maximum 3 months; apply at least 3 months before desired start date',year:'MS3/MS4',lang:'English',
+   desc:'All India Institute of Medical Sciences — India\'s most prestigious government medical institution, established by Parliament as an "Institute of National Importance." Ranked #1 in India\'s NIRF medical rankings with over 2,000 beds and pathological complexity rarely encountered in Western training. There is no online application portal: the process is entirely manual, with a PDF application form submitted directly to the Academic Section. A critical advantage over CMC Vellore: AIIMS explicitly states that foreign undergraduate medical students are not required to obtain NMC (National Medical Commission) clearance, bypassing the 3–4 month government clearance process required by most other Indian colleges.',
+   reqs:[
+     'No online portal — download, print, and complete the PDF application form: <a href="https://www.aiims.edu/images/pdf/Academic_Section/Elective%20training%20Foreign%20medical%20UGs.pdf" target="_blank" style="color:#60a5fa">AIIMS Official Guidelines &amp; Application Form →</a>',
+     'The completed form must be physically signed and stamped by the Dean of your US medical school, with a passport-sized photo affixed',
+     'Submit completed dossier by email to <a href="mailto:academicsection@aiims.edu" style="color:#60a5fa">academicsection@aiims.edu</a> at least 3 months before your desired start date (physical copies: The Registrar, Academic Section, AIIMS, Ansari Nagar, New Delhi 110029, India)',
+     '<strong>No NMC clearance required</strong> — AIIMS is an autonomous Institute of National Importance and explicitly exempts foreign undergraduate medical students from the NMC government clearance process that applies at CMC Vellore and other Indian colleges',
+     '<strong>Required documents:</strong> Completed signed/stamped application form · Self-attested copy of passport · Dean\'s reference letter confirming eligibility and supporting the application · Proof of financial support for the trip',
+     '<strong>Admin fee:</strong> $125 USD — submit a bank draft with your application or pay in cash upon arrival',
+     'Maximum elective duration: 3 months',
+     'Student Visa required — tourist visa is strictly prohibited for clinical work in India',
+     '⚠️ Observational role only — students are not permitted to engage in direct patient care activities',
+     '<strong>Main clinical departments:</strong> Emergency Medicine · Internal Medicine · General Surgery · Paediatrics · Obstetrics &amp; Gynaecology · Orthopaedics · Dermatology &amp; Venereology · Psychiatry · ENT (Otorhinolaryngology)',
+     '<strong>Apex Super-Specialty Centres (on campus):</strong> Jai Prakash Narayan Apex Trauma Centre (JPNATC) — trauma surgery &amp; critical care · Cardio-Thoracic Sciences Centre — Cardiology &amp; CV Surgery · Neurosciences Centre — Neurology &amp; Neurosurgery · Dr. R.P. Centre for Ophthalmic Sciences · Dr. B.R.A. Institute-Rotary Cancer Hospital — medical &amp; surgical oncology',
+     '<strong>Community &amp; Rural Health:</strong> Centre for Community Medicine (CCM) — urban health initiatives, immunization clinics, and primary care at the Comprehensive Rural Health Services Project in Ballabgarh. ⚠️ Rural postings only accepted January–June; students are advised to bring a sleeping bag for rural accommodations',
+     'Indicate your top preferred departments on the application form — AIIMS places students based on current departmental capacity'
+   ],
+   url:'https://www.aiims.edu/images/pdf/Academic_Section/Elective%20training%20Foreign%20medical%20UGs.pdf',urlLabel:'AIIMS Official Guidelines & Application Form'},
   {flag:'🇹🇭',loc:'Thailand · Bangkok',name:'Siriraj Hospital, Mahidol University',spec:'Internal Medicine, Tropical Medicine, Traditional Thai Medicine',
    cost:'~5,000 THB/week (~$145 USD)',duration:'Fixed windows (typically apply in November for spring)',year:'MS3/MS4',lang:'English',
    desc:'Thailand\'s oldest and most distinguished hospital, located on the Chao Phraya riverside in Bangkok. Affiliated with Mahidol University — Thailand\'s highest-ranked medical institution. Very affordable at ~$145/week. Unique offering of Traditional Thai Medicine alongside modern tertiary care. Fixed application windows; apply in November for spring. Hospital access is available for hands-on rotations (unlike Ramathibodi).',
