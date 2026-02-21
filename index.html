@@ -241,7 +241,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
 /* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;align-items:center;justify-content:center;padding:2rem;backdrop-filter:blur(8px)}
 .modal-overlay.open{display:flex}
-.modal{background:var(--ink-soft);border:1px solid var(--border);border-radius:10px;max-width:680px;width:100%;max-height:85vh;overflow-y:auto;position:relative;cursor:auto}
+.modal{background:var(--ink-soft);border:1px solid var(--border);border-radius:10px;max-width:680px;width:100%;max-height:85vh;overflow-y:auto;overflow-x:hidden;position:relative;cursor:auto}
 .modal::-webkit-scrollbar{width:4px}
 .modal::-webkit-scrollbar-thumb{background:var(--border)}
 .modal-close{position:sticky;top:0;display:flex;justify-content:flex-end;padding:1rem 1rem .5rem;background:var(--ink-soft);z-index:1}
@@ -253,16 +253,16 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
 .modal-flag{font-size:3rem;margin-bottom:.75rem}
 .modal-loc{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted-lt);margin-bottom:.3rem}
 .modal-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;color:var(--ivory);margin-bottom.5rem;line-height:1.2}
-.modal-spec{display:inline-flex;align-items:center;gap:.4rem;background:rgba(42,157,143,.12);color:var(--teal-lt);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .75rem;border-radius:2px;margin-top:.75rem;border:1px solid rgba(42,157,143,.2)}
+.modal-spec{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;background:rgba(42,157,143,.12);color:var(--teal-lt);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .75rem;border-radius:2px;margin-top:.75rem;border:1px solid rgba(42,157,143,.2);word-break:break-word;overflow-wrap:anywhere;max-width:100%}
 .modal-divider{height:1px;background:var(--border);margin:1.5rem 0}
 .modal-section-title{font-size:.63rem;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:var(--teal-lt);margin-bottom:.85rem;padding-left:.7rem;border-left:2px solid var(--teal)}
 .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.5rem}
 .modal-item{background:rgba(240,234,216,.03);border:1px solid var(--border-soft);border-radius:6px;padding:.875rem 1rem;border-top:2px solid rgba(42,157,143,.28)}
 .modal-item-label{font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.3rem}
-.modal-item-value{font-size:.875rem;color:var(--ivory);font-weight:500}
-.modal-desc{font-size:.875rem;color:rgba(240,234,216,.6);line-height:1.75;font-weight:300;margin-bottom:1.5rem}
+.modal-item-value{font-size:.875rem;color:var(--ivory);font-weight:500;word-break:break-word;overflow-wrap:anywhere}
+.modal-desc{font-size:.875rem;color:rgba(240,234,216,.6);line-height:1.75;font-weight:300;margin-bottom:1.5rem;word-break:break-word;overflow-wrap:anywhere}
 .modal-reqs{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1.5rem}
-.modal-req{display:flex;gap:.75rem;font-size:.83rem;color:rgba(240,234,216,.58);font-weight:300;align-items:baseline;line-height:1.5;padding:.15rem 0}
+.modal-req{display:flex;gap:.75rem;font-size:.83rem;color:rgba(240,234,216,.58);font-weight:300;align-items:baseline;line-height:1.5;padding:.15rem 0;word-break:break-word;overflow-wrap:anywhere;min-width:0}
 .modal-req::before{content:'→';color:var(--teal);flex-shrink:0}
 .modal-req.warn{color:#f87171;background:rgba(248,113,113,.07);padding:.4rem .7rem;border-radius:4px;border-left:2px solid rgba(248,113,113,.4);margin:.1rem 0}
 .modal-req.warn::before{content:none}
@@ -296,6 +296,10 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
   .search-box{flex-wrap:wrap}
   .s-div,.s-sel{display:none}
   .modal-grid{grid-template-columns:1fr}
+  .modal-overlay{padding:.75rem}
+  .modal-hero{padding:1.5rem 1.25rem 1.25rem}
+  .modal-inner{padding:1.25rem 1.25rem 1.5rem}
+  .modal-title{font-size:1.6rem}
   #cursor,#cursor-ring{display:none}body,a,button{cursor:auto}
   .partners-bar{flex-direction:column;align-items:flex-start;gap:1.25rem}
 }
