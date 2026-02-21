@@ -962,7 +962,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     </div>
 
     <!-- 23. AUB Lebanon -->
-    <div class="rcard reveal d2" data-region="middleeast" data-specialties="internal medicine,surgery,emergency medicine,psychiatry" data-name="american university beirut aub lebanon acgme" data-modal="22">
+    <div class="rcard reveal d2" data-region="middleeast" data-specialties="internal medicine,surgery,emergency medicine,psychiatry,obstetrics,gynecology,dermatology,family medicine" data-name="american university beirut aub lebanon acgme" data-modal="22">
       <div class="rcard-top" style="background:linear-gradient(135deg,#0b1a2a,#1a3a5a)">
         <div class="badge badge-teal">ACGME-I</div>
         <div class="rcard-flag">🇱🇧</div>
@@ -970,18 +970,18 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
         <div class="rcard-name">American University of Beirut (AUB)</div>
       </div>
       <div class="rcard-body">
-        <span class="spec-pill">Internal Medicine · Surgery · Emergency Medicine</span>
-        <p class="rcard-desc">ACGME-I accredited — offering US-standard medical education in the Middle East. Unique exposure to refugee health, war-related trauma, and complex geopolitical health contexts alongside high-tech tertiary care. Application fee of $50 + tuition.</p>
-        <div class="rcard-tags"><span class="rtag">ACGME-I Accredited</span><span class="rtag">Refugee Health</span><span class="rtag">War Trauma Experience</span></div>
+        <span class="spec-pill">Internal Medicine · Surgery · EM · OB/GYN · Psych</span>
+        <p class="rcard-desc">One of the most prestigious teaching hospitals in the Middle East — ACGME-I accredited and highly competitive. 4-week fixed blocks; students integrated alongside AUB residents. Manual PDF dossier application submitted directly to the Dean's office. Pay all fees in USD cash only (LBP has collapsed).</p>
+        <div class="rcard-tags"><span class="rtag">ACGME-I Accredited</span><span class="rtag">Highly Competitive</span><span class="rtag">PDF Application</span></div>
         <div class="rcard-meta">
-          <div class="rm">📅 Flexible</div>
+          <div class="rm">📅 4-week blocks</div>
           <div class="rm">🎓 MS3/MS4</div>
           <div class="rm">🌐 English</div>
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>$50 app + tuition</strong>Contact AUB</div>
-        <a href="https://www.aub.edu.lb/fm/Pages/visiting-students.aspx" target="_blank" class="rcard-cta">Apply →</a>
+        <div class="rcard-cost"><strong>$100 USD total</strong></div>
+        <a href="https://www.aub.edu.lb/fm/MSAO/Pages/VisitingStudents.aspx" target="_blank" class="rcard-cta">Apply →</a>
       </div>
     </div>
 
@@ -1595,11 +1595,23 @@ const PROGRAMS = [
      'Vaccinations: Typhoid, Hep A/B, Japanese Encephalitis, Rabies'
    ],
    url:'https://bvchoray.vn/bai-viet/6-elective-program-training-guidelines-for-foreign--20251029094922854.html',urlLabel:'Cho Ray Elective Guidelines',btnLabel:'Download Guidelines & Application →'},
-  {flag:'🇱🇧',loc:'Lebanon · Beirut',name:'American University of Beirut (AUB)',spec:'Internal Medicine, Surgery, Emergency Medicine, Psychiatry',
-   cost:'$50 USD application fee + tuition (contact AUB for current rate)',duration:'Flexible',year:'MS3/MS4',lang:'English',
-   desc:'ACGME-I accredited — one of only a handful of non-US institutions offering US-style, ACGME-accredited residency training. Provides truly unique exposure: refugee health (one of the world\'s highest per capita refugee populations in Lebanon), war-related trauma, complex geopolitical health contexts, and high-tech tertiary care at the same institution. English is the primary language of instruction.',
-   reqs:['$50 application fee + tuition','ACGME-I accredited — US-standard training','Apply via AUB Faculty of Medicine international office','Check current travel advisories for Lebanon (volatile security environment)','Malpractice insurance required'],
-   url:'https://www.aub.edu.lb/fm/Pages/visiting-students.aspx',urlLabel:'AUB Faculty of Medicine'},
+  {flag:'🇱🇧',loc:'Lebanon · Beirut',name:'American University of Beirut (AUB)',spec:'Internal Medicine, Surgery, Emergency Medicine, OB/GYN, Dermatology, Family Medicine, Psychiatry',
+   cost:'$100 USD total ($50 application fee + $50 acceptance fee) — pay in USD cash',duration:'4-week fixed blocks; apply 3–4 months in advance',year:'MS3/MS4',lang:'English',
+   desc:'AUB Medical Center (AUBMC) is one of the most prestigious and advanced teaching hospitals in the Middle East — and because of that, these electives are highly competitive. AUB Faculty of Medicine offers 4-week clinical electives to visiting international students, who are fully integrated alongside AUB students and residents. Depending on the department, the clinical role ranges from strict observation (OB/GYN) to active participation in ward rounds and case presentations. The application relies on a manual PDF dossier submitted directly to the Office of the Dean — there is no centralized online portal.',
+   reqs:[
+     '<strong>Application timeline:</strong> Submit the complete dossier at least 3–4 months before your requested clerkship period — placements are assigned strictly first-come, first-served',
+     '<strong>Application process:</strong> Download the <a href="https://www.aub.edu.lb/fm/MSAO/PublishingImages/Pages/VisitingStudents/Application%20for%20Visiting%20Medical%20Student.pdf" target="_blank" style="color:#60a5fa">AUB Visiting Student Application Form (PDF)</a> — Part I is completed by the student; Part II must be officially completed, signed, and stamped by the Dean of your US medical school',
+     '<strong>Required documents:</strong> Completed and signed application form · Official medical school transcript · Recent colored passport-sized photo · Proof of health coverage and malpractice insurance valid in Lebanon',
+     '⚠️ Emergency Medicine applicants must also submit: a CV, a Personal Statement, and one Letter of Recommendation — EM rotations are highly competitive and have additional requirements',
+     '<strong>Available departments (4-week blocks):</strong> Internal Medicine (specify desired subspecialty on application) · Surgery (General, Pediatric, Cardiovascular, Neurosurgery, Orthopedic, Plastic, Urology) · Emergency Medicine (highly competitive) · Obstetrics &amp; Gynecology (strictly observational; maximum 2 visiting students at a time) · Dermatology · Family Medicine · Psychiatry',
+     '<strong>Fees — pay in crisp USD cash on arrival:</strong> $50 non-refundable application processing fee (submitted with dossier) + $50 clerkship acceptance fee (collected on arrival) = $100 USD total',
+     '⚠️ Currency warning: AUB\'s legacy forms may still list fees in Lebanese Pounds (LBP) at an outdated pegged rate — ignore these figures. The LBP has collapsed dramatically. Pay in USD only and budget accordingly',
+     '<strong>Submission:</strong> Mail or deliver the completed dossier and $50 application fee directly to the AUB Faculty of Medicine, Office of the Dean (Medical Student Affairs) — mailing address and fax number are on page 2 of the application PDF',
+     '<strong>Housing:</strong> Visiting students may apply for AUB student housing — priority is given to full-time AUB students; notify the Office of Student Affairs at least 2 weeks before arrival to request a dorm',
+     '<strong>Dress code:</strong> Visiting students must bring and wear their own short white coat on all hospital floors',
+     '⚠️ Check current US State Department travel advisories for Lebanon before applying — the country has experienced significant economic and political instability'
+   ],
+   url:'https://www.aub.edu.lb/fm/MSAO/Pages/VisitingStudents.aspx',urlLabel:'AUB Visiting Students',btnLabel:'AUB Visiting Students Page →'},
   {flag:'🇳🇵',loc:'Nepal · Dharan',name:'BP Koirala Institute of Health Sciences',spec:'Family Medicine, Community Health, Rural Medicine',
    cost:'~$600–1,000 for 4 weeks (direct application)',duration:'4 weeks',year:'MS2–MS4',lang:'English',
    desc:'A world-class institution nestled in the foothills of the Himalayas in eastern Nepal. BPKIHS offers an extraordinary setting for community-oriented family medicine — the mountainous geography means the hospital serves a catchment area with limited alternative healthcare access, resulting in rich continuity-of-care experiences. Direct application is possible, making this one of the most cost-effective Asian options. English is the primary language of instruction.',
