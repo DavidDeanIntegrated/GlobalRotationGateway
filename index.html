@@ -247,15 +247,17 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
 .modal-close{position:sticky;top:0;display:flex;justify-content:flex-end;padding:1rem 1rem .5rem;background:var(--ink-soft);z-index:1}
 .modal-close button{background:rgba(240,234,216,.08);border:1px solid var(--border);color:var(--muted-lt);width:32px;height:32px;border-radius:50%;font-size:1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
 .modal-close button:hover{background:rgba(240,234,216,.15);color:var(--ivory)}
-.modal-body{padding:0 2rem 2rem}
+.modal-hero{padding:2rem 2rem 1.5rem;background:linear-gradient(155deg,rgba(42,157,143,.1) 0%,rgba(240,234,216,.02) 80%);border-bottom:1px solid rgba(240,234,216,.08)}
+.modal-inner{padding:1.75rem 2rem 2rem}
+.modal-body{padding:0}
 .modal-flag{font-size:3rem;margin-bottom:.75rem}
 .modal-loc{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted-lt);margin-bottom:.3rem}
 .modal-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;color:var(--ivory);margin-bottom.5rem;line-height:1.2}
 .modal-spec{display:inline-flex;align-items:center;gap:.4rem;background:rgba(42,157,143,.12);color:var(--teal-lt);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .75rem;border-radius:2px;margin-top:.75rem;border:1px solid rgba(42,157,143,.2)}
 .modal-divider{height:1px;background:var(--border);margin:1.5rem 0}
-.modal-section-title{font-size:.65rem;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:var(--muted-lt);margin-bottom:.75rem}
+.modal-section-title{font-size:.63rem;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:var(--teal-lt);margin-bottom:.85rem;padding-left:.7rem;border-left:2px solid var(--teal)}
 .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:1.5rem}
-.modal-item{background:rgba(240,234,216,.03);border:1px solid var(--border-soft);border-radius:6px;padding:.875rem 1rem}
+.modal-item{background:rgba(240,234,216,.03);border:1px solid var(--border-soft);border-radius:6px;padding:.875rem 1rem;border-top:2px solid rgba(42,157,143,.28)}
 .modal-item-label{font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.3rem}
 .modal-item-value{font-size:.875rem;color:var(--ivory);font-weight:500}
 .modal-desc{font-size:.875rem;color:rgba(240,234,216,.6);line-height:1.75;font-weight:300;margin-bottom:1.5rem}
@@ -596,7 +598,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-body">
         <span class="spec-pill">Multiple Specialties</span>
-        <p class="rcard-desc">One of the most sought-after electives globally — and notably charges no tuition fees. This zero-tuition policy makes it extraordinarily competitive. Must be final-year. No accommodation provided; Oxford cost-of-living is high.</p>
+        <p class="rcard-desc">Students rotate across John Radcliffe, Churchill, and other Oxford University Hospitals — among the world's most prestigious teaching hospitals and the only program charging absolutely no tuition. Apply 12–18 months in advance through the Oxford Elective Office online portal. Final year only; no accommodation provided.</p>
         <div class="rcard-tags"><span class="rtag">FREE Tuition</span><span class="rtag">Very Competitive</span><span class="rtag">Final Year Only</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 4–10 weeks</div>
@@ -606,7 +608,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>No tuition fee</strong>Living costs only</div>
-        <a href="https://www.medsci.ox.ac.uk/study/electives" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(6);return false">Full Details →</a>
       </div>
     </div>
 
@@ -619,7 +621,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-body">
         <span class="spec-pill">Surgery · Emergency · Cardiology</span>
-        <p class="rcard-desc">Rotations at Guy's, St Thomas', and King's College Hospitals — some of London's busiest trauma and specialist centers. Charges both an application fee and a weekly placement fee. Strict IELTS requirements apply.</p>
+        <p class="rcard-desc">Students rotate through Guy's Hospital, St Thomas' Hospital, and King's College Hospital — three of London's most prestigious clinical centers renowned for trauma, cardiology, and complex surgery. Apply directly through KCL's visiting students page. Both a non-refundable application fee and a weekly placement fee apply. IELTS 6.5+ strictly required.</p>
         <div class="rcard-tags"><span class="rtag">Paid Application</span><span class="rtag">IELTS 6.5+ Required</span><span class="rtag">London Teaching Hospitals</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 4+ weeks</div>
@@ -629,7 +631,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>£100–200 app + £100/wk</strong>Placement fee applies</div>
-        <a href="https://www.kcl.ac.uk/elective-placement-in-clinical-medicine-course" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(7);return false">Full Details →</a>
       </div>
     </div>
 
@@ -642,7 +644,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-body">
         <span class="spec-pill">Neurology · Neurosurgery</span>
-        <p class="rcard-desc">Queen Square — a world leader in neurology. UCL emphasizes that visiting students have the same duties as local students. Minimum 3 years of clinical training completed required. Expect high independence.</p>
+        <p class="rcard-desc">Students work at the National Hospital for Neurology and Neurosurgery (NHNN) at Queen Square — one of the world's foremost dedicated neurological centers. UCL integrates visiting students with full local-student duties and expectations, meaning a high degree of independence throughout. Apply via the UCL Medical School international office. Minimum 3 years of completed clinical training required.</p>
         <div class="rcard-tags"><span class="rtag">World-Leading Neuro</span><span class="rtag">3 Yrs Clinical Required</span><span class="rtag">High Independence</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 4+ weeks</div>
@@ -652,7 +654,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>Admin fee</strong>Contact UCL for rate</div>
-        <a href="https://www.ucl.ac.uk/brain-sciences/ion/study/undergraduate/electives-medical-students" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(8);return false">Full Details →</a>
       </div>
     </div>
 
@@ -665,7 +667,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-body">
         <span class="spec-pill">Surgery · Internal Medicine</span>
-        <p class="rcard-desc">Electives strictly limited to summer months (July/August) for non-partner students. Academic-year spots are reserved for bilateral partners (GWU, UMN). Rotations at Beaumont Hospital and other Dublin teaching hospitals. Applications close in January.</p>
+        <p class="rcard-desc">Students rotate through Beaumont Hospital and other Dublin teaching hospitals at Ireland's leading surgical institution. For non-partner students, placements are limited to summer (July/August) — apply via RCSI's Visiting Students page before the January deadline. Year-round access is available only to bilateral exchange partners (GWU, UMN).</p>
         <div class="rcard-tags"><span class="rtag">Summer Only</span><span class="rtag">Closes Jan</span><span class="rtag">Beaumont Hospital</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 Summer (Jul/Aug)</div>
@@ -675,7 +677,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>Admin fee</strong>Contact RCSI</div>
-        <a href="https://www.rcsi.com/dublin/about/faculty-of-medicine-and-health-sciences/school-of-medicine/teaching-and-education/visiting-student-clinical-electives" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(9);return false">Full Details →</a>
       </div>
     </div>
 
@@ -747,7 +749,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>VSLO + tuition fees</strong>Apply via VSLO</div>
-        <a href="https://medicine.yale.edu/md-program/visiting-students/international/" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(12);return false">Full Details →</a>
       </div>
     </div>
 
@@ -760,7 +762,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-body">
         <span class="spec-pill">Multiple Specialties</span>
-        <p class="rcard-desc">International Clinical Electives Program (ICEP) uses a "closed-loop" model: only students enrolled at specifically affiliated international institutions are accepted. Unsolicited applications from non-affiliates are automatically rejected. Check affiliate list carefully.</p>
+        <p class="rcard-desc">GWU Hospital is a major academic medical center in Washington D.C. Its International Clinical Electives Program (ICEP) operates on a closed-loop model — only students from specifically affiliated international institutions are accepted; unsolicited applications are automatically rejected. Affiliated schools include USP Brazil, AUB Lebanon, RCSI Ireland, Technion Israel, and others. Apply through your home institution's international office.</p>
         <div class="rcard-tags"><span class="rtag">Affiliate Schools Only</span><span class="rtag">No Unsolicited Apps</span><span class="rtag">USP · AUB · RCSI · Technion</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 Varies</div>
@@ -770,7 +772,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>Tuition applies</strong>Affiliates only</div>
-        <a href="https://imp.smhs.gwu.edu/international-clinical-electives-program-icep-international-students" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(13);return false">Full Details →</a>
       </div>
     </div>
 
@@ -793,7 +795,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>VSLO + tuition</strong>Via VSLO only</div>
-        <a href="https://hsc.unm.edu/medicine/education/md/student-affairs/visiting-medical-students/" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(14);return false">Full Details →</a>
       </div>
     </div>
 
@@ -934,7 +936,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>6,900–12,900 THB ($220–$415)</strong></div>
-        <a href="https://www.rama.mahidol.ac.th/international/apply-elective-online" target="_blank" class="rcard-cta">Apply Online →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(20);return false">Full Details →</a>
       </div>
     </div>
 
@@ -957,7 +959,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>~$80 USD/week</strong></div>
-        <a href="https://bvchoray.vn/bai-viet/6-elective-program-training-guidelines-for-foreign--20251029094922854.html" target="_blank" class="rcard-cta">Guidelines & Forms →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(21);return false">Full Details →</a>
       </div>
     </div>
 
@@ -981,7 +983,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>$100 USD total</strong></div>
-        <a href="https://www.aub.edu.lb/fm/MSAO/Pages/VisitingStudents.aspx" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(22);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1004,7 +1006,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>~$200–300 USD</strong></div>
-        <a href="https://www.bpkihs.edu/" target="_blank" class="rcard-cta">Visit Website →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(23);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1029,7 +1031,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>~$310 USD direct</strong> / $1,500–2,500 DocTours</div>
-        <a href="https://www.fnu.ac.fj/college-of-medicine/" target="_blank" class="rcard-cta">FNU Website →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(24);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1053,7 +1055,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>~$320 USD / 4 wks</strong>+ travel to PNG</div>
-        <a href="https://kompiamhospital.org/want-to-visit-or-help/student-electives/" target="_blank" class="rcard-cta">Visit Website →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(25);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1076,7 +1078,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>~$2,000 USD / 4 wks</strong>custom quote</div>
-        <a href="https://medicalelectivesbelize.com/apply" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(26);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1099,7 +1101,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>~$330 USD / 4 wks</strong>direct apply</div>
-        <a href="https://www.scribd.com/document/686455402/Application-form-1" target="_blank" class="rcard-cta">Get Form →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(27);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1702,32 +1704,35 @@ const PROGRAMS = [
 function openModal(i){
   const p=PROGRAMS[i];
   document.getElementById('modalBody').innerHTML=`
-    <div class="modal-flag">${p.flag}</div>
-    <div class="modal-loc">${p.loc}</div>
-    <div class="modal-title">${p.name}</div>
-    <div class="modal-spec">${p.spec}</div>
-    <div class="modal-divider"></div>
-    <div class="modal-section-title">Program Overview</div>
-    <p class="modal-desc">${p.desc}</p>
-    <div class="modal-grid">
-      <div class="modal-item"><div class="modal-item-label">Cost</div><div class="modal-item-value">${p.cost}</div></div>
-      <div class="modal-item"><div class="modal-item-label">Duration</div><div class="modal-item-value">${p.duration}</div></div>
-      <div class="modal-item"><div class="modal-item-label">Eligible Year</div><div class="modal-item-value">${p.year}</div></div>
-      <div class="modal-item"><div class="modal-item-label">Language</div><div class="modal-item-value">${p.lang}</div></div>
+    <div class="modal-hero">
+      <div class="modal-flag">${p.flag}</div>
+      <div class="modal-loc">${p.loc}</div>
+      <div class="modal-title">${p.name}</div>
+      <div class="modal-spec">${p.spec}</div>
     </div>
-    <div class="modal-section-title">Requirements & Important Notes</div>
-    <div class="modal-reqs">${p.reqs.map(r=>{const isWarn=r.startsWith('⚠️');const isCat=/^<strong>[^<]+:<\/strong>/.test(r);return`<div class="modal-req${isWarn?' warn':isCat?' cat':''}">${r}</div>`;}).join('')}</div>
-    ${p.providers ? `
-    <div class="modal-section-title">Elective Placement Providers</div>
-    <p style="font-size:.82rem;color:var(--muted);margin-bottom:.75rem">This hospital does not host a direct application portal. Elective placements are coordinated through these authorized third-party organizations, who handle registration fees, supervision assignments, and local logistics:</p>
-    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem">
-      ${p.providers.map(pv=>`<a href="${pv.url}" target="_blank" class="modal-btn-primary" style="flex:1;min-width:160px;text-align:center">${pv.name} →</a>`).join('')}
-    </div>` : ''}
-    <div class="modal-actions">
-      <a href="${p.url}" target="_blank" class="modal-btn-${p.providers?'sec':'primary'}">${p.btnLabel||(p.providers?'Official Hospital Website →':'Visit Official Website →')}</a>
-      <a href="#submit" onclick="closeModal()" class="modal-btn-sec">Submit an Update</a>
+    <div class="modal-inner">
+      <div class="modal-section-title">Program Overview</div>
+      <p class="modal-desc">${p.desc}</p>
+      <div class="modal-grid">
+        <div class="modal-item"><div class="modal-item-label">💰 Cost</div><div class="modal-item-value">${p.cost}</div></div>
+        <div class="modal-item"><div class="modal-item-label">⏱️ Duration</div><div class="modal-item-value">${p.duration}</div></div>
+        <div class="modal-item"><div class="modal-item-label">🎓 Eligible Year</div><div class="modal-item-value">${p.year}</div></div>
+        <div class="modal-item"><div class="modal-item-label">🌐 Language</div><div class="modal-item-value">${p.lang}</div></div>
+      </div>
+      <div class="modal-section-title">Requirements &amp; Important Notes</div>
+      <div class="modal-reqs">${p.reqs.map(r=>{const isWarn=r.startsWith('⚠️');const isCat=/^<strong>[^<]+:<\/strong>/.test(r);return`<div class="modal-req${isWarn?' warn':isCat?' cat':''}">${r}</div>`;}).join('')}</div>
+      ${p.providers ? `
+      <div class="modal-section-title">Elective Placement Providers</div>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:.75rem">This program does not host a direct hospital application portal. Elective placements are coordinated through these authorized third-party organizations, who handle registration, supervision assignments, and local logistics:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem">
+        ${p.providers.map(pv=>`<a href="${pv.url}" target="_blank" class="modal-btn-primary" style="flex:1;min-width:160px;text-align:center">${pv.name} →</a>`).join('')}
+      </div>` : ''}
+      <div class="modal-actions">
+        <a href="${p.url}" target="_blank" class="modal-btn-${p.providers?'sec':'primary'}">${p.btnLabel||(p.providers?'Official Website →':'Visit Official Website →')}</a>
+        <a href="#submit" onclick="closeModal()" class="modal-btn-sec">Submit an Update</a>
+      </div>
+      <p style="font-size:.72rem;color:var(--muted);margin-top:1.25rem;line-height:1.6">⚠️ Always verify costs, requirements, and deadlines directly with the host institution before applying. Program details change frequently.</p>
     </div>
-    <p style="font-size:.72rem;color:var(--muted);margin-top:1.25rem;line-height:1.6">⚠️ Always verify costs, requirements, and deadlines directly with the host institution before applying. Program details change frequently.</p>
   `;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
