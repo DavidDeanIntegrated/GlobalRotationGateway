@@ -896,9 +896,9 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
         <div class="rcard-name">Siriraj Hospital, Mahidol University</div>
       </div>
       <div class="rcard-body">
-        <span class="spec-pill">Internal Medicine · Tropical Medicine · Traditional Thai Medicine</span>
-        <p class="rcard-desc">Bangkok's riverside flagship teaching hospital. Very affordable at ~5,000 THB (~$145 USD) per week. Unique exposure to Traditional Thai Medicine alongside modern tertiary care. Fixed application windows — apply in November for spring.</p>
-        <div class="rcard-tags"><span class="rtag">~$145/week</span><span class="rtag">Fixed Apply Windows</span><span class="rtag">Traditional Thai Med</span></div>
+        <span class="spec-pill">Surgery · Internal Medicine · Traditional Thai Medicine · more</span>
+        <p class="rcard-desc">Bangkok's riverside flagship teaching hospital — one of Southeast Asia's largest. Huge range of surgical and medical subspecialties. PDF email application; apply 4–6 months out. Observational only; 4,500 THB fee paid in person on arrival.</p>
+        <div class="rcard-tags"><span class="rtag">Observational Only</span><span class="rtag">PDF Email Application</span><span class="rtag">Traditional Thai Med</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 Fixed windows</div>
           <div class="rm">🎓 MS3/MS4</div>
@@ -906,7 +906,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
         </div>
       </div>
       <div class="rcard-foot">
-        <div class="rcard-cost"><strong>~5,000 THB/week (~$145)</strong></div>
+        <div class="rcard-cost"><strong>4,500 THB</strong>One-time processing fee</div>
         <a href="#" class="rcard-cta" onclick="openModal(19);return false">Full Details →</a>
       </div>
     </div>
@@ -1538,19 +1538,27 @@ const PROGRAMS = [
      '<strong>Community &amp; Rural Health:</strong> Centre for Community Medicine (CCM) — urban health initiatives, immunization clinics, and primary care at the Comprehensive Rural Health Services Project in Ballabgarh. ⚠️ Rural postings only accepted January–June; students are advised to bring a sleeping bag for rural accommodations',
      'Indicate your top preferred departments on the application form — AIIMS places students based on current departmental capacity'
    ],
-   url:'https://www.aiims.edu/index.php/en/academic-section-training',urlLabel:'AIIMS Official Guidelines & Application Form'},
-  {flag:'🇹🇭',loc:'Thailand · Bangkok',name:'Siriraj Hospital, Mahidol University',spec:'Internal Medicine, Tropical Medicine, Traditional Thai Medicine',
-   cost:'~5,000 THB/week (~$145 USD)',duration:'Fixed windows (typically apply in November for spring)',year:'MS3/MS4',lang:'English',
-   desc:'Thailand\'s oldest and most distinguished hospital, located on the Chao Phraya riverside in Bangkok. Affiliated with Mahidol University — Thailand\'s highest-ranked medical institution. Very affordable at ~$145/week. Unique offering of Traditional Thai Medicine alongside modern tertiary care. Fixed application windows; apply in November for spring. Hospital access is available for hands-on rotations (unlike Ramathibodi). There is no clickable online submission portal — students must download two specific PDF forms and email the complete dossier directly to the Siriraj International Relations Office at <a href="mailto:siir@mahidol.ac.th" style="color:#60a5fa">siir@mahidol.ac.th</a>.',
+   url:'https://www.aiims.edu/images/pdf/Academic_Section/Elective%20training%20Foreign%20medical%20UGs.pdf',urlLabel:'AIIMS Official Guidelines & Application Form'},
+  {flag:'🇹🇭',loc:'Thailand · Bangkok',name:'Siriraj Hospital, Mahidol University',spec:'Internal Medicine, Surgery, Emergency Medicine, Pediatrics, OB/GYN, Dermatology, Psychiatry, Radiology, Rehabilitation Medicine, Applied Thai Traditional Medicine',
+   cost:'4,500 THB processing fee — paid in person (cash or credit card) upon arrival at the International Relations Office; non-refundable',duration:'Apply 4–6 months before intended start date',year:'MS3/MS4',lang:'English',
+   desc:'Thailand\'s oldest and most distinguished hospital, located on the Chao Phraya riverside in Bangkok. Affiliated with Mahidol University — Thailand\'s highest-ranked medical institution. One of the largest hospitals in Southeast Asia, offering a vast array of highly specialized clinical departments. <strong>⚠️ Rotations are 100% observational</strong> — visiting students are not permitted any hands-on clinical work or direct patient care. There is no online submission portal; students must download PDF forms and email the complete dossier to the Siriraj International Relations Office at <a href="mailto:siir@mahidol.ac.th" style="color:#60a5fa">siir@mahidol.ac.th</a>.',
    reqs:[
-     'Download both required forms from the <a href="https://www2.si.mahidol.ac.th/en/international-office/application-forms/" target="_blank" style="color:#60a5fa">Siriraj Application Forms page</a>: <strong>ST1 Form</strong> (main application) and <strong>ST2 Form</strong> (immunization record)',
-     'Email the complete dossier to <a href="mailto:siir@mahidol.ac.th" style="color:#60a5fa">siir@mahidol.ac.th</a> — no online submission portal exists',
-     '<strong>Required dossier:</strong> Completed ST1 form · Completed ST2 immunization form · Dean\'s letter from your US medical school · CV/résumé · Official academic transcripts',
-     'Fixed application windows — apply in November for spring placement',
-     '~5,000 THB (~$145 USD) per week',
+     '<strong>Application timeline:</strong> Submit all documents at least 4–6 months before your intended start date',
+     'Download both required forms from the <a href="https://www2.si.mahidol.ac.th/en/international-office/application-forms/" target="_blank" style="color:#60a5fa">Siriraj Application Forms page</a>: <strong>ST1 Form</strong> (main application) and <strong>ST2 Form</strong> (immunization record — requires sign-off from a healthcare provider)',
+     'Email the complete dossier to <a href="mailto:siir@mahidol.ac.th" style="color:#60a5fa">siir@mahidol.ac.th</a>',
+     '<strong>Required dossier:</strong> Completed ST1 form · Completed ST2 immunization form · Dean\'s letter or letter of recommendation from your US medical school · CV/résumé · Official academic transcripts · Copy of passport bio-data page',
+     '<strong>Fee:</strong> 4,500 THB — paid in person in THB cash or by credit card on your first reporting day at the International Relations Office (non-refundable; not paid online)',
+     '⚠️ <strong>Observational only</strong> — no hands-on procedures or direct patient care permitted',
+     '<strong>Attendance:</strong> 100% attendance required; students must log daily activities in a provided logbook and return it to the coordinator at the end of the elective to receive their certificate of completion',
+     '<strong>Dress code:</strong> "Polite attire" strictly enforced — men: collared shirt and slacks (no shorts); women: shirt with knee-length skirt; closed-toe shoes required for all',
      'Thai tourist or non-immigrant visa depending on duration of stay',
-     'Malpractice insurance recommended',
-     'Vaccinations: Hep A/B, Typhoid, Japanese Encephalitis'
+     'Vaccinations: Hep A/B, Typhoid, Japanese Encephalitis',
+     '<strong>Internal Medicine subspecialties (select one):</strong> Cardiology · Endocrinology &amp; Metabolism · Gastroenterology · Hematology · Neurology',
+     '<strong>Surgery &amp; Surgical Specialties:</strong> General Surgery (Colorectal; HPB &amp; Transplantation; Minimally Invasive) · Cardio-Thoracic · Neurological · Orthopaedic · Plastic · Pediatric · Trauma · Urological · Vascular · Head-Neck &amp; Breast',
+     '<strong>Emergency &amp; Critical Care:</strong> Emergency Medicine (focuses on non-trauma emergencies; prior EM clinical exposure required) · Anesthesiology (General, Urological, or Orthopedic tracks)',
+     '<strong>Maternal &amp; Child Health:</strong> Obstetrics &amp; Gynaecology · Pediatrics',
+     '<strong>Specialized Departments:</strong> Dermatology · Ophthalmology · ENT/Oto-Rhino-Laryngology (Sleep Medicine, Rhinology/Allergy, Neuro-otology, Pediatric Otolaryngology) · Psychiatry · Radiology (Radio-diagnostics, Radiation Therapy, Nuclear Medicine) · Rehabilitation Medicine (Neuro, Geriatric, Pediatric, Cardiac &amp; Pulmonary, Pain Clinic, Dysphagia Clinic, Prosthetics/Orthotics)',
+     '<strong>Unique to Siriraj — Applied Thai Traditional Medicine:</strong> A dedicated center integrating modern medical science with traditional Thai practices, herbal medicine, and massage'
    ],
    url:'https://www2.si.mahidol.ac.th/en/ir/inbound/',urlLabel:'Siriraj Inbound Electives Program'},
   {flag:'🇹🇭',loc:'Thailand · Bangkok',name:'Ramathibodi Hospital, Mahidol University',spec:'Observational · All Specialties',
