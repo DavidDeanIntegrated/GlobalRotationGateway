@@ -907,7 +907,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>~5,000 THB/week (~$145)</strong></div>
-        <a href="https://www.si.mahidol.ac.th/en/" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="#" class="rcard-cta" onclick="openModal(19);return false">Full Details →</a>
       </div>
     </div>
 
@@ -920,8 +920,8 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-body">
         <span class="spec-pill">Observational · All Specialties</span>
-        <p class="rcard-desc">Important caveat: The Thai Medical Council prohibits foreign students from hands-on procedures at this hospital — rotations are strictly observational. Apply in November for spring. Same cost structure as Siriraj. Good for clinical observation and exotic pathology.</p>
-        <div class="rcard-tags"><span class="rtag">Observational Only</span><span class="rtag">No Hands-On</span><span class="rtag">Apply November</span></div>
+        <p class="rcard-desc">Important caveat: The Thai Medical Council prohibits foreign students from hands-on procedures at this hospital — rotations are strictly observational. Unlike Siriraj, Ramathibodi uses an online Google Form portal — upload all documents at once. Same cost structure as Siriraj.</p>
+        <div class="rcard-tags"><span class="rtag">Online Portal</span><span class="rtag">Observational Only</span><span class="rtag">Apply November</span></div>
         <div class="rcard-meta">
           <div class="rm">📅 Fixed windows</div>
           <div class="rm">🎓 MS2–MS4</div>
@@ -930,7 +930,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       </div>
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>~5,000 THB/week (~$145)</strong></div>
-        <a href="https://www.rama.mahidol.ac.th/en" target="_blank" class="rcard-cta">Apply →</a>
+        <a href="https://www.rama.mahidol.ac.th/international/apply-elective-online" target="_blank" class="rcard-cta">Apply Online →</a>
       </div>
     </div>
 
@@ -1541,14 +1541,30 @@ const PROGRAMS = [
    url:'https://www.aiims.edu/index.php/en/academic-section-training',urlLabel:'AIIMS Official Guidelines & Application Form'},
   {flag:'🇹🇭',loc:'Thailand · Bangkok',name:'Siriraj Hospital, Mahidol University',spec:'Internal Medicine, Tropical Medicine, Traditional Thai Medicine',
    cost:'~5,000 THB/week (~$145 USD)',duration:'Fixed windows (typically apply in November for spring)',year:'MS3/MS4',lang:'English',
-   desc:'Thailand\'s oldest and most distinguished hospital, located on the Chao Phraya riverside in Bangkok. Affiliated with Mahidol University — Thailand\'s highest-ranked medical institution. Very affordable at ~$145/week. Unique offering of Traditional Thai Medicine alongside modern tertiary care. Fixed application windows; apply in November for spring. Hospital access is available for hands-on rotations (unlike Ramathibodi).',
-   reqs:['Apply via Mahidol International Office — fixed windows (November for spring)','~5,000 THB (~$145 USD) per week','Thai tourist/non-immigrant visa depending on duration','Malpractice insurance recommended','Vaccinations: Hep A/B, Typhoid, Japanese Encephalitis'],
-   url:'https://www.si.mahidol.ac.th/en/',urlLabel:'Siriraj Hospital International'},
+   desc:'Thailand\'s oldest and most distinguished hospital, located on the Chao Phraya riverside in Bangkok. Affiliated with Mahidol University — Thailand\'s highest-ranked medical institution. Very affordable at ~$145/week. Unique offering of Traditional Thai Medicine alongside modern tertiary care. Fixed application windows; apply in November for spring. Hospital access is available for hands-on rotations (unlike Ramathibodi). There is no clickable online submission portal — students must download two specific PDF forms and email the complete dossier directly to the Siriraj International Relations Office at <a href="mailto:siir@mahidol.ac.th" style="color:#60a5fa">siir@mahidol.ac.th</a>.',
+   reqs:[
+     'Download both required forms from the <a href="https://www2.si.mahidol.ac.th/en/international-office/application-forms/" target="_blank" style="color:#60a5fa">Siriraj Application Forms page</a>: <strong>ST1 Form</strong> (main application) and <strong>ST2 Form</strong> (immunization record)',
+     'Email the complete dossier to <a href="mailto:siir@mahidol.ac.th" style="color:#60a5fa">siir@mahidol.ac.th</a> — no online submission portal exists',
+     '<strong>Required dossier:</strong> Completed ST1 form · Completed ST2 immunization form · Dean\'s letter from your US medical school · CV/résumé · Official academic transcripts',
+     'Fixed application windows — apply in November for spring placement',
+     '~5,000 THB (~$145 USD) per week',
+     'Thai tourist or non-immigrant visa depending on duration of stay',
+     'Malpractice insurance recommended',
+     'Vaccinations: Hep A/B, Typhoid, Japanese Encephalitis'
+   ],
+   url:'https://www2.si.mahidol.ac.th/en/ir/inbound/',urlLabel:'Siriraj Inbound Electives Program'},
   {flag:'🇹🇭',loc:'Thailand · Bangkok',name:'Ramathibodi Hospital, Mahidol University',spec:'Observational · All Specialties',
    cost:'~5,000 THB/week (~$145 USD)',duration:'Fixed windows',year:'MS2–MS4',lang:'English',
-   desc:'Important caveat for students seeking hands-on experience: The Thai Medical Council explicitly prohibits foreign students from performing any hands-on procedures at Ramathibodi. Rotations here are strictly observational. However, it\'s still valuable for observing exotic pathology and Thai clinical culture. Same application process and cost as Siriraj. Good for students who want passive clinical exposure without hands-on pressure.',
-   reqs:['⚠️ Strictly observational — no hands-on procedures permitted (Thai Medical Council rule)','Apply via Mahidol International Office — November for spring','~5,000 THB (~$145 USD) per week','Thai tourist/non-immigrant visa'],
-   url:'https://www.rama.mahidol.ac.th/en',urlLabel:'Ramathibodi International'},
+   desc:'Important caveat for students seeking hands-on experience: The Thai Medical Council explicitly prohibits foreign students from performing any hands-on procedures at Ramathibodi. Rotations here are strictly observational. However, it\'s still valuable for observing exotic pathology and Thai clinical culture. Unlike Siriraj, Ramathibodi has modernized its process with a fully online application — students upload all documents at once through a centralized Google Form, making it significantly easier to navigate than the PDF email process at Siriraj.',
+   reqs:[
+     '⚠️ Strictly observational — no hands-on procedures permitted (Thai Medical Council rule)',
+     'Apply online via the <a href="https://www.rama.mahidol.ac.th/international/apply-elective-online" target="_blank" style="color:#60a5fa">Ramathibodi Online Application (Google Form)</a> — upload all documents at once',
+     'See <a href="https://www.rama.mahidol.ac.th/international/elective-information" target="_blank" style="color:#60a5fa">Ramathibodi Inbound Electives page</a> for full requirements and current application window dates',
+     'Fixed application windows — apply in November for spring',
+     '~5,000 THB (~$145 USD) per week',
+     'Thai tourist or non-immigrant visa depending on duration of stay'
+   ],
+   url:'https://www.rama.mahidol.ac.th/international/elective-information',urlLabel:'Ramathibodi Elective Information'},
   {flag:'🇻🇳',loc:'Vietnam · Ho Chi Minh City',name:'Cho Ray Hospital',spec:'Emergency Medicine, Tropical Diseases, Trauma',
    cost:'$2,500–3,500 via Work the World (4 weeks, includes housing and translators)',duration:'2–8 weeks',year:'MS2–MS4',lang:'Vietnamese (translators provided via agencies)',
    desc:'High-volume hospital in Ho Chi Minh City with extraordinary trauma and tropical disease exposure. Students often witness advanced presentations of diseases at stages they would never see in a Western emergency department. Ward rounds are conducted in Vietnamese — agencies like Work the World provide dedicated translators for ward rounds. Direct access via UMP (University of Medicine and Pharmacy) is possible but navigating the bureaucracy independently is complex.',
