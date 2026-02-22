@@ -350,8 +350,8 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       <a href="#providers" class="btn-ghost">3rd-Party Providers</a>
     </div>
     <div class="hero-stats">
-      <div><div class="hstat-num"><span class="counter" data-t="28">0</span><span class="ac">+</span></div><div class="hstat-lbl">Real Programs</div></div>
-      <div><div class="hstat-num"><span class="counter" data-t="20">0</span><span class="ac">+</span></div><div class="hstat-lbl">Countries</div></div>
+      <div><div class="hstat-num"><span class="counter" data-t="29">0</span><span class="ac">+</span></div><div class="hstat-lbl">Real Programs</div></div>
+      <div><div class="hstat-num"><span class="counter" data-t="21">0</span><span class="ac">+</span></div><div class="hstat-lbl">Countries</div></div>
       <div><div class="hstat-num"><span class="counter" data-t="5">0</span></div><div class="hstat-lbl">Major Providers</div></div>
     </div>
   </div>
@@ -362,7 +362,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       <div class="hl-row"><div class="hl-dot" style="background:#2a9d8f"></div><div class="hl-name">Africa</div><div class="hl-count">8 programs</div></div>
       <div class="hl-row"><div class="hl-dot" style="background:#b8933f"></div><div class="hl-name">Asia</div><div class="hl-count">9 programs</div></div>
       <div class="hl-row"><div class="hl-dot" style="background:#c0533a"></div><div class="hl-name">Americas</div><div class="hl-count">5 programs</div></div>
-      <div class="hl-row"><div class="hl-dot" style="background:#6b4fa0"></div><div class="hl-name">Europe</div><div class="hl-count">6 programs</div></div>
+      <div class="hl-row"><div class="hl-dot" style="background:#6b4fa0"></div><div class="hl-name">Europe</div><div class="hl-count">7 programs</div></div>
     </div>
   </div>
 </section>
@@ -379,6 +379,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     <div class="t-item"><span>🇺🇸</span><span class="hi">Yale School of Medicine</span><span class="t-sep">·</span>VSLO · ~20% acceptance</div>
     <div class="t-item"><span>🇩🇪</span><span class="hi">Charité Berlin</span><span class="t-sep">·</span>Famulatur · German required</div>
     <div class="t-item"><span>🇫🇯</span><span class="hi">CWM Hospital Fiji</span><span class="t-sep">·</span>Island Medicine · Pacific</div>
+    <div class="t-item"><span>🇲🇹</span><span class="hi">Mater Dei Hospital</span><span class="t-sep">·</span>~$410/4wks · Malta</div>
     <!-- duplicate -->
     <div class="t-item"><span>🇿🇦</span><span class="hi">Chris Hani Baragwanath</span><span class="t-sep">·</span>Trauma Surgery · South Africa</div>
     <div class="t-item"><span>🇬🇧</span><span class="hi">Oxford University Hospitals</span><span class="t-sep">·</span>No Tuition Fee · UK</div>
@@ -389,6 +390,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     <div class="t-item"><span>🇺🇸</span><span class="hi">Yale School of Medicine</span><span class="t-sep">·</span>VSLO · ~20% acceptance</div>
     <div class="t-item"><span>🇩🇪</span><span class="hi">Charité Berlin</span><span class="t-sep">·</span>Famulatur · German required</div>
     <div class="t-item"><span>🇫🇯</span><span class="hi">CWM Hospital Fiji</span><span class="t-sep">·</span>Island Medicine · Pacific</div>
+    <div class="t-item"><span>🇲🇹</span><span class="hi">Mater Dei Hospital</span><span class="t-sep">·</span>~$410/4wks · Malta</div>
   </div>
 </div>
 
@@ -418,6 +420,8 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
         <option>Cardiology</option>
         <option>Community Health</option>
         <option>Rural Medicine</option>
+        <option>Gastroenterology</option>
+        <option>ICU</option>
       </select>
       <button class="s-btn" onclick="runSearch()">Search</button>
     </div>
@@ -430,7 +434,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       <button class="ftag" data-r="pacific">Pacific</button>
       <button class="ftag" data-r="middleeast">Middle East</button>
     </div>
-    <div class="results-count">Showing <span id="resultCount">28</span> programs</div>
+    <div class="results-count">Showing <span id="resultCount">29</span> programs</div>
   </div>
 </section>
 
@@ -728,6 +732,29 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       <div class="rcard-foot">
         <div class="rcard-cost"><strong>No tuition</strong>Via exchange agreement</div>
         <a href="#" class="rcard-cta" onclick="openModal(11);return false">Full Details →</a>
+      </div>
+    </div>
+
+    <!-- 29. Malta Mater Dei -->
+    <div class="rcard reveal" data-region="europe" data-specialties="internal medicine,surgery,emergency medicine,ob/gyn,pediatrics,gastroenterology,icu,critical care" data-name="mater dei hospital university malta msida mmsa" data-modal="28">
+      <div class="rcard-top" style="background:linear-gradient(135deg,#1a0b3a,#3a1a6b)">
+        <div class="rcard-flag">🇲🇹</div>
+        <div class="rcard-loc">Malta · Msida</div>
+        <div class="rcard-name">Mater Dei Hospital / University of Malta</div>
+      </div>
+      <div class="rcard-body">
+        <span class="spec-pill">ICU · Emergency (A&E) · General Medicine · Surgery · more</span>
+        <p class="rcard-desc">Malta's sole major public hospital — a 1,200-bed acute care teaching facility serving the entire island nation. Because it's the only major hospital, it receives a massive, un-triaged variety of cases. Centrally coordinated through the University of Malta and the MMSA. English is an official language. Primarily observational.</p>
+        <div class="rcard-tags"><span class="rtag">University of Malta</span><span class="rtag">English</span><span class="rtag">Observational</span><span class="rtag">MMSA Social Program</span></div>
+        <div class="rcard-meta">
+          <div class="rm">📅 Apply 3+ months ahead</div>
+          <div class="rm">🎓 MS2–MS4</div>
+          <div class="rm">🌐 English</div>
+        </div>
+      </div>
+      <div class="rcard-foot">
+        <div class="rcard-cost"><strong>~€375 (~$410) / 4 wks</strong>€75 app + €75/wk</div>
+        <a href="#" class="rcard-cta" onclick="openModal(28);return false">Full Details →</a>
       </div>
     </div>
 
@@ -1710,7 +1737,23 @@ const PROGRAMS = [
      '<strong>Visa:</strong> A proper visa must be arranged before arrival — conducting hospital activities on a standard tourist visa can cause serious administrative issues. Confirm current visa requirements with HMU\'s International Cooperation Department upon acceptance',
      'Vaccinations: Typhoid, Hep A/B, Japanese Encephalitis, Rabies recommended · Malaria prophylaxis depending on any regional travel outside Hanoi'
    ],
-   url:'https://www.scribd.com/document/686455402/Application-form-1',urlLabel:'HMU Application Form',btnLabel:'Download HMU Application Form →'}
+   url:'https://www.scribd.com/document/686455402/Application-form-1',urlLabel:'HMU Application Form',btnLabel:'Download HMU Application Form →'},
+  {flag:'🇲🇹',loc:'Malta · Msida',name:'Mater Dei Hospital / University of Malta',spec:'ICU/Critical Care, Emergency Medicine (A&E), General Medicine, General Surgery, Obstetrics & Gynaecology, Paediatrics, Gastroenterology',
+   cost:'€75 EUR application fee (one-time) + €75 EUR administrative fee per week · 4-week total: ~€375 EUR (~$410 USD) · Additional €75 EUR supplementary fee if university must process visa paperwork',duration:'Apply at least 3 months before requested start date · Late applications will not be processed',year:'MS2–MS4',lang:'English (official language of Malta — all medical records in English; some elderly patients speak Maltese only — local students translate)',
+   desc:'Mater Dei Hospital is Malta\'s sole major public hospital — a state-of-the-art 1,200-bed acute care teaching facility in Msida, serving the entire island nation of roughly 500,000 people. Because it is the only major hospital in the country, it receives a massive, un-triaged variety of cases — from routine primary care presentations to severe polytrauma and complex critical care. All international medical elective placements are centrally coordinated through the University of Malta and the Malta Medical Students\' Association (MMSA), which provides an unusually well-organized and social elective experience. Students can apply to rotate through nearly all major specialties, and can request to split their time across multiple departments. The ICU (known as the Dr. Eric Cohen Intensive Therapy Unit) is particularly popular, offering exposure to advanced life support, post-operative critical care, and severe trauma management.<br><br><strong>⚠️ Important: All visiting medical electives at the University of Malta are primarily observational.</strong> While some consultants (attending physicians) may allow students to take histories or assist under strict supervision, hands-on clinical practice is officially restricted. Students should set expectations accordingly.',
+   reqs:[
+     '<strong>Application process:</strong> Submit your complete application dossier via email at least 3 months before your requested start date — applications submitted later will not be processed. Apply through the <a href="https://www.um.edu.mt/ms/medicalelectives/" target="_blank" style="color:#60a5fa">University of Malta Medical Elective Programme</a>',
+     '<strong>Application form &amp; checklist:</strong> Download and complete the official form at the <a href="https://www.um.edu.mt/ms/medicalelectives/applicationform/" target="_blank" style="color:#60a5fa">UM Application Portal</a>',
+     '<strong>Required dossier:</strong> Completed application form · Digital passport-sized photo &amp; clear scan of passport · "Home University Recommendation" form signed by your US medical school Dean · Recent Police Conduct Certificate / Background Check (must be issued within 3 months of applying) · Proof of Travel Insurance · Proof of Medical Malpractice Insurance',
+     '<strong>Occupational health protocol:</strong> Before arriving, students must submit a strict health form proving immunity/vaccination for Hepatitis B, Rubella, and Varicella · Screening results required for HIV, TB, and Hepatitis C',
+     '<strong>Available departments:</strong> ICU / Intensive Therapy Unit (Dr. Eric Cohen ICU — advanced life support, post-operative critical care, severe trauma) · Emergency Department (A&amp;E — acute polytrauma, high-volume triage) · General Medicine · General Surgery · Obstetrics &amp; Gynaecology · Paediatrics · Gastroenterology · Students may request to split time across multiple departments',
+     '<strong>Cost breakdown:</strong> €75 EUR application fee (paid once) + €75 EUR administrative fee per week · Estimated 4-week total: €375 EUR (~$410 USD) · If the university must process specific visa paperwork, there is an additional supplementary fee of €75 EUR',
+     '⚠️ Strictly observational: The University of Malta mandates that all visiting medical electives are primarily observational. While some consultants may allow students to take histories or assist under strict supervision, hands-on clinical practice is officially restricted',
+     '⚠️ English advantage: English is an official language of Malta — all medical records are written in English, and all attending physicians, residents, and medical students speak fluent English. Some elderly local patients may only speak Maltese — local medical students will often step in to translate',
+     '<strong>Social integration:</strong> The Malta Medical Students\' Association (MMSA) is heavily involved in the elective program and organizes a robust social calendar for visiting students — beach BBQs, historical tours of Valletta, and boat trips. Excellent destination for students traveling alone. Contact MMSA at <a href="mailto:electives@mmsa.org.mt" style="color:#60a5fa">electives@mmsa.org.mt</a>',
+     '<strong>Contact:</strong> University elective office: <a href="mailto:medicalelective.ms@um.edu.mt" style="color:#60a5fa">medicalelective.ms@um.edu.mt</a> · Student association (MMSA): <a href="mailto:electives@mmsa.org.mt" style="color:#60a5fa">electives@mmsa.org.mt</a>'
+   ],
+   url:'https://www.um.edu.mt/ms/medicalelectives/',urlLabel:'University of Malta Medical Electives',btnLabel:'University of Malta Electives →'}
 ];
 
 /* MODAL OPEN/CLOSE */
