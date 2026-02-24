@@ -414,10 +414,12 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     <canvas id="worldCanvas" width="520" height="360"></canvas>
     <div class="hero-legend">
       <div class="hl-title">Programs by Region</div>
-      <div class="hl-row"><div class="hl-dot" style="background:#2a9d8f"></div><div class="hl-name">Africa</div><div class="hl-count">8 programs</div></div>
-      <div class="hl-row"><div class="hl-dot" style="background:#b8933f"></div><div class="hl-name">Asia</div><div class="hl-count">9 programs</div></div>
-      <div class="hl-row"><div class="hl-dot" style="background:#c0533a"></div><div class="hl-name">Americas</div><div class="hl-count">5 programs</div></div>
-      <div class="hl-row"><div class="hl-dot" style="background:#6b4fa0"></div><div class="hl-name">Europe</div><div class="hl-count">7 programs</div></div>
+      <div class="hl-row"><div class="hl-dot" style="background:#2a9d8f"></div><div class="hl-name">Africa</div><div class="hl-count">12 programs</div></div>
+      <div class="hl-row"><div class="hl-dot" style="background:#1a5fa8"></div><div class="hl-name">Asia</div><div class="hl-count">12 programs</div></div>
+      <div class="hl-row"><div class="hl-dot" style="background:#b8933f"></div><div class="hl-name">Europe</div><div class="hl-count">11 programs</div></div>
+      <div class="hl-row"><div class="hl-dot" style="background:#c0533a"></div><div class="hl-name">Americas</div><div class="hl-count">9 programs</div></div>
+      <div class="hl-row"><div class="hl-dot" style="background:#2e7d55"></div><div class="hl-name">Pacific</div><div class="hl-count">4 programs</div></div>
+      <div class="hl-row"><div class="hl-dot" style="background:#d4a030"></div><div class="hl-name">Global</div><div class="hl-count">3 programs</div></div>
     </div>
   </div>
 </section>
@@ -449,50 +451,6 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
   </div>
 </div>
 
-<!-- SEARCH -->
-<section class="search-wrap" id="search">
-  <div class="search-inner">
-    <div class="search-lbl">Search all verified international rotation programs</div>
-    <div class="search-box">
-      <div class="s-icon">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      </div>
-      <input id="searchInput" class="s-input" type="text" placeholder="Country, hospital, city, specialty…"/>
-      <div class="s-div"></div>
-      <select id="specialtyFilter" class="s-sel">
-        <option value="">All Specialties</option>
-        <option>Internal Medicine</option>
-        <option>Surgery</option>
-        <option>Tropical Medicine</option>
-        <option>Pediatrics</option>
-        <option>OB/GYN</option>
-        <option>Emergency Medicine</option>
-        <option>Infectious Disease</option>
-        <option>Neurology</option>
-        <option>Family Medicine</option>
-        <option>Psychiatry</option>
-        <option>Radiology</option>
-        <option>Cardiology</option>
-        <option>Community Health</option>
-        <option>Rural Medicine</option>
-        <option>Gastroenterology</option>
-        <option>ICU</option>
-      </select>
-      <button class="s-btn" onclick="runSearch()">Search</button>
-    </div>
-    <div class="filter-row" id="regionFilters">
-      <button class="ftag on" data-r="all">All Regions</button>
-      <button class="ftag" data-r="africa">Africa</button>
-      <button class="ftag" data-r="europe">Europe</button>
-      <button class="ftag" data-r="asia">Asia</button>
-      <button class="ftag" data-r="americas">Americas</button>
-      <button class="ftag" data-r="pacific">Pacific</button>
-      <button class="ftag" data-r="middleeast">Middle East</button>
-      <button class="ftag" data-r="global">Global</button>
-    </div>
-    <div class="results-count">Showing <span id="resultCount">53</span> programs</div>
-  </div>
-</section>
 
 <!-- INTERACTIVE WORLD MAP -->
 <section class="map-section" id="world-map">
@@ -550,14 +508,62 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     </div>
   </div>
   <div class="map-legend-bar reveal d2">
-    <div class="map-legend-item" data-continent="africa"><span class="map-legend-dot" style="background:#2a9d8f"></span>Africa <span class="map-legend-count">(6)</span></div>
-    <div class="map-legend-item" data-continent="europe"><span class="map-legend-dot" style="background:#b8933f"></span>Europe <span class="map-legend-count">(7)</span></div>
-    <div class="map-legend-item" data-continent="namerica"><span class="map-legend-dot" style="background:#c0533a"></span>N. America <span class="map-legend-count">(4)</span></div>
-    <div class="map-legend-item" data-continent="samerica"><span class="map-legend-dot" style="background:#6b4fa0"></span>S. America <span class="map-legend-count">(2)</span></div>
-    <div class="map-legend-item" data-continent="asia"><span class="map-legend-dot" style="background:#1a5fa8"></span>Asia <span class="map-legend-count">(8)</span></div>
-    <div class="map-legend-item" data-continent="oceania"><span class="map-legend-dot" style="background:#2e7d55"></span>Oceania <span class="map-legend-count">(2)</span></div>
+    <div class="map-legend-item" data-continent="africa"><span class="map-legend-dot" style="background:#2a9d8f"></span>Africa <span class="map-legend-count">(12)</span></div>
+    <div class="map-legend-item" data-continent="europe"><span class="map-legend-dot" style="background:#b8933f"></span>Europe <span class="map-legend-count">(11)</span></div>
+    <div class="map-legend-item" data-continent="namerica"><span class="map-legend-dot" style="background:#c0533a"></span>N. America <span class="map-legend-count">(5)</span></div>
+    <div class="map-legend-item" data-continent="samerica"><span class="map-legend-dot" style="background:#6b4fa0"></span>S. America <span class="map-legend-count">(4)</span></div>
+    <div class="map-legend-item" data-continent="asia"><span class="map-legend-dot" style="background:#1a5fa8"></span>Asia <span class="map-legend-count">(13)</span></div>
+    <div class="map-legend-item" data-continent="oceania"><span class="map-legend-dot" style="background:#2e7d55"></span>Oceania <span class="map-legend-count">(4)</span></div>
+    <div class="map-legend-item" data-continent="middleeast"><span class="map-legend-dot" style="background:#c07030"></span>Middle East <span class="map-legend-count">(1)</span></div>
+    <div class="map-legend-item" data-continent="global"><span class="map-legend-dot" style="background:#d4a030"></span>Global <span class="map-legend-count">(3)</span></div>
   </div>
 </section>
+
+<!-- SEARCH -->
+<section class="search-wrap" id="search">
+  <div class="search-inner">
+    <div class="search-lbl">Search all verified international rotation programs</div>
+    <div class="search-box">
+      <div class="s-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
+      <input id="searchInput" class="s-input" type="text" placeholder="Country, hospital, city, specialty…"/>
+      <div class="s-div"></div>
+      <select id="specialtyFilter" class="s-sel">
+        <option value="">All Specialties</option>
+        <option>Internal Medicine</option>
+        <option>Surgery</option>
+        <option>Tropical Medicine</option>
+        <option>Pediatrics</option>
+        <option>OB/GYN</option>
+        <option>Emergency Medicine</option>
+        <option>Infectious Disease</option>
+        <option>Neurology</option>
+        <option>Family Medicine</option>
+        <option>Psychiatry</option>
+        <option>Radiology</option>
+        <option>Cardiology</option>
+        <option>Community Health</option>
+        <option>Rural Medicine</option>
+        <option>Gastroenterology</option>
+        <option>ICU</option>
+      </select>
+      <button class="s-btn" onclick="runSearch()">Search</button>
+    </div>
+    <div class="filter-row" id="regionFilters">
+      <button class="ftag on" data-r="all">All Regions</button>
+      <button class="ftag" data-r="africa">Africa</button>
+      <button class="ftag" data-r="europe">Europe</button>
+      <button class="ftag" data-r="asia">Asia</button>
+      <button class="ftag" data-r="americas">Americas</button>
+      <button class="ftag" data-r="pacific">Pacific</button>
+      <button class="ftag" data-r="middleeast">Middle East</button>
+      <button class="ftag" data-r="global">Global</button>
+    </div>
+    <div class="results-count">Showing <span id="resultCount">53</span> programs</div>
+  </div>
+</section>
+
 
 <!-- PROGRAMS -->
 <section class="programs-section" id="programs">
