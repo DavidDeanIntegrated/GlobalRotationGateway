@@ -303,6 +303,53 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
   #cursor,#cursor-ring{display:none}body,a,button{cursor:auto}
   .partners-bar{flex-direction:column;align-items:flex-start;gap:1.25rem}
 }
+
+/* WORLD MAP */
+.map-section{background:var(--ink);padding:5.5rem 3rem;border-top:1px solid var(--border);position:relative;overflow:hidden}
+.map-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(42,157,143,.07),transparent 65%),radial-gradient(ellipse at 20% 60%,rgba(184,147,63,.04),transparent 50%);pointer-events:none}
+.map-container{position:relative;max-width:1200px;margin:0 auto;border:1px solid var(--border);border-radius:10px;background:linear-gradient(180deg,rgba(8,17,30,.7) 0%,rgba(15,30,53,.5) 100%);overflow:hidden;padding:2rem 2rem 1.5rem}
+.map-svg{width:100%;height:auto;display:block}
+.map-continent{fill:rgba(240,234,216,.05);stroke:rgba(240,234,216,.1);stroke-width:.5;stroke-linejoin:round;transition:fill .3s}
+.map-marker{cursor:pointer;transition:opacity .3s}
+.map-marker .marker-dot{transition:all .25s}
+.map-marker:hover .marker-dot{r:6}
+.map-marker .marker-pulse{animation:mapPulse 3s ease-out infinite}
+@keyframes mapPulse{0%{r:4;opacity:.7;stroke-width:1.5}70%{r:14;opacity:0;stroke-width:.5}100%{r:14;opacity:0}}
+.map-marker .marker-label{opacity:0;transition:opacity .25s;pointer-events:none}
+.map-marker:hover .marker-label{opacity:1}
+.map-tooltip{position:absolute;display:none;background:rgba(15,30,53,.97);border:1px solid rgba(240,234,216,.15);border-radius:8px;padding:0;min-width:280px;max-width:340px;backdrop-filter:blur(16px);z-index:100;pointer-events:auto;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(42,157,143,.1);overflow:hidden}
+.map-tooltip.show{display:block}
+.map-tooltip-header{padding:1rem 1.25rem;background:linear-gradient(135deg,rgba(42,157,143,.1),rgba(184,147,63,.05));border-bottom:1px solid rgba(240,234,216,.08)}
+.map-tooltip-flag{font-size:1.5rem;margin-bottom:.35rem;line-height:1}
+.map-tooltip-loc{font-size:.63rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted-lt);margin-bottom:.2rem}
+.map-tooltip-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--ivory);line-height:1.25}
+.map-tooltip-body{padding:1rem 1.25rem}
+.map-tooltip-spec{font-size:.72rem;color:var(--teal-lt);margin-bottom:.85rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.map-tooltip-actions{display:flex;flex-direction:column;gap:.5rem}
+.map-tooltip-link{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:all .25s;padding:.6rem 1rem;background:var(--teal);border-radius:4px;white-space:nowrap}
+.map-tooltip-link:hover{background:var(--teal-lt);transform:translateY(-1px)}
+.map-tooltip-link-sec{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted-lt);text-decoration:none;transition:all .2s;padding:.5rem 1rem;background:transparent;border:1px solid var(--border);border-radius:4px;cursor:pointer}
+.map-tooltip-link-sec:hover{border-color:rgba(240,234,216,.3);color:var(--ivory)}
+.map-tooltip-close{position:absolute;top:.65rem;right:.65rem;background:rgba(240,234,216,.08);border:1px solid rgba(240,234,216,.1);color:var(--muted-lt);width:24px;height:24px;border-radius:50%;font-size:.8rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;line-height:1;z-index:2}
+.map-tooltip-close:hover{background:rgba(240,234,216,.15);color:var(--ivory)}
+.map-legend-bar{display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap;margin-top:1.75rem}
+.map-legend-item{display:flex;align-items:center;gap:.5rem;font-size:.73rem;color:var(--muted-lt);cursor:pointer;transition:all .25s;padding:.35rem .75rem;border-radius:20px;border:1px solid transparent;user-select:none}
+.map-legend-item:hover{color:var(--ivory);border-color:var(--border)}
+.map-legend-item.active{color:var(--ivory);border-color:rgba(240,234,216,.25);background:rgba(240,234,216,.04)}
+.map-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.map-legend-count{font-size:.65rem;color:var(--muted);margin-left:.15rem}
+@media(max-width:900px){
+  .map-container{padding:1.25rem 1rem 1rem}
+  .map-tooltip{min-width:240px;max-width:290px}
+}
+@media(max-width:640px){
+  .map-section{padding:3.5rem 1.5rem}
+  .map-container{padding:1rem .75rem .75rem}
+  .map-legend-bar{gap:.5rem;margin-top:1.25rem}
+  .map-legend-item{font-size:.67rem;padding:.25rem .5rem}
+  .map-tooltip{min-width:220px;max-width:260px;font-size:.9em}
+  .map-tooltip-name{font-size:1rem}
+}
 </style>
 </head>
 <body>
@@ -331,6 +378,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     <div class="logo-text">Global Rotation <em>Gateway</em></div>
   </a>
   <div class="nav-links">
+    <a href="#world-map">Map</a>
     <a href="#programs">Programs</a>
     <a href="#providers">3rd-Party Providers</a>
     <a href="#requirements">Requirements</a>
@@ -347,7 +395,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     <p class="hero-sub">Real programs. Real costs. Real requirements. The most detailed, freely searchable database of international medical electives — sourced from institutions worldwide.</p>
     <div class="hero-btns">
       <a href="#search" class="btn-gold">Search Programs →</a>
-      <a href="#providers" class="btn-ghost">3rd-Party Providers</a>
+      <a href="#world-map" class="btn-ghost">Explore the Map</a>
     </div>
     <div class="hero-stats">
       <div><div class="hstat-num"><span class="counter" data-t="29">0</span><span class="ac">+</span></div><div class="hstat-lbl">Real Programs</div></div>
@@ -435,6 +483,100 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       <button class="ftag" data-r="middleeast">Middle East</button>
     </div>
     <div class="results-count">Showing <span id="resultCount">29</span> programs</div>
+  </div>
+</section>
+
+<!-- INTERACTIVE WORLD MAP -->
+<section class="map-section" id="world-map">
+  <div class="sec-hdr reveal">
+    <div>
+      <span class="eyebrow">Explore the Globe</span>
+      <h2 class="section-h">Where Will Your <em>Rotation</em> Take You?</h2>
+      <p class="section-sub">Click any marker to discover programs at that location and link directly to official program details.</p>
+    </div>
+  </div>
+  <div class="map-container reveal d1">
+    <svg id="worldMapSvg" class="map-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="markerGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Subtle grid lines -->
+      <g opacity="0.04" stroke="#f0ead8" stroke-width="0.4" fill="none">
+        <line x1="0" y1="83" x2="1000" y2="83"/>
+        <line x1="0" y1="167" x2="1000" y2="167"/>
+        <line x1="0" y1="250" x2="1000" y2="250" stroke-dasharray="4,8"/>
+        <line x1="0" y1="333" x2="1000" y2="333"/>
+        <line x1="0" y1="417" x2="1000" y2="417"/>
+        <line x1="167" y1="30" x2="167" y2="460"/>
+        <line x1="333" y1="30" x2="333" y2="460"/>
+        <line x1="500" y1="30" x2="500" y2="460"/>
+        <line x1="667" y1="30" x2="667" y2="460"/>
+        <line x1="833" y1="30" x2="833" y2="460"/>
+      </g>
+
+      <!-- Continent outlines -->
+      <g class="map-continents">
+        <!-- North America -->
+        <path class="map-continent" d="M 33 72 L 56 58 L 75 53 L 108 56 L 156 50 L 203 47 L 242 47 L 272 56 L 300 64 L 328 72 L 347 86 L 353 100 L 347 111 L 336 122 L 322 131 L 306 136 L 297 144 L 289 153 L 283 167 L 278 178 L 267 181 L 253 172 L 242 175 L 231 181 L 217 186 L 208 194 L 222 203 L 239 211 L 253 217 L 264 222 L 275 228 L 269 231 L 256 225 L 239 217 L 222 208 L 206 197 L 192 186 L 178 167 L 169 153 L 161 136 L 156 125 L 150 111 L 142 100 L 131 89 L 119 81 L 106 72 L 83 64 L 53 67 Z"/>
+        <!-- Greenland -->
+        <path class="map-continent" d="M 347 33 L 367 25 L 386 25 L 397 31 L 400 42 L 394 53 L 381 58 L 364 58 L 350 50 L 344 42 Z"/>
+        <!-- South America -->
+        <path class="map-continent" d="M 303 222 L 319 219 L 336 228 L 356 233 L 375 239 L 394 244 L 403 256 L 406 272 L 400 292 L 389 311 L 378 328 L 367 342 L 353 356 L 342 369 L 331 381 L 319 394 L 311 403 L 303 406 L 297 397 L 294 381 L 292 364 L 289 344 L 289 325 L 286 306 L 283 289 L 278 269 L 275 253 L 278 242 L 286 233 L 294 228 Z"/>
+        <!-- Europe -->
+        <path class="map-continent" d="M 472 150 L 478 142 L 483 131 L 486 122 L 494 114 L 500 108 L 503 100 L 506 92 L 514 83 L 528 72 L 542 64 L 553 58 L 564 64 L 567 75 L 564 86 L 558 97 L 556 106 L 558 114 L 567 108 L 575 111 L 578 122 L 575 131 L 569 139 L 561 144 L 553 150 L 544 153 L 536 153 L 528 150 L 519 147 L 511 150 L 503 153 L 494 153 L 486 153 Z"/>
+        <!-- UK & Ireland -->
+        <path class="map-continent" d="M 483 94 L 489 86 L 494 89 L 497 97 L 497 106 L 494 111 L 489 108 L 486 103 Z"/>
+        <path class="map-continent" d="M 475 97 L 478 92 L 483 94 L 483 100 L 478 103 Z"/>
+        <!-- Africa -->
+        <path class="map-continent" d="M 478 158 L 489 153 L 503 153 L 519 150 L 533 150 L 547 153 L 561 156 L 575 158 L 586 164 L 597 172 L 606 183 L 614 197 L 619 211 L 625 225 L 631 239 L 633 253 L 631 269 L 625 283 L 619 297 L 611 311 L 603 322 L 594 333 L 583 342 L 569 350 L 556 350 L 544 344 L 536 333 L 531 319 L 528 303 L 525 286 L 522 272 L 517 258 L 511 244 L 503 236 L 494 231 L 486 225 L 478 219 L 472 211 L 467 200 L 464 189 L 464 178 L 467 167 Z"/>
+        <!-- Madagascar -->
+        <path class="map-continent" d="M 625 306 L 631 297 L 636 306 L 636 319 L 631 328 L 625 322 Z"/>
+        <!-- Asia (mainland) -->
+        <path class="map-continent" d="M 578 122 L 592 114 L 606 103 L 622 92 L 642 81 L 664 72 L 692 64 L 722 58 L 753 53 L 783 50 L 814 47 L 842 50 L 867 56 L 892 64 L 917 72 L 942 72 L 964 69 L 978 72 L 978 83 L 969 92 L 953 103 L 936 111 L 919 119 L 903 125 L 889 133 L 878 142 L 867 150 L 856 158 L 842 167 L 828 175 L 814 183 L 803 189 L 794 197 L 786 206 L 778 214 L 769 225 L 758 228 L 747 225 L 739 219 L 731 217 L 722 219 L 711 225 L 700 228 L 689 225 L 678 219 L 664 214 L 650 208 L 636 200 L 625 194 L 614 186 L 606 178 L 597 169 L 592 161 L 586 153 L 581 144 L 578 133 Z"/>
+        <!-- Japan -->
+        <path class="map-continent" d="M 889 125 L 894 117 L 900 122 L 903 133 L 900 144 L 894 150 L 889 144 L 886 136 Z"/>
+        <!-- Indonesia / SE Asia islands -->
+        <path class="map-continent" d="M 786 236 L 800 233 L 814 236 L 831 239 L 847 244 L 861 250 L 875 258 L 869 264 L 853 264 L 836 261 L 819 258 L 803 253 L 792 247 Z"/>
+        <!-- Philippines -->
+        <path class="map-continent" d="M 842 186 L 847 178 L 853 183 L 853 194 L 850 200 L 844 197 Z"/>
+        <!-- Sri Lanka -->
+        <path class="map-continent" d="M 722 231 L 728 228 L 731 233 L 728 239 L 722 236 Z"/>
+        <!-- Australia -->
+        <path class="map-continent" d="M 814 289 L 833 281 L 853 278 L 872 281 L 889 289 L 906 300 L 919 314 L 925 328 L 922 342 L 914 353 L 903 358 L 889 361 L 872 358 L 858 353 L 844 347 L 831 342 L 822 339 L 814 331 L 811 319 L 811 306 Z"/>
+        <!-- Papua New Guinea -->
+        <path class="map-continent" d="M 883 258 L 900 253 L 914 258 L 919 267 L 914 275 L 900 278 L 889 272 L 883 264 Z"/>
+        <!-- New Zealand -->
+        <path class="map-continent" d="M 956 353 L 961 344 L 967 350 L 969 361 L 967 375 L 964 386 L 958 392 L 953 386 L 953 375 L 953 364 Z"/>
+        <!-- Fiji dot -->
+        <circle cx="992" cy="300" r="4" class="map-continent"/>
+        <!-- Malta dot -->
+        <circle cx="541" cy="155" r="2.5" class="map-continent"/>
+      </g>
+
+      <!-- Markers group (populated by JS) -->
+      <g id="mapMarkers"></g>
+    </svg>
+    <!-- Tooltip -->
+    <div id="mapTooltip" class="map-tooltip">
+      <button id="mapTooltipClose" class="map-tooltip-close" aria-label="Close tooltip">&times;</button>
+      <div id="mapTooltipContent"></div>
+    </div>
+  </div>
+  <div class="map-legend-bar reveal d2">
+    <div class="map-legend-item" data-continent="africa"><span class="map-legend-dot" style="background:#2a9d8f"></span>Africa <span class="map-legend-count">(6)</span></div>
+    <div class="map-legend-item" data-continent="europe"><span class="map-legend-dot" style="background:#b8933f"></span>Europe <span class="map-legend-count">(7)</span></div>
+    <div class="map-legend-item" data-continent="namerica"><span class="map-legend-dot" style="background:#c0533a"></span>N. America <span class="map-legend-count">(4)</span></div>
+    <div class="map-legend-item" data-continent="samerica"><span class="map-legend-dot" style="background:#6b4fa0"></span>S. America <span class="map-legend-count">(2)</span></div>
+    <div class="map-legend-item" data-continent="asia"><span class="map-legend-dot" style="background:#1a5fa8"></span>Asia <span class="map-legend-count">(8)</span></div>
+    <div class="map-legend-item" data-continent="oceania"><span class="map-legend-dot" style="background:#2e7d55"></span>Oceania <span class="map-legend-count">(2)</span></div>
   </div>
 </section>
 
@@ -1345,6 +1487,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     </div>
     <div class="f-col">
       <h5>Browse</h5>
+      <a href="#world-map">Interactive Map</a>
       <a href="#programs">All Programs</a>
       <a href="#" onclick="setRegion('africa');return false">Africa</a>
       <a href="#" onclick="setRegion('europe');return false">Europe</a>
@@ -1849,6 +1992,161 @@ function runSearch(){
 }
 document.getElementById('searchInput').addEventListener('input',runSearch);
 document.getElementById('specialtyFilter').addEventListener('change',runSearch);
+
+/* INTERACTIVE WORLD MAP */
+(function(){
+  const mapMarkers=document.getElementById('mapMarkers');
+  const tooltip=document.getElementById('mapTooltip');
+  const tooltipContent=document.getElementById('mapTooltipContent');
+  const tooltipClose=document.getElementById('mapTooltipClose');
+  const svgEl=document.getElementById('worldMapSvg');
+  if(!mapMarkers||!svgEl)return;
+
+  const LOCS=[
+    {i:0,x:602,y:254,c:'africa'},
+    {i:1,x:577,y:323,c:'africa'},
+    {i:2,x:551,y:344,c:'africa'},
+    {i:3,x:500,y:235,c:'africa'},
+    {i:4,x:609,y:263,c:'africa'},
+    {i:5,x:591,y:249,c:'africa'},
+    {i:6,x:494,y:103,c:'europe'},
+    {i:7,x:499,y:109,c:'europe'},
+    {i:8,x:504,y:105,c:'europe'},
+    {i:9,x:480,y:98,c:'europe'},
+    {i:10,x:537,y:104,c:'europe'},
+    {i:11,x:550,y:85,c:'europe'},
+    {i:12,x:297,y:135,c:'namerica'},
+    {i:13,x:286,y:142,c:'namerica'},
+    {i:14,x:204,y:153,c:'namerica'},
+    {i:15,x:371,y:315,c:'samerica'},
+    {i:16,x:338,y:346,c:'samerica'},
+    {i:17,x:720,y:214,c:'asia'},
+    {i:18,x:715,y:171,c:'asia'},
+    {i:19,x:779,y:212,c:'asia'},
+    {i:20,x:785,y:218,c:'asia'},
+    {i:21,x:796,y:222,c:'asia'},
+    {i:22,x:599,y:156,c:'asia'},
+    {i:23,x:742,y:176,c:'asia'},
+    {i:24,x:992,y:300,c:'oceania'},
+    {i:25,x:899,y:265,c:'oceania'},
+    {i:26,x:253,y:203,c:'namerica'},
+    {i:27,x:794,y:192,c:'asia'},
+    {i:28,x:541,y:152,c:'europe'}
+  ];
+
+  const CCOLORS={africa:'#2a9d8f',europe:'#b8933f',namerica:'#c0533a',samerica:'#6b4fa0',asia:'#1a5fa8',oceania:'#2e7d55'};
+
+  LOCS.forEach(function(loc,n){
+    var col=CCOLORS[loc.c];
+    var g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','map-marker');
+    g.setAttribute('data-idx',loc.i);
+    g.setAttribute('data-continent',loc.c);
+
+    var pulse=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    pulse.setAttribute('cx',loc.x);
+    pulse.setAttribute('cy',loc.y);
+    pulse.setAttribute('r','4');
+    pulse.setAttribute('fill','none');
+    pulse.setAttribute('stroke',col);
+    pulse.setAttribute('stroke-width','1.5');
+    pulse.setAttribute('class','marker-pulse');
+    pulse.style.animationDelay=(n*0.15)+'s';
+
+    var dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    dot.setAttribute('cx',loc.x);
+    dot.setAttribute('cy',loc.y);
+    dot.setAttribute('r','4.5');
+    dot.setAttribute('fill',col);
+    dot.setAttribute('class','marker-dot');
+    dot.setAttribute('filter','url(#markerGlow)');
+
+    var inner=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    inner.setAttribute('cx',loc.x);
+    inner.setAttribute('cy',loc.y);
+    inner.setAttribute('r','1.5');
+    inner.setAttribute('fill','#fff');
+    inner.setAttribute('opacity','0.9');
+
+    g.appendChild(pulse);
+    g.appendChild(dot);
+    g.appendChild(inner);
+
+    g.addEventListener('click',function(e){
+      e.stopPropagation();
+      showMapTooltip(loc);
+    });
+    mapMarkers.appendChild(g);
+  });
+
+  function showMapTooltip(loc){
+    var p=PROGRAMS[loc.i];
+    tooltipContent.innerHTML=
+      '<div class="map-tooltip-header">'+
+        '<div class="map-tooltip-flag">'+p.flag+'</div>'+
+        '<div class="map-tooltip-loc">'+p.loc+'</div>'+
+        '<div class="map-tooltip-name">'+p.name+'</div>'+
+      '</div>'+
+      '<div class="map-tooltip-body">'+
+        '<div class="map-tooltip-spec">'+p.spec+'</div>'+
+        '<div class="map-tooltip-actions">'+
+          '<a href="'+p.url+'" target="_blank" rel="noopener" class="map-tooltip-link">Official Program Details &rarr;</a>'+
+          '<button class="map-tooltip-link-sec" onclick="openModal('+loc.i+');document.getElementById(\'mapTooltip\').classList.remove(\'show\')">View Full Listing &rarr;</button>'+
+        '</div>'+
+      '</div>';
+
+    var svgRect=svgEl.getBoundingClientRect();
+    var containerRect=svgEl.parentElement.getBoundingClientRect();
+    var scaleX=svgRect.width/1000;
+    var scaleY=svgRect.height/500;
+    var offsetX=svgRect.left-containerRect.left;
+    var offsetY=svgRect.top-containerRect.top;
+
+    var markerLeft=offsetX+loc.x*scaleX;
+    var markerTop=offsetY+loc.y*scaleY;
+
+    tooltip.classList.add('show');
+    var tw=tooltip.offsetWidth||300;
+    var th=tooltip.offsetHeight||200;
+
+    var left=markerLeft+12;
+    var top=markerTop-th/2;
+    if(left+tw>containerRect.width-10){left=markerLeft-tw-12}
+    if(top<5)top=5;
+    if(top+th>containerRect.height-5)top=containerRect.height-th-5;
+
+    tooltip.style.left=left+'px';
+    tooltip.style.top=top+'px';
+  }
+
+  tooltipClose.addEventListener('click',function(){tooltip.classList.remove('show')});
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('.map-marker')&&!e.target.closest('.map-tooltip')){
+      tooltip.classList.remove('show');
+    }
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')tooltip.classList.remove('show')});
+
+  var activeCont=null;
+  document.querySelectorAll('.map-legend-item').forEach(function(item){
+    item.addEventListener('click',function(){
+      var cont=item.dataset.continent;
+      if(activeCont===cont){
+        activeCont=null;
+        item.classList.remove('active');
+        document.querySelectorAll('.map-marker').forEach(function(m){m.style.opacity='1'});
+        document.querySelectorAll('.map-continent').forEach(function(c){c.style.fill='';c.style.stroke=''});
+      } else {
+        activeCont=cont;
+        document.querySelectorAll('.map-legend-item').forEach(function(i){i.classList.remove('active')});
+        item.classList.add('active');
+        document.querySelectorAll('.map-marker').forEach(function(m){
+          m.style.opacity=m.dataset.continent===cont?'1':'0.12';
+        });
+      }
+    });
+  });
+})();
 
 /* CANVAS MAP */
 const canvas=document.getElementById('worldCanvas');
