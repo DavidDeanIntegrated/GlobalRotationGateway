@@ -285,23 +285,38 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
   .tips-grid{grid-template-columns:1fr}
   .gloss-grid{grid-template-columns:1fr}
 }
+@media(max-width:768px){
+  .cards-grid{grid-template-columns:repeat(2,1fr)}
+  .req-grid{grid-template-columns:1fr 1fr}
+}
 @media(max-width:640px){
   nav{padding:1rem 1.5rem}nav.scrolled{padding:.875rem 1.5rem}
   .nav-links{display:none}
+  .nav-toggle{display:flex}
+  .mobile-menu{display:flex}
   .section,.search-wrap,.programs-section{padding-left:1.5rem;padding-right:1.5rem}
   .cards-grid{grid-template-columns:1fr}
   .req-grid{grid-template-columns:1fr}
   .ft{grid-template-columns:1fr}
   .f-bot{flex-direction:column;text-align:center}
   .search-box{flex-wrap:wrap}
-  .s-div,.s-sel{display:none}
+  .s-div{display:none}
+  .s-sel{width:100%;min-width:0;border-top:1px solid var(--border);padding:.875rem 1rem;font-size:1rem}
+  .s-btn{width:100%;padding:1rem;min-height:48px}
+  .s-input{font-size:1rem;min-height:48px}
+  .ftag{padding:.5rem 1rem;font-size:.78rem;min-height:40px;display:inline-flex;align-items:center}
   .modal-grid{grid-template-columns:1fr}
   .modal-overlay{padding:.75rem}
   .modal-hero{padding:1.5rem 1.25rem 1.25rem}
   .modal-inner{padding:1.25rem 1.25rem 1.5rem}
   .modal-title{font-size:1.6rem}
-  #cursor,#cursor-ring{display:none}body,a,button{cursor:auto}
+  #cursor,#cursor-ring{display:none}body,a,button,select{cursor:auto}
   .partners-bar{flex-direction:column;align-items:flex-start;gap:1.25rem}
+  .hero-stats{gap:1.5rem;flex-wrap:wrap}
+  .btn-gold,.btn-ghost{padding:1rem 1.875rem;min-height:48px;font-size:.85rem}
+  .back-to-top{bottom:1.25rem;right:1.25rem}
+  .rcard-cta{min-height:44px;display:inline-flex;align-items:center}
+  .map-marker .marker-dot{r:7}
 }
 
 /* WORLD MAP */
@@ -357,6 +372,35 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
   .map-tooltip{min-width:220px;max-width:260px;font-size:.9em}
   .map-tooltip-name{font-size:1rem}
 }
+
+/* MOBILE MENU */
+.nav-toggle{display:none;background:none;border:none;color:var(--ivory);padding:.5rem;cursor:pointer;z-index:501;-webkit-tap-highlight-color:transparent}
+.nav-toggle svg{display:block}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:499;background:rgba(8,17,30,.98);backdrop-filter:blur(24px);padding:5rem 2rem 2rem;flex-direction:column;gap:0;overflow-y:auto;-webkit-overflow-scrolling:touch;opacity:0;transform:translateY(-10px);transition:opacity .3s,transform .3s}
+.mobile-menu.open{opacity:1;transform:none}
+.mobile-menu a{display:block;padding:1.1rem 0;font-size:1rem;font-weight:500;color:rgba(240,234,216,.6);text-decoration:none;border-bottom:1px solid var(--border-soft);letter-spacing:.06em;transition:color .2s;-webkit-tap-highlight-color:transparent}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover,.mobile-menu a:active{color:var(--ivory)}
+.mobile-menu .nav-cta-mobile{margin-top:1.5rem;background:var(--gold);color:var(--ink);text-align:center;padding:1rem;border-radius:4px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.85rem;border-bottom:none}
+
+/* BACK TO TOP */
+.back-to-top{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--teal);color:var(--ink);border:none;cursor:pointer;z-index:400;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:all .3s;box-shadow:0 4px 16px rgba(0,0,0,.3);-webkit-tap-highlight-color:transparent}
+.back-to-top.visible{opacity:1;visibility:visible;transform:none}
+.back-to-top:hover{background:var(--teal-lt);transform:translateY(-2px)}
+.back-to-top svg{width:20px;height:20px}
+
+/* FOCUS STATES */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,.ftag:focus-visible,.rcard-cta:focus-visible,.map-legend-item:focus-visible{outline:2px solid var(--teal);outline-offset:2px;border-radius:2px}
+.rcard:focus-within{border-color:rgba(42,157,143,.3);box-shadow:0 0 0 2px rgba(42,157,143,.2)}
+
+/* PREFERS REDUCED MOTION */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .ticker-track{animation:none!important}
+  .reveal{opacity:1;transform:none}
+  .map-marker .marker-pulse{animation:none!important}
+  #worldCanvas{display:none}
+}
 </style>
 </head>
 <body>
@@ -365,7 +409,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
 <div id="cursor-ring"></div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay">
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Program details">
   <div class="modal" id="modalContent">
     <div class="modal-close"><button onclick="closeModal()" aria-label="Close">✕</button></div>
     <div class="modal-body" id="modalBody"></div>
@@ -373,7 +417,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
 </div>
 
 <!-- NAV -->
-<nav id="nav">
+<nav id="nav" aria-label="Main navigation">
   <a href="#" class="nav-logo">
     <svg class="logo-svg" viewBox="0 0 30 30" fill="none">
       <circle cx="15" cy="15" r="13" stroke="#b8933f" stroke-width="1.2"/>
@@ -392,7 +436,18 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     <a href="#tips">Tips</a>
     <a href="#submit" class="nav-cta">Submit a Rotation</a>
   </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+  <a href="#world-map" onclick="closeMobileMenu()">Map</a>
+  <a href="#programs" onclick="closeMobileMenu()">Programs</a>
+  <a href="#providers" onclick="closeMobileMenu()">3rd-Party Providers</a>
+  <a href="#requirements" onclick="closeMobileMenu()">Requirements</a>
+  <a href="#tips" onclick="closeMobileMenu()">Tips</a>
+  <a href="#submit" class="nav-cta-mobile" onclick="closeMobileMenu()">Submit a Rotation</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -462,7 +517,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
     </div>
   </div>
   <div class="map-container reveal d1">
-    <svg id="worldMapSvg" class="map-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <svg id="worldMapSvg" class="map-svg" viewBox="0 0 1000 500" role="img" aria-label="Interactive world map showing program locations" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="markerGlow" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="2.5" result="blur"/>
@@ -560,7 +615,7 @@ footer{background:#050c16;padding:3.5rem 3rem 2rem;border-top:1px solid var(--bo
       <button class="ftag" data-r="middleeast">Middle East</button>
       <button class="ftag" data-r="global">Global</button>
     </div>
-    <div class="results-count">Showing <span id="resultCount">53</span> programs</div>
+    <div class="results-count" aria-live="polite">Showing <span id="resultCount">53</span> programs</div>
   </div>
 </section>
 
@@ -2620,12 +2675,14 @@ function closeModal(){
 document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
-/* CURSOR */
-const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-(function a(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
-document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(1.8)';cur.style.background='var(--teal)'});el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';cur.style.background='var(--gold)'})});
+/* CURSOR — disabled on touch devices */
+if(!('ontouchstart' in window)&&window.matchMedia('(pointer:fine)').matches){
+  const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function a(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(1.8)';cur.style.background='var(--teal)'});el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';cur.style.background='var(--gold)'})});
+}
 
 /* NAV SCROLL */
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
@@ -2854,13 +2911,17 @@ document.getElementById('specialtyFilter').addEventListener('change',runSearch);
   });
 })();
 
-/* CANVAS MAP */
+/* CANVAS MAP — pauses when not visible */
 const canvas=document.getElementById('worldCanvas');
-if(canvas){
+if(canvas&&!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
   const ctx=canvas.getContext('2d'),W=540,H=360;
   const pts=[[5,30],[15,15],[25,15],[30,20],[35,30],[30,35],[0,30],[10,40],[-5,15],[-15,25],[-25,35],[50,10],[55,15],[60,20],[55,25],[50,20],[48,5],[52,0],[54,-2],[56,10],[58,15],[60,10],[62,15],[65,20],[60,5],[55,5],[50,0],[48,15],[46,10],[44,12],[40,10],[40,45],[45,50],[50,60],[55,65],[55,75],[50,80],[55,85],[50,90],[45,95],[40,100],[35,105],[30,110],[25,115],[25,100],[30,95],[35,90],[40,85],[45,80],[50,75],[55,70],[60,65],[55,60],[50,55],[50,70],[55,85],[20,80],[15,75],[10,78],[20,90],[25,95],[30,90],[35,85],[40,80],[45,75],[50,70],[50,-60],[55,-65],[60,-70],[60,-80],[55,-75],[50,-70],[45,-65],[40,-70],[35,-75],[30,-80],[25,-80],[30,-90],[35,-95],[40,-100],[45,-95],[50,-90],[55,-85],[60,-80],[60,-70],[55,-65],[40,-80],[35,-85],[30,-90],[25,-85],[20,-90],[15,-85],[15,-90],[20,-100],[25,-105],[30,-110],[35,-115],[40,-120],[45,-115],[50,-120],[0,-50],[-10,-60],[-20,-65],[-30,-55],[-35,-60],[-40,-65],[-40,-70],[-25,-70],[-20,-55],[-10,-55],[0,-60],[5,-55],[-20,120],[-25,125],[-30,130],[-35,135],[-35,145],[-30,140],[-25,135],[-20,130],[-25,120],[-30,115],[-25,115]];
   const dots=pts.map(([lat,lon])=>({x:(lon+180)*(W/360),y:(90-lat)*(H/180),a:Math.random()*.6+.2,ph:Math.random()*Math.PI*2,sp:Math.random()*.008+.004}));
-  (function draw(t){
+  let canvasVisible=true,animId;
+  const canvasObs=new IntersectionObserver(es=>{canvasVisible=es[0].isIntersecting;if(canvasVisible&&!animId)animId=requestAnimationFrame(draw)},{threshold:0});
+  canvasObs.observe(canvas);
+  function draw(t){
+    if(!canvasVisible){animId=null;return}
     ctx.clearRect(0,0,W,H);
     ctx.strokeStyle='rgba(42,157,143,0.06)';ctx.lineWidth=.5;
     for(let i=0;i<=6;i++){const x=i*(W/6);ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
@@ -2870,9 +2931,43 @@ if(canvas){
       ctx.beginPath();ctx.arc(d.x,d.y,1.5,0,Math.PI*2);
       ctx.fillStyle=`rgba(42,157,143,${al})`;ctx.fill();
     });
-    requestAnimationFrame(draw);
-  })(0);
+    animId=requestAnimationFrame(draw);
+  }
+  animId=requestAnimationFrame(draw);
 }
+
+/* MOBILE MENU */
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('navToggle').setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
+document.getElementById('navToggle').addEventListener('click',function(){
+  var menu=document.getElementById('mobileMenu');
+  var isOpen=menu.classList.toggle('open');
+  this.setAttribute('aria-expanded',isOpen);
+  document.body.style.overflow=isOpen?'hidden':'';
+  if(isOpen){
+    this.innerHTML='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>';
+  } else {
+    this.innerHTML='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  }
+});
+
+/* BACK TO TOP */
+var btt=document.getElementById('backToTop');
+window.addEventListener('scroll',function(){btt.classList.toggle('visible',scrollY>600)},{passive:true});
+btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+
+/* DEBOUNCED SEARCH */
+var searchTimeout;
+document.getElementById('searchInput').removeEventListener('input',runSearch);
+document.getElementById('searchInput').addEventListener('input',function(){
+  clearTimeout(searchTimeout);
+  searchTimeout=setTimeout(runSearch,200);
+});
+
 </script>
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
 </body>
 </html>
